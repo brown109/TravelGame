@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TravelGame.Models;
+using TravelGame.Business;
+using TravelGame.Data;
 
 namespace TravelGame.Presentation
 {
@@ -27,8 +30,64 @@ namespace TravelGame.Presentation
             InitializeComponent();
         }
         public void ControlWindowButton_Click(object sender, RoutedEventArgs e)
-        { 
-        
+        {
+            Button windowButton = sender as Button;
+
+            switch (windowButton.Name)
+            {
+                case "Help":
+                    ShowHelp();
+                    break;
+                case "TopScores":
+                    MessageBox.Show("Top Scores isn't ready yet");
+                    //     ShowTopScores();
+                    break;
+                case "MyScores":
+                    MessageBox.Show("My Scores isn't ready yet");
+                    break;
+                case "Quit":
+                    this.Close();
+                    break;
+                default:
+                    MessageBox.Show("Got a command that the code can't handle" + Name);
+                    break;
+            }
         }
+        public void DirectionButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button windowButton = sender as Button;
+            //
+            // will need to prepare everything for a new location. 
+            //
+            _controlWindowModel.CheckMove(windowButton.Tag.ToString());
+            
+
+        }
+        public void InteractionAreaButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button windowButton = sender as Button;
+            //
+            // will need to build out display of actors, sites, fodds or drinks 
+            //
+            
+
+
+        }
+        private void ShowHelp()
+        {
+            // MessageBox.Show("Help is on the way");
+            // Player player = new Player();
+            HelpWindow helpWindow = new HelpWindow();
+            helpWindow.ShowDialog();
+            helpWindow.Close();
+
+        }
+        private void ShowTopScores()
+        {
+            //
+            // change
+            //
+        }
+
     }
 }

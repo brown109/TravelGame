@@ -8,6 +8,7 @@ namespace TravelGame.Models
 {
     public class Player : ObservableObject
     {
+        private DateTime _startDate;
         private string _name;
         private int _experience;
         private int _bestscore;
@@ -16,6 +17,12 @@ namespace TravelGame.Models
         private int _liveslost;
         private int _totalscore;
 
+        public DateTime StartDate
+        {
+            get { return _startDate; }
+            set { _startDate = value; }
+        }
+        
         public string Name
         {
             get { return _name; }
@@ -56,8 +63,9 @@ namespace TravelGame.Models
 
         }
         
-        public Player(string name, int experience, int bestscore, double visits, double tasks, int liveslost, int totalscore)
+        public Player(DateTime startdate, string name, int experience, int bestscore, double visits, double tasks, int liveslost, int totalscore)
         {
+            _startDate = startdate;
             _name = name;
             _experience = experience;
             _bestscore = bestscore;

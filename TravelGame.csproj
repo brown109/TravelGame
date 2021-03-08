@@ -64,12 +64,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Business\BusinessLogic.cs" />
-    <Compile Include="Data\Data.cs" />
+    <Compile Include="Data\GameData.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Presentation\ControlWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Presentation\HelpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -80,12 +84,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Actor.cs" />
+    <Compile Include="Models\DisplayLocationItem.cs" />
+    <Compile Include="Models\GameHistory.cs" />
+    <Compile Include="Models\GameStat.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\LocationItems.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\WorldMap.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="Presentation\ControlWindow.xaml.cs">
       <DependentUpon>ControlWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Presentation\ControlWindowModel.cs" />
+    <Compile Include="Presentation\HelpWindow.xaml.cs">
+      <DependentUpon>HelpWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Presentation\WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>

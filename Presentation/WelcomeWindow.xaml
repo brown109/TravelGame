@@ -108,14 +108,32 @@
                     FontSize="15"
                     Style="{StaticResource MainPanelLabelStyle}"/>
                 <Label
-                    Content="Who's Playing" 
-                    HorizontalAlignment="Center"
-                    Margin="10"
-                    FontSize="15"
+                    Content="Are you ready to have some fun?" 
+                    HorizontalAlignment="Left"
+                    Margin="5"
+                    FontSize="12"
+                    Style="{StaticResource MainPanelLabelStyle}"/>
+                <Label
+                    Content="We're going to explore some cool cities." 
+                    HorizontalAlignment="Left"
+                    Margin="5"
+                    FontSize="12"
+                    Style="{StaticResource MainPanelLabelStyle}"/>
+                <Label
+                    Content="Just enter your name and we'll get started." 
+                    HorizontalAlignment="Left"
+                    Margin="5"
+                    FontSize="12"
+                    Style="{StaticResource MainPanelLabelStyle}"/>
+                <Label
+                    Content="" 
+                    HorizontalAlignment="Left"
+                    Margin="5"
+                    FontSize="12"
                     Style="{StaticResource MainPanelLabelStyle}"/>
                 <StackPanel
                 Orientation="Horizontal"
-                HorizontalAlignment="Right">
+                HorizontalAlignment="Center">
                     <Label Content="Name" Style="{StaticResource MainPanelLabelStyle}"/>
                     <TextBox Name="NameTextBox" Style="{StaticResource MainPanelTextBoxStyle}"/>
                 </StackPanel>
@@ -127,7 +145,7 @@
                     Click="OkButton_Click"/>
                 <TextBlock 
                     Name="ErrorMessageTextBlock"
-                    Background="WhiteSmoke"
+                    Background="DarkBlue"
                     Foreground="Red"/>
             </StackPanel>
 

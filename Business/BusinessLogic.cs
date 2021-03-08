@@ -12,30 +12,47 @@ namespace TravelGame.Business
 {
     public class BusinessLogic
     {
+
+        bool _newPlayer = true;
+
         ControlWindowModel _controlWindowModel;
         Player _player = new Player();
         WelcomeWindow _welcomeWindow = null;
+        WorldMap _gameMap;
+        GameHistory _gameHistory;
 
         public BusinessLogic()
         {
             InitiatePlayer();
+            InitiateData();
             InitiateShowControlWindow();
         
         }
         private void InitiatePlayer()
         {
-            _welcomeWindow = new WelcomeWindow(_player);
-            _welcomeWindow.Show();
-            _player.Name = _welcomeWindow.Name;
-            _player.Experience = 3;
-            _player.Bestscore = 1256;
-            _player.Experience = 3;
-            _player.Bestscore = 1256;
-            _player.Visits = 2;
-            _player.Tasks = 24;
-            _player.Liveslost = 3;
-            _player.Totalscore = 1000;
+            if (_newPlayer)
+            {
+                _welcomeWindow = new WelcomeWindow(_player);
+                _welcomeWindow.ShowDialog();
+                //
+                // insert code here to replace the player data already initialized with GameData
+                //
+                _player.Totalscore = 1000;
+            }
+            else
+            {
+                _player = GameData.PlayerData();
+            }
+           
+        }
+        private void InitiateData()
+        {
+            //_player = GameData.PlayerData();
+            _gameMap = GameData.GameMap();
+            _gameHistory = GameData.PlayerHistory();
             
+            GetPlayerHistory(_gameHistory);
+
         }
         private void InitiateShowControlWindow()
         {
@@ -44,11 +61,16 @@ namespace TravelGame.Business
             //
             // ControlWindowModel _controlWindowModel;
 
-            _controlWindowModel = new ControlWindowModel(_player);
+            _controlWindowModel = new ControlWindowModel(
+                _player,
+                _gameMap,
+                _gameHistory);
+            
             ControlWindow controlWindow = new ControlWindow(_controlWindowModel);
 
             controlWindow.DataContext = _controlWindowModel;
 
+            
             controlWindow.Show();
 
             //
@@ -58,6 +80,36 @@ namespace TravelGame.Business
             // commented out because the player setup window is disabled
             //
             //_playerSetupView.Close();
+            _welcomeWindow.Close();
+        }
+        private void GetPlayerHistory(GameHistory gameHistory)
+        {
+            int playergames = 0;
+            int topscore = 0;
+            int i = 0;
+            
+            do
+            {
+                GameStat gamestat = gameHistory.GameStats[i];
+                if (_player.Name == gamestat.Name)
+                {
+                    ++playergames;
+                    if (gamestat.Score > topscore)
+                    {
+                        topscore = gamestat.Score;
+                    }
+                }
+                ++i;
+            } while (i < 6) ;
+
+            _player.Experience = playergames;
+            _player.Bestscore = topscore;
+            
+
+            //foreach (GameStat gameStat in gameHistory)
+            //{
+
+            //}
         }
     }
 }

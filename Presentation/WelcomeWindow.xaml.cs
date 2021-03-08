@@ -26,20 +26,37 @@ namespace TravelGame.Presentation
         {
             _player = player;
             InitializeComponent();
+            ErrorMessageTextBlock.Visibility = Visibility.Hidden;
 
         }
-        //public WelcomeWindow()
-        //{
-        //    InitializeComponent();
-        //}
+        
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             // 
             // Validate Input  
             //
-            //MessageBox.Show("Breakpoint");
-            _player.Name = NameTextBox.ToString();
+            string errorMessage;
+            if (Isnamevalid(out errorMessage))
+            {
+                _player.Name = NameTextBox.Text;
+                Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                ErrorMessageTextBlock.Visibility = Visibility.Visible;
+                ErrorMessageTextBlock.Text = errorMessage;
+            }
+        }
+        private bool Isnamevalid(out string errorMessage)
+        {
+            errorMessage = "";
+            if (NameTextBox.Text == "")
+            {
+                errorMessage = "You must enter something for Name";
+            }
+            return errorMessage == "" ? true : false;
+
         }
         
     }
