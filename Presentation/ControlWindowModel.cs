@@ -11,54 +11,50 @@ namespace TravelGame.Presentation
     public class ControlWindowModel : ObservableObject
     {
         private Player _player;
-        private WorldMap _gameMap;
-        private Location _currentLocation;
-        private LocationItems _currentLocationItems;
-        private DisplayLocationItem _displayLocationItem;
+        private GameMap _gameMap;
+        //private Location _currentLocation;
+        //private LocationItems _currentLocationItems;
+        private DisplayLocationItem _currentDisplayItems;
+        private DisplayTaskState _currentDisplayTasks;
         private GameHistory _gameHistory;
 
 
         public Player Player
         {
             get { return _player; }
-            set { _player = value; }
+            set { _player = value;
+                OnPropertyChanged(nameof(Player));
+            }
         }
 
-        public WorldMap GameMap
+        public GameMap GameMap
         {
             get { return _gameMap; }
-            set { _gameMap = value; }
+            set { _gameMap = value;
+                OnPropertyChanged(nameof(GameMap));
+            }
         }
         public GameHistory GameHistory
         {
             get { return _gameHistory; }
             set { _gameHistory = value; }
         }
-        public Location CurrentLocation
+        public DisplayLocationItem CurrentDisplayItems
         {
-            get { return _currentLocation; }
+            get { return _currentDisplayItems; }
             set
             {
-                _currentLocation = value;
-                OnPropertyChanged(nameof(CurrentLocation));
+                _currentDisplayItems = value;
+                OnPropertyChanged(nameof(CurrentDisplayItems));
             }
         }
-        public LocationItems CurrentLocationItems
+        public DisplayTaskState CurrentDisplayTasks
         {
-            get { return _currentLocationItems; }
+            get { return _currentDisplayTasks; }
             set
             {
-                _currentLocationItems = value;
-                OnPropertyChanged(nameof(CurrentLocationItems));
-            }
-        }
-        public DisplayLocationItem DisplayLocationItems
-        {
-            get { return _displayLocationItem; }
-            set
-            {
-                _displayLocationItem = value;
-                OnPropertyChanged(nameof(DisplayLocationItems));
+                _currentDisplayTasks = value;
+                OnPropertyChanged(nameof(CurrentDisplayTasks));
             }
         }
         public bool HasNorthLocation
@@ -179,15 +175,16 @@ namespace TravelGame.Presentation
         }
         public ControlWindowModel(
             Player player,
-            WorldMap gameMap,
+            GameMap gameMap,
+            DisplayLocationItem displayLocationItem,
+            DisplayTaskState displayTaskState,
             GameHistory gameHistory)
         {
             _player = player;
             _gameMap = gameMap;
+            _currentDisplayItems = displayLocationItem;
+            _currentDisplayTasks = displayTaskState;
             _gameHistory = gameHistory;
-            _currentLocation = _gameMap.CurrentLocation;
-            _currentLocationItems = _gameMap.CurrentLocationItems;
-            _displayLocationItem = _gameMap.DisplayLocationItems;
             InitializeView();
         }
 
@@ -202,58 +199,58 @@ namespace TravelGame.Presentation
             switch (_direction)
             {
                 case "North":
-                    if (_currentLocation.NCity.ToString() != "")
+                    if (_gameMap.CurrentLocation.NCity.ToString() != "")
                     {
-                        _nextCity = _currentLocation.NCity;
+                        _nextCity = _gameMap.CurrentLocation.NCity;
                         ismoving = true;
                     }
                     break;
                 case "South":
-                    if (_currentLocation.SCity.ToString() != "")
+                    if (_gameMap.CurrentLocation.SCity.ToString() != "")
                     {
-                        _nextCity = _currentLocation.SCity;
+                        _nextCity = _gameMap.CurrentLocation.SCity;
                         ismoving = true;
                     }
                     break;
                 case "East":
-                    if (_currentLocation.ECity.ToString() != "")
+                    if (_gameMap.CurrentLocation.ECity.ToString() != "")
                     {
-                        _nextCity = _currentLocation.ECity;
+                        _nextCity = _gameMap.CurrentLocation.ECity;
                         ismoving = true;
                     }
                     break;
                 case "West":
-                    if (_currentLocation.WCity.ToString() != "")
+                    if (_gameMap.CurrentLocation.WCity.ToString() != "")
                     {
-                        _nextCity = _currentLocation.WCity;
+                        _nextCity = _gameMap.CurrentLocation.WCity;
                         ismoving = true;
                     }
                     break;
                 case "NorthWest":
-                    if (_currentLocation.NWCity.ToString() != "")
+                    if (_gameMap.CurrentLocation.NWCity.ToString() != "")
                     {
-                        _nextCity = _currentLocation.NWCity;
+                        _nextCity = _gameMap.CurrentLocation.NWCity;
                         ismoving = true;
                     }
                     break;
                 case "SouthWest":
-                    if (_currentLocation.SWCity.ToString() != "")
+                    if (_gameMap.CurrentLocation.SWCity.ToString() != "")
                     {
-                        _nextCity = _currentLocation.SWCity;
+                        _nextCity = _gameMap.CurrentLocation.SWCity;
                         ismoving = true;
                     }
                     break;
                 case "NorthEast":
-                    if (_currentLocation.NECity.ToString() != "")
+                    if (_gameMap.CurrentLocation.NECity.ToString() != "")
                     {
-                        _nextCity = _currentLocation.NECity;
+                        _nextCity = _gameMap.CurrentLocation.NECity;
                         ismoving = true;
                     }
                     break;
                 case "SouthEast":
-                    if (_currentLocation.SECity.ToString() != "")
+                    if (_gameMap.CurrentLocation.SECity.ToString() != "")
                     {
-                        _nextCity = _currentLocation.SECity;
+                        _nextCity = _gameMap.CurrentLocation.SECity;
                         ismoving = true;
                     }
                     break;
@@ -263,8 +260,11 @@ namespace TravelGame.Presentation
             if (ismoving)
             {
 
+                Player.Totalscore -= 10;
+                Player.CurrentCity = _nextCity;
+                OnPropertyChanged(nameof(Player));
                 GameMap.CurrentLocation = FindLocation(_nextCity);
-                _currentLocation = GameMap.CurrentLocation;
+                //_currentLocation = GameMap.CurrentLocation;
                 OnPropertyChanged(nameof(GameMap.CurrentLocation));
                 OnPropertyChanged(nameof(HasNorthLocation));
                 OnPropertyChanged(nameof(HasSouthLocation));
@@ -277,29 +277,58 @@ namespace TravelGame.Presentation
 
 
                 GameMap.CurrentLocationItems = FindLocationItems(_nextCity);
-                _currentLocationItems = GameMap.CurrentLocationItems;
-                //BuildItemDisplay(GameMap.DisplayLocationItems.DisplayArea);
-                //_displayLocationItem = GameMap.DisplayLocationItems;
+                //_currentLocationItems = GameMap.CurrentLocationItems;
+                OnPropertyChanged(nameof(GameMap.CurrentLocationItems));
+                BuildActorDisplay();
+                BuildGameTaskDisplay();
+                
+            }
+        }
+        public void CheckDisplay(string _whatdata)
+        {
+
+            switch (_whatdata)
+            {
+                case "Actors":
+                    BuildActorDisplay();
+                    break;
+                case "Foods":
+                    BuildFoodDisplay();
+                    break;
+                case "Drinks":
+                    BuildDrinkDisplay();
+                    break;
+                case "Sites":
+                    BuildSiteDisplay();
+                    break;
+                case "Game Tasks":
+                    BuildGameTaskDisplay();
+                    break;
+                case "City Tasks":
+                    BuildCityTaskDisplay();
+                    break;
+                default:
+                    break;
             }
         }
         public Location FindLocation(string _nextCity)
         {
-                int i = 0;
-                bool matchfound = false;
-                Location _checkLocation;
-                Location _resultLocation = new Location() { City = "Not in the List" };
-                do
+            int i = 0;
+            bool matchfound = false;
+            Location _checkLocation;
+            Location _resultLocation = new Location() { City = "Not in the List" };
+            do
+            {
+                _checkLocation = _gameMap.LocationList[i];
+                if (_checkLocation.City == _nextCity)
                 {
-                    _checkLocation = _gameMap.Locations[i];
-                    if (_checkLocation.City == _nextCity)
-                    {
-                        matchfound = true;
-                        _resultLocation = _checkLocation;
-                    }
-                    ++i;
-                } while (!matchfound);
+                    matchfound = true;
+                    _resultLocation = _checkLocation;
+                }
+                ++i;
+            } while (!matchfound);
 
-                return _resultLocation;
+            return _resultLocation;
         }
         public LocationItems FindLocationItems(string _nextCity)
         {
@@ -309,44 +338,267 @@ namespace TravelGame.Presentation
             LocationItems _resultLocationItems = new LocationItems() { City = "Not in the List" };
             do
             {
-                _checkLocationItems = _gameMap.LocationItems[i];
+                _checkLocationItems = _gameMap.LocationItemList[i];
                 if (_checkLocationItems.City == _nextCity)
                 {
                     matchfound = true;
                     _resultLocationItems = _checkLocationItems;
                 }
                 ++i;
+                if (i > 6)
+                {
+                    matchfound = true;
+                }
             } while (!matchfound);
 
             return _resultLocationItems;
         }
-        public void BuildItemDisplay(DisplayLocationItem displayLocationItem)
+        public void BuildActorDisplay()
+        {
+            DisplayLocationItem displayLocationItem = new DisplayLocationItem();
+            displayLocationItem.Item = new string[6] { "  Actor", "", "", "", "", "" };
+            displayLocationItem.Description = new string[6] { "Specialty", "", "", "", "", "" };
+            displayLocationItem.Status = new string[6] { " Status", "", "", "", "", "" };
+            CurrentDisplayItems = displayLocationItem;
+            if (Player.CurrentCity != "New York")
+            {
+                CurrentDisplayItems = BuildItemDisplay(GameMap.CurrentLocationItems);
+                
+            }
+            OnPropertyChanged(nameof(CurrentDisplayItems));
+            
+        }
+        public void BuildFoodDisplay()
+        {
+            DisplayLocationItem displayLocationItem = new DisplayLocationItem();
+            displayLocationItem.Item = new string[6] { "  Food", "", "", "", "", "" };
+            displayLocationItem.Description = new string[6] { "Order", "", "", "", "", "" };
+            displayLocationItem.Status = new string[6] { " Status", "", "", "", "", "" };
+            CurrentDisplayItems = displayLocationItem;
+            if (Player.CurrentCity != "New York")
+            {
+                CurrentDisplayItems = BuildFoodItemDisplay(GameMap.CurrentLocationItems);
+
+            }
+            OnPropertyChanged(nameof(CurrentDisplayItems));
+
+        }
+        public void BuildDrinkDisplay()
+        {
+            DisplayLocationItem displayLocationItem = new DisplayLocationItem();
+            displayLocationItem.Item = new string[6] { " Drinks", "", "", "", "", "" };
+            displayLocationItem.Description = new string[6] { "Order", "", "", "", "", "" };
+            displayLocationItem.Status = new string[6] { " Status", "", "", "", "", "" };
+            CurrentDisplayItems = displayLocationItem;
+            if (Player.CurrentCity != "New York")
+            {
+                CurrentDisplayItems = BuildDrinkItemDisplay(GameMap.CurrentLocationItems);
+
+            }
+            OnPropertyChanged(nameof(CurrentDisplayItems));
+
+        }
+        public void BuildSiteDisplay()
+        {
+            DisplayLocationItem displayLocationItem = new DisplayLocationItem();
+            displayLocationItem.Item = new string[6] { "  Sites", "", "", "", "", "" };
+            displayLocationItem.Description = new string[6] { "Order", "", "", "", "", "" };
+            displayLocationItem.Status = new string[6] { " Status", "", "", "", "", "" };
+            CurrentDisplayItems = displayLocationItem;
+            if (Player.CurrentCity != "New York")
+            {
+                CurrentDisplayItems = BuildSiteItemDisplay(GameMap.CurrentLocationItems);
+
+            }
+            OnPropertyChanged(nameof(CurrentDisplayItems));
+
+        }
+        public void BuildGameTaskDisplay()
+        {
+            DisplayTaskState displayTaskState = new DisplayTaskState();
+            displayTaskState.City = new string[7] { "  City", "", "", "", "", "", "" };
+            displayTaskState.DidYouEat = new string[7] { "Ate", "No", "No", "No", "No", "No", "No" };
+            displayTaskState.DidYouDrink = new string[7] { "Drank", "No", "No", "No", "No", "No", "No" };
+            displayTaskState.DidYouTour = new string[7] { "Toured", "No", "No", "No", "No", "No", "No" };
+            displayTaskState.DidYouBattle1 = new string[7] { "War 1", "No", "No", "No", "No", "No", "No" };
+            displayTaskState.DidYouBattle2 = new string[7] { "War 2", "No", "No", "No", "No", "No", "No" };
+            CurrentDisplayTasks = displayTaskState;
+            CurrentDisplayTasks = BuildTaskDisplay(GameMap.TaskStateList);
+            OnPropertyChanged(nameof(CurrentDisplayTasks));
+        }
+        public void BuildCityTaskDisplay()
+        {
+            DisplayTaskState displayTaskState = new DisplayTaskState();
+            displayTaskState.City = new string[7] { "  Actor", "", "", "", "", "", "" };
+            displayTaskState.DidYouEat = new string[7] { "Action", "", "", "", "", "", "" };
+            displayTaskState.DidYouDrink = new string[7] { "", "", "", "", "", "", "" };
+            displayTaskState.DidYouTour = new string[7] { "Desc", "", "", "", "", "", "" };
+            displayTaskState.DidYouBattle1 = new string[7] { "", "", "", "", "", "", "" };
+            displayTaskState.DidYouBattle2 = new string[7] { "", "", "", "", "", "", "" };
+            CurrentDisplayTasks = displayTaskState;
+            CurrentDisplayTasks = BuildCityDisplay(GameMap.TaskStateList);
+            OnPropertyChanged(nameof(CurrentDisplayTasks));
+        }
+        public DisplayLocationItem BuildItemDisplay(LocationItems showlocationitems)
         {
             //
             // not working just yet
             //
             int i;
-            int j;
-            
-            for (i = 0; i < 6; ++i)
-            {
-                for (j = 0; j < 3; ++j)
-                {
-                    GameMap.DisplayLocationItems.DisplayArea[i, j] = "";
-                }
-            }
-            GameMap.DisplayLocationItems.DisplayArea[0,0] = "  ACTOR";
-            GameMap.DisplayLocationItems.DisplayArea[0,1] = "   ROLE";
-            GameMap.DisplayLocationItems.DisplayArea[0,2] = " STATUS";
+            DisplayLocationItem displayLocationItem = new DisplayLocationItem();
+            displayLocationItem.Item = new string[6] { "  Actor", "", "", "", "", "" };
+            displayLocationItem.Description = new string[6] { "Specialty", "", "", "", "", "" };
+            displayLocationItem.Status = new string[6] { " Status", "", "", "", "", "" };
 
-            for (i=1; i<6; ++i)
+            for (i = 1; i < 6; ++i)
             {
-                GameMap.DisplayLocationItems.DisplayArea[i,0] = CurrentLocationItems.Actors[i - 1];
-                GameMap.DisplayLocationItems.DisplayArea[i,1] = CurrentLocationItems.ActorTypes[i - 1].ToString();
-                GameMap.DisplayLocationItems.DisplayArea[i,2] = CurrentLocationItems.IsTypeKnown[i - 1].ToString();
+                displayLocationItem.Item[i] = showlocationitems.Actors[i-1];
+                displayLocationItem.Description[i] = showlocationitems.ActorTypes[i-1].ToString();
+                displayLocationItem.Status[i] = "Open";
             }
+            return displayLocationItem;
+            
 
              
+        }
+        public DisplayLocationItem BuildFoodItemDisplay(LocationItems showlocationitems)
+        {
+            //
+            // not working just yet
+            //
+            int i;
+            DisplayLocationItem displayLocationItem = new DisplayLocationItem();
+            displayLocationItem.Item = new string[6] { "  Food", "", "", "", "", "" };
+            displayLocationItem.Description = new string[6] { "Order", "", "", "", "", "" };
+            displayLocationItem.Status = new string[6] { " Status", "", "", "", "", "" };
+
+            for (i = 1; i < 4; ++i)
+            {
+                displayLocationItem.Item[i] = showlocationitems.Foods[i - 1];
+                displayLocationItem.Description[i] = showlocationitems.FoodOrder[i - 1].ToString();
+                displayLocationItem.Status[i] = "Open";
+            }
+            return displayLocationItem;
+
+
+
+        }
+        public DisplayLocationItem BuildDrinkItemDisplay(LocationItems showlocationitems)
+        {
+            //
+            // not working just yet
+            //
+            int i;
+            DisplayLocationItem displayLocationItem = new DisplayLocationItem();
+            displayLocationItem.Item = new string[6] { " Drinks", "", "", "", "", "" };
+            displayLocationItem.Description = new string[6] { "Order", "", "", "", "", "" };
+            displayLocationItem.Status = new string[6] { " Status", "", "", "", "", "" };
+
+            for (i = 1; i < 4; ++i)
+            {
+                displayLocationItem.Item[i] = showlocationitems.Drinks[i - 1];
+                displayLocationItem.Description[i] = showlocationitems.DrinkOrder[i - 1].ToString();
+                displayLocationItem.Status[i] = "Open";
+            }
+            return displayLocationItem;
+
+
+
+        }
+        public DisplayLocationItem BuildSiteItemDisplay(LocationItems showlocationitems)
+        {
+            //
+            // not working just yet
+            //
+            int i;
+            DisplayLocationItem displayLocationItem = new DisplayLocationItem();
+            displayLocationItem.Item = new string[6] { " Sites", "", "", "", "", "" };
+            displayLocationItem.Description = new string[6] { "Order", "", "", "", "", "" };
+            displayLocationItem.Status = new string[6] { " Status", "", "", "", "", "" };
+
+            for (i = 1; i < 4; ++i)
+            {
+                displayLocationItem.Item[i] = showlocationitems.Sites[i - 1];
+                displayLocationItem.Description[i] = showlocationitems.SiteOrder[i - 1].ToString();
+                displayLocationItem.Status[i] = "Open";
+            }
+            return displayLocationItem;
+
+
+
+        }
+        public DisplayTaskState BuildTaskDisplay(List<TaskState> showtasks)
+        {
+            //
+            // not working just yet
+            //
+            
+            DisplayTaskState displayTaskState = new DisplayTaskState();
+            displayTaskState.City = new string[7] { "  City", "", "", "", "", "", "" };
+            displayTaskState.DidYouEat = new string[7] { "Ate", "No", "No", "No", "No", "No", "No" };
+            displayTaskState.DidYouDrink = new string[7] { "Drank", "No", "No", "No", "No", "No", "No" };
+            displayTaskState.DidYouTour = new string[7] { "Toured", "No", "No", "No", "No", "No", "No" };
+            displayTaskState.DidYouBattle1 = new string[7] { "War 1", "No", "No", "No", "No", "No", "No" };
+            displayTaskState.DidYouBattle2 = new string[7] { "War 2", "No", "No", "No", "No", "No", "No" };
+
+            //for (i = 1; i < 6; ++i)
+            //{
+            //    TaskState showtask = showtasks[i - 1];
+            //    displayTaskState.City[i] = showtask.City; 
+
+            //    displayLocationItem.Description[i] = showlocationitems.ActorTypes[i - 1].ToString();
+            //    displayLocationItem.Status[i] = "Open";
+            //}
+
+            int i = 0;
+            foreach (TaskState taxstate in showtasks)
+            {
+                if (taxstate.City != "New York")
+                {
+                    displayTaskState.City[i + 1] = taxstate.City;
+                    if (taxstate.Ate) { displayTaskState.DidYouEat[i + 1] = "Yes";  };
+                    if (taxstate.Drank) { displayTaskState.DidYouDrink[i + 1] = "Yes"; };
+                    if (taxstate.Toured) { displayTaskState.DidYouTour[i + 1] = "Yes"; };
+                    if (taxstate.Challenge1done) { displayTaskState.DidYouBattle1[i + 1] = "Yes"; };
+                    if (taxstate.Challenge2done) { displayTaskState.DidYouBattle2[i + 1] = "Yes"; };
+                    ++i;
+                }
+            }
+
+
+            return displayTaskState;
+        }
+        public DisplayTaskState BuildCityDisplay(List<TaskState> showtasks)
+        {
+            //
+            // not working just yet. Need to pass different data for building display
+            //
+
+            DisplayTaskState displayTaskState = new DisplayTaskState();
+            displayTaskState.City = new string[7] { " Actor", "", "", "", "", "", "" };
+            displayTaskState.DidYouEat = new string[7] { "Action", "", "", "", "", "", "" };
+            displayTaskState.DidYouDrink = new string[7] { "", "", "", "", "", "", "" };
+            displayTaskState.DidYouTour = new string[7] { "Desc", "", "", "", "", "", "" };
+            displayTaskState.DidYouBattle1 = new string[7] { "", "", "", "", "", "", "" };
+            displayTaskState.DidYouBattle2 = new string[7] { "", "", "", "", "", "", "" };
+
+            int i = 0;
+            foreach (TaskState taxstate in showtasks)
+            {
+                if (taxstate.City != "New York")
+                {
+                    displayTaskState.City[i + 1] = "A " + taxstate.City;
+                    if (taxstate.Ate) { displayTaskState.DidYouEat[i + 1] = "Yes"; };
+                    if (taxstate.Drank) { displayTaskState.DidYouDrink[i + 1] = "Yes"; };
+                    if (taxstate.Toured) { displayTaskState.DidYouTour[i + 1] = "Yes"; };
+                    if (taxstate.Challenge1done) { displayTaskState.DidYouBattle1[i + 1] = "Yes"; };
+                    if (taxstate.Challenge2done) { displayTaskState.DidYouBattle2[i + 1] = "Yes"; };
+                    ++i;
+                }
+            }
+
+
+            return displayTaskState;
         }
     }
 }

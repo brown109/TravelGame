@@ -18,7 +18,9 @@ namespace TravelGame.Business
         ControlWindowModel _controlWindowModel;
         Player _player = new Player();
         WelcomeWindow _welcomeWindow = null;
-        WorldMap _gameMap;
+        GameMap _gameMap;
+        DisplayLocationItem _currentDisplayItems = new DisplayLocationItem();
+        DisplayTaskState _currentDisplayTasks = new DisplayTaskState();
         GameHistory _gameHistory;
 
         public BusinessLogic()
@@ -50,7 +52,7 @@ namespace TravelGame.Business
             //_player = GameData.PlayerData();
             _gameMap = GameData.GameMap();
             _gameHistory = GameData.PlayerHistory();
-            
+                        
             GetPlayerHistory(_gameHistory);
 
         }
@@ -64,6 +66,8 @@ namespace TravelGame.Business
             _controlWindowModel = new ControlWindowModel(
                 _player,
                 _gameMap,
+                _currentDisplayItems,
+                _currentDisplayTasks,
                 _gameHistory);
             
             ControlWindow controlWindow = new ControlWindow(_controlWindowModel);
@@ -104,6 +108,7 @@ namespace TravelGame.Business
 
             _player.Experience = playergames;
             _player.Bestscore = topscore;
+            _player.CurrentCity = "New York";
             
 
             //foreach (GameStat gameStat in gameHistory)

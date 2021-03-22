@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
-    public class Location
+    public class Location : ObservableObject
     {
         private string _city;
         private string _ncity;
@@ -20,7 +20,9 @@ namespace TravelGame.Models
         public string City
         {
             get { return _city; }
-            set { _city = value; }
+            set { _city = value;
+                OnPropertyChanged(nameof(City));
+            }
         }
         public string NCity
         {

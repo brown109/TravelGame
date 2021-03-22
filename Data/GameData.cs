@@ -20,16 +20,19 @@ namespace TravelGame.Data
                 Visits = 0,
                 Tasks = 0,
                 Liveslost = 0,
-                Totalscore = 1000
+                Totalscore = 1000,
+                CurrentCity = "blank"
             };
         }
 
 
-        public static WorldMap GameMap()
+        public static GameMap GameMap()
         {
-            WorldMap gameMap = new WorldMap();
+            GameMap gameMap = new GameMap();
             //
-            // load location list by force for now. Later, need to read it in from a data file
+            // load location list (each city to visit and where you can go from there)
+            // taskstate list (each city to visit and the results of tasks to complete at each one)
+            // locationitems (each city to visit and the actors, their role, and choices to drive interaction)
             //
             Location _location = new Location();
             _location.City = "New York";
@@ -41,7 +44,21 @@ namespace TravelGame.Data
             _location.NWCity = "";
             _location.SECity = "";
             _location.SWCity = "";
-            gameMap.Locations.Add(_location);
+            gameMap.LocationList.Add(_location);
+            
+            TaskState _taskstate = new TaskState();
+            _taskstate.City = "New York";
+            _taskstate.Ate = false;
+            _taskstate.Food = "";
+            _taskstate.Drank = false;
+            _taskstate.Drink = "";
+            _taskstate.Toured = false;
+            _taskstate.Site = "";
+            _taskstate.Challenge1done = false;
+            _taskstate.Result1 = "";
+            _taskstate.Challenge2done = false;
+            _taskstate.Result2 = "";
+            gameMap.TaskStateList.Add(_taskstate);
 
             _location = new Location();
             _location.City = "London";
@@ -53,7 +70,21 @@ namespace TravelGame.Data
             _location.NWCity = "";
             _location.SECity = "Paris";
             _location.SWCity = "";
-            gameMap.Locations.Add(_location);
+            gameMap.LocationList.Add(_location);
+            
+            _taskstate = new TaskState();
+            _taskstate.City = "London";
+            _taskstate.Ate = false;
+            _taskstate.Food = "";
+            _taskstate.Drank = false;
+            _taskstate.Drink = "";
+            _taskstate.Toured = false;
+            _taskstate.Site = "";
+            _taskstate.Challenge1done = false;
+            _taskstate.Result1 = "";
+            _taskstate.Challenge2done = false;
+            _taskstate.Result2 = "";
+            gameMap.TaskStateList.Add(_taskstate);
 
             _location = new Location();
             _location.City = "Frankfort";
@@ -65,7 +96,21 @@ namespace TravelGame.Data
             _location.NWCity = "";
             _location.SECity = "";
             _location.SWCity = "Paris";
-            gameMap.Locations.Add(_location);
+            gameMap.LocationList.Add(_location);
+
+            _taskstate = new TaskState();
+            _taskstate.City = "Frankfort";
+            _taskstate.Ate = false;
+            _taskstate.Food = "";
+            _taskstate.Drank = false;
+            _taskstate.Drink = "";
+            _taskstate.Toured = false;
+            _taskstate.Site = "";
+            _taskstate.Challenge1done = false;
+            _taskstate.Result1 = "";
+            _taskstate.Challenge2done = false;
+            _taskstate.Result2 = "";
+            gameMap.TaskStateList.Add(_taskstate);
 
             _location = new Location();
             _location.City = "Paris";
@@ -77,7 +122,21 @@ namespace TravelGame.Data
             _location.NWCity = "London";
             _location.SECity = "Rome";
             _location.SWCity = "";
-            gameMap.Locations.Add(_location);
+            gameMap.LocationList.Add(_location);
+
+            _taskstate = new TaskState();
+            _taskstate.City = "Paris";
+            _taskstate.Ate = false;
+            _taskstate.Food = "";
+            _taskstate.Drank = false;
+            _taskstate.Drink = "";
+            _taskstate.Toured = false;
+            _taskstate.Site = "";
+            _taskstate.Challenge1done = false;
+            _taskstate.Result1 = "";
+            _taskstate.Challenge2done = false;
+            _taskstate.Result2 = "";
+            gameMap.TaskStateList.Add(_taskstate);
 
             _location = new Location();
             _location.City = "Rome";
@@ -89,7 +148,21 @@ namespace TravelGame.Data
             _location.NWCity = "Paris";
             _location.SECity = "Athens";
             _location.SWCity = "";
-            gameMap.Locations.Add(_location);
+            gameMap.LocationList.Add(_location);
+
+            _taskstate = new TaskState();
+            _taskstate.City = "Rome";
+            _taskstate.Ate = false;
+            _taskstate.Food = "";
+            _taskstate.Drank = false;
+            _taskstate.Drink = "";
+            _taskstate.Toured = false;
+            _taskstate.Site = "";
+            _taskstate.Challenge1done = false;
+            _taskstate.Result1 = "";
+            _taskstate.Challenge2done = false;
+            _taskstate.Result2 = "";
+            gameMap.TaskStateList.Add(_taskstate);
 
             _location = new Location();
             _location.City = "Warsaw";
@@ -101,7 +174,21 @@ namespace TravelGame.Data
             _location.NWCity = "";
             _location.SECity = "";
             _location.SWCity = "Rome";
-            gameMap.Locations.Add(_location);
+            gameMap.LocationList.Add(_location);
+
+            _taskstate = new TaskState();
+            _taskstate.City = "Warsaw";
+            _taskstate.Ate = false;
+            _taskstate.Food = "";
+            _taskstate.Drank = false;
+            _taskstate.Drink = "";
+            _taskstate.Toured = false;
+            _taskstate.Site = "";
+            _taskstate.Challenge1done = false;
+            _taskstate.Result1 = "";
+            _taskstate.Challenge2done = false;
+            _taskstate.Result2 = "";
+            gameMap.TaskStateList.Add(_taskstate);
 
             _location = new Location();
             _location.City = "Athens";
@@ -113,9 +200,23 @@ namespace TravelGame.Data
             _location.NWCity = "Rome";
             _location.SECity = "";
             _location.SWCity = "";
-            gameMap.Locations.Add(_location);
+            gameMap.LocationList.Add(_location);
 
-            gameMap.CurrentLocation = gameMap.Locations[0];
+            _taskstate = new TaskState();
+            _taskstate.City = "Athens";
+            _taskstate.Ate = false;
+            _taskstate.Food = "";
+            _taskstate.Drank = false;
+            _taskstate.Drink = "";
+            _taskstate.Toured = false;
+            _taskstate.Site = "";
+            _taskstate.Challenge1done = false;
+            _taskstate.Result1 = "";
+            _taskstate.Challenge2done = false;
+            _taskstate.Result2 = "";
+            gameMap.TaskStateList.Add(_taskstate);
+
+            gameMap.CurrentLocation = gameMap.LocationList[0];
 
             LocationItems _locationItems = new LocationItems();
             _locationItems.City = "New York";
@@ -129,7 +230,11 @@ namespace TravelGame.Data
             _locationItems.FoodOrder = new string[] { "Second", "First", "Third" };
             _locationItems.Drinks = new string[] { "G and T", "G", "J E" };
             _locationItems.DrinkOrder = new string[] { "Second", "First", "Third" };
-            gameMap.LocationItems.Add(_locationItems);
+            _locationItems.IsSiteSeen = false;
+            _locationItems.IsFoodEaten = false;
+            _locationItems.IsDrinkDrunk = false;
+            _locationItems.AreAllTasksDone = false;
+            gameMap.LocationItemList.Add(_locationItems);
 
             _locationItems.City = "London";
             _locationItems.Actors = new string[] { "John", "Paul", "George", "Ringo", "Brian" };
@@ -142,7 +247,11 @@ namespace TravelGame.Data
             _locationItems.FoodOrder = new string[] { "Second", "First", "Third" };
             _locationItems.Drinks = new string[] { "Gin and Tonic", "Guinness", "Jellied Eel" };
             _locationItems.DrinkOrder = new string[] { "Second", "First", "Third" };
-            gameMap.LocationItems.Add(_locationItems);
+            _locationItems.IsSiteSeen = false;
+            _locationItems.IsFoodEaten = false;
+            _locationItems.IsDrinkDrunk = false;
+            _locationItems.AreAllTasksDone = false;
+            gameMap.LocationItemList.Add(_locationItems);
             _locationItems = new LocationItems();
             _locationItems.City = "Frankfort";
             _locationItems.Actors = new string[] { "FJohn", "FPaul", "FGeorge", "FRingo", "FBrian" };
@@ -155,7 +264,11 @@ namespace TravelGame.Data
             _locationItems.FoodOrder = new string[] { "Second", "First", "Third" };
             _locationItems.Drinks = new string[] { "FGin and Tonic", "FGuinness", "FJellied Eel" };
             _locationItems.DrinkOrder = new string[] { "Second", "First", "Third" };
-            gameMap.LocationItems.Add(_locationItems);
+            _locationItems.IsSiteSeen = false;
+            _locationItems.IsFoodEaten = false;
+            _locationItems.IsDrinkDrunk = false;
+            _locationItems.AreAllTasksDone = false;
+            gameMap.LocationItemList.Add(_locationItems);
 
             _locationItems = new LocationItems();
             _locationItems.City = "Paris";
@@ -169,7 +282,11 @@ namespace TravelGame.Data
             _locationItems.FoodOrder = new string[] { "Second", "First", "Third" };
             _locationItems.Drinks = new string[] { "pGin and Tonic", "pGuinness", "pJellied Eel" };
             _locationItems.DrinkOrder = new string[] { "Second", "First", "Third" };
-            gameMap.LocationItems.Add(_locationItems);
+            _locationItems.IsSiteSeen = false;
+            _locationItems.IsFoodEaten = false;
+            _locationItems.IsDrinkDrunk = false;
+            _locationItems.AreAllTasksDone = false;
+            gameMap.LocationItemList.Add(_locationItems);
 
             _locationItems = new LocationItems();
             _locationItems.City = "Rome";
@@ -183,7 +300,11 @@ namespace TravelGame.Data
             _locationItems.FoodOrder = new string[] { "Second", "First", "Third" };
             _locationItems.Drinks = new string[] { "rGin and Tonic", "rGuinness", "rJellied Eel" };
             _locationItems.DrinkOrder = new string[] { "Second", "First", "Third" };
-            gameMap.LocationItems.Add(_locationItems);
+            _locationItems.IsSiteSeen = false;
+            _locationItems.IsFoodEaten = false;
+            _locationItems.IsDrinkDrunk = false;
+            _locationItems.AreAllTasksDone = false;
+            gameMap.LocationItemList.Add(_locationItems);
 
             _locationItems = new LocationItems();
             _locationItems.City = "Warsaw";
@@ -197,7 +318,11 @@ namespace TravelGame.Data
             _locationItems.FoodOrder = new string[] { "Second", "First", "Third" };
             _locationItems.Drinks = new string[] { "wFGin and Tonic", "wFGuinness", "wFJellied Eel" };
             _locationItems.DrinkOrder = new string[] { "Second", "First", "Third" };
-            gameMap.LocationItems.Add(_locationItems);
+            _locationItems.IsSiteSeen = false;
+            _locationItems.IsFoodEaten = false;
+            _locationItems.IsDrinkDrunk = false;
+            _locationItems.AreAllTasksDone = false;
+            gameMap.LocationItemList.Add(_locationItems);
 
             _locationItems = new LocationItems();
             _locationItems.City = "Athens";
@@ -211,13 +336,13 @@ namespace TravelGame.Data
             _locationItems.FoodOrder = new string[] { "Second", "First", "Third" };
             _locationItems.Drinks = new string[] { "aFGin and Tonic", "aFGuinness", "aFJellied Eel" };
             _locationItems.DrinkOrder = new string[] { "Second", "First", "Third" };
-            gameMap.LocationItems.Add(_locationItems);
-
-            gameMap.CurrentLocationItems = gameMap.LocationItems[0];
             _locationItems.IsSiteSeen = false;
             _locationItems.IsFoodEaten = false;
             _locationItems.IsDrinkDrunk = false;
             _locationItems.AreAllTasksDone = false;
+            gameMap.LocationItemList.Add(_locationItems);
+
+            gameMap.CurrentLocationItems = gameMap.LocationItemList[0];
 
             return gameMap;
 

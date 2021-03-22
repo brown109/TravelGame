@@ -85,12 +85,14 @@
   <ItemGroup>
     <Compile Include="Models\Actor.cs" />
     <Compile Include="Models\DisplayLocationItem.cs" />
+    <Compile Include="Models\DisplayTaskState.cs" />
     <Compile Include="Models\GameHistory.cs" />
     <Compile Include="Models\GameStat.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\LocationItems.cs" />
     <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\WorldMap.cs" />
+    <Compile Include="Models\GameMap.cs" />
+    <Compile Include="Models\TaskState.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="Presentation\ControlWindow.xaml.cs">
       <DependentUpon>ControlWindow.xaml</DependentUpon>

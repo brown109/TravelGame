@@ -69,7 +69,7 @@ namespace TravelGame.Presentation
             //
             // will need to build out display of actors, sites, fodds or drinks 
             //
-            
+            _controlWindowModel.CheckDisplay(windowButton.Tag.ToString());
 
 
         }

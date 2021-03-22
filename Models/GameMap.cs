@@ -6,23 +6,28 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
-    public class WorldMap
+    public class GameMap : ObservableObject
     {
         private List<Location> _locations;
         private List<LocationItems> _locationItems;
+        private List<TaskState> _taskStates;
         private Location _currentLocation;
         private LocationItems _currentLocationItems;
-        private DisplayLocationItem _displayLocationItem;
-       
-        public List<Location> Locations
+               
+        public List<Location> LocationList
         {
             get { return _locations; }
             set { _locations = value; }
         }
-        public List<LocationItems> LocationItems
+        public List<LocationItems> LocationItemList
         {
             get { return _locationItems; }
             set { _locationItems = value; }
+        }
+        public List<TaskState> TaskStateList
+        {
+            get { return _taskStates; }
+            set { _taskStates = value; }
         }
         public Location CurrentLocation
         { 
@@ -34,16 +39,15 @@ namespace TravelGame.Models
             get { return _currentLocationItems; }
             set { _currentLocationItems = value; }
         }
-        public DisplayLocationItem DisplayLocationItems
-        {
-            get { return _displayLocationItem; }
-            set { _displayLocationItem = value; }
-        }
-        public WorldMap()
+        
+        public GameMap()
         {
             _locations = new List<Location>();
             _locationItems = new List<LocationItems>();
-            _displayLocationItem = new DisplayLocationItem();
+            _taskStates = new List<TaskState>();
+            _currentLocation = new Location();
+            _currentLocationItems = new LocationItems();
+            
         }
     }
 }

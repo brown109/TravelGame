@@ -16,6 +16,7 @@ namespace TravelGame.Models
         private double _tasks;
         private int _liveslost;
         private int _totalscore;
+        private string _currentcity;
 
         public DateTime StartDate
         {
@@ -58,12 +59,17 @@ namespace TravelGame.Models
             get { return _totalscore; }
             set { _totalscore = value; }
         }
+        public string CurrentCity
+        {
+            get { return _currentcity; }
+            set { _currentcity = value; }
+        }
         public Player()
         {
 
         }
         
-        public Player(DateTime startdate, string name, int experience, int bestscore, double visits, double tasks, int liveslost, int totalscore)
+        public Player(DateTime startdate, string name, int experience, int bestscore, double visits, double tasks, int liveslost, int totalscore, string currentcity)
         {
             _startDate = startdate;
             _name = name;
@@ -73,6 +79,7 @@ namespace TravelGame.Models
             _tasks = tasks;
             _liveslost = liveslost;
             _totalscore = totalscore;
+            _currentcity = currentcity;
         }
 
     }

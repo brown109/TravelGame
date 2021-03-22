@@ -16,20 +16,20 @@ namespace TravelGame.Models
             Interloper
         }
 
-        public string _city;
-        public string[] _actors;
-        public ActorType[] _actorTypes;
-        public bool[] _isTypeKnown;
-        public string[] _sites;
-        public string[] _siteorder;
-        public string[] _foods;
-        public string[] _foodorder;
-        public string[] _drinks;
-        public string[] _drinkorder;
-        public bool _issiteseen;
-        public bool _isfoodeaten;
-        public bool _isdrinkdrunk;
-        public bool _arealltasksdone;
+        private string _city;
+        private string[] _actors;
+        private ActorType[] _actorTypes;
+        private bool[] _isTypeKnown;
+        private string[] _sites;
+        private string[] _siteorder;
+        private string[] _foods;
+        private string[] _foodorder;
+        private string[] _drinks;
+        private string[] _drinkorder;
+        private bool _issiteseen;
+        private bool _isfoodeaten;
+        private bool _isdrinkdrunk;
+        private bool _arealltasksdone;
 
         public string City
         {
@@ -100,6 +100,30 @@ namespace TravelGame.Models
         {
             get { return _arealltasksdone; }
             set { _arealltasksdone = value; }
+        }
+        public LocationItems()
+        {
+
+        }
+        public LocationItems(string city, string[] actors, ActorType[] actortypes, bool[] isTypeKnown, string[] sites, string[] siteorder, string[] foods, string[] foodorder,
+            string[] drinks, string[] drinkorder, bool issiteseen, bool isfoodeaten, bool isdrinkdrunk, bool arealltasksdone)
+        {
+
+            _city = city;
+            _actors = actors;
+            _actorTypes = actortypes;
+            _isTypeKnown = isTypeKnown;
+            _sites = sites;
+            _siteorder = siteorder;
+            _foods = foods;
+            _foodorder = foodorder;
+            _drinks = drinks;
+            _drinkorder = drinkorder;
+            _issiteseen = issiteseen;
+            _isfoodeaten = isfoodeaten;
+            _isdrinkdrunk = isdrinkdrunk;
+            _arealltasksdone = arealltasksdone;
+
         }
     }
 }
