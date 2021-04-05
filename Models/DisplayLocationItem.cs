@@ -8,34 +8,20 @@ namespace TravelGame.Models
 {
     public class DisplayLocationItem : ObservableObject
     {
-        private string[] _item;
-        private string[] _description;
-        private string[] _status;
-        
-        public string[] Item
+        private string[] _displayLine;
+                
+        public string[] DisplayLine
         {
-            get { return _item; }
-            set { _item = value; }
-        }
-        public string[] Description
-        {
-            get { return _description; }
-            set { _description = value; }
-        }
-        public string[] Status
-        {
-            get { return _status; }
-            set { _status = value; }
+            get { return _displayLine; }
+            set { _displayLine = value; }
         }
         public DisplayLocationItem()
         {
 
         }
-        public DisplayLocationItem(string[] item, string[] description, string[] status)
+        public DisplayLocationItem(string[] displayLine)
         {
-            _item = item;
-            _description = description;
-            _status = status;
+            _displayLine = displayLine;
         }
     }   
 }

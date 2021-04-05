@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
-    public class GameHistory
+    public class GameHistory : ObservableObject
     {
         public List<GameStat> _gamestats;
         public GameStat _gamestat;

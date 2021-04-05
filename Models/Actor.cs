@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
-     public class Actor : ObservableObject
+    public abstract class Actor : ObservableObject, IMessage
     {
         public enum PrimaryLanguage
         {
             English,
             French,
+            Spanish,
             Greek
         }
-        
+
         protected int _id;
         protected string _name;
-        protected string _language;
-
+        
         public int Id
-        { 
+        {
             get { return _id; }
             set { _id = value; }
         }
@@ -29,21 +29,16 @@ namespace TravelGame.Models
             get { return _name; }
             set { _name = value; }
         }
-        public string Language
-        {
-            get { return _language; }
-            set { _language = value; }
-        }
+        public virtual string Language
+        { get; set; }
         public Actor()
         {
-            
-        }
-        public Actor(int id, string name, string language)
-        {
-            _id = id;
-            _name = name;
-            _language = language;
-        }
 
+        }
+        public string TaskMessage()
+        {
+            return ("I am just a parent class actor ");
+        }
     }
+
 }

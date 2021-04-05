@@ -77,6 +77,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Presentation\TopScores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Presentation\WelcomeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -88,11 +92,14 @@
     <Compile Include="Models\DisplayTaskState.cs" />
     <Compile Include="Models\GameHistory.cs" />
     <Compile Include="Models\GameStat.cs" />
+    <Compile Include="Models\IMessage.cs" />
+    <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\LocationItems.cs" />
+    <Compile Include="Models\DisplayScores.cs" />
+    <Compile Include="Models\Npc.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\GameMap.cs" />
-    <Compile Include="Models\TaskState.cs" />
+    <Compile Include="Models\TaskHistory.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="Presentation\ControlWindow.xaml.cs">
       <DependentUpon>ControlWindow.xaml</DependentUpon>
@@ -100,6 +107,9 @@
     <Compile Include="Presentation\ControlWindowModel.cs" />
     <Compile Include="Presentation\HelpWindow.xaml.cs">
       <DependentUpon>HelpWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presentation\TopScores.xaml.cs">
+      <DependentUpon>TopScores.xaml</DependentUpon>
     </Compile>
     <Compile Include="Presentation\WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>

@@ -46,20 +46,6 @@ namespace TravelGame.Data
             _location.SWCity = "";
             gameMap.LocationList.Add(_location);
             
-            TaskState _taskstate = new TaskState();
-            _taskstate.City = "New York";
-            _taskstate.Ate = false;
-            _taskstate.Food = "";
-            _taskstate.Drank = false;
-            _taskstate.Drink = "";
-            _taskstate.Toured = false;
-            _taskstate.Site = "";
-            _taskstate.Challenge1done = false;
-            _taskstate.Result1 = "";
-            _taskstate.Challenge2done = false;
-            _taskstate.Result2 = "";
-            gameMap.TaskStateList.Add(_taskstate);
-
             _location = new Location();
             _location.City = "London";
             _location.NCity = "";
@@ -72,20 +58,6 @@ namespace TravelGame.Data
             _location.SWCity = "";
             gameMap.LocationList.Add(_location);
             
-            _taskstate = new TaskState();
-            _taskstate.City = "London";
-            _taskstate.Ate = false;
-            _taskstate.Food = "";
-            _taskstate.Drank = false;
-            _taskstate.Drink = "";
-            _taskstate.Toured = false;
-            _taskstate.Site = "";
-            _taskstate.Challenge1done = false;
-            _taskstate.Result1 = "";
-            _taskstate.Challenge2done = false;
-            _taskstate.Result2 = "";
-            gameMap.TaskStateList.Add(_taskstate);
-
             _location = new Location();
             _location.City = "Frankfort";
             _location.NCity = "";
@@ -97,20 +69,6 @@ namespace TravelGame.Data
             _location.SECity = "";
             _location.SWCity = "Paris";
             gameMap.LocationList.Add(_location);
-
-            _taskstate = new TaskState();
-            _taskstate.City = "Frankfort";
-            _taskstate.Ate = false;
-            _taskstate.Food = "";
-            _taskstate.Drank = false;
-            _taskstate.Drink = "";
-            _taskstate.Toured = false;
-            _taskstate.Site = "";
-            _taskstate.Challenge1done = false;
-            _taskstate.Result1 = "";
-            _taskstate.Challenge2done = false;
-            _taskstate.Result2 = "";
-            gameMap.TaskStateList.Add(_taskstate);
 
             _location = new Location();
             _location.City = "Paris";
@@ -124,20 +82,6 @@ namespace TravelGame.Data
             _location.SWCity = "";
             gameMap.LocationList.Add(_location);
 
-            _taskstate = new TaskState();
-            _taskstate.City = "Paris";
-            _taskstate.Ate = false;
-            _taskstate.Food = "";
-            _taskstate.Drank = false;
-            _taskstate.Drink = "";
-            _taskstate.Toured = false;
-            _taskstate.Site = "";
-            _taskstate.Challenge1done = false;
-            _taskstate.Result1 = "";
-            _taskstate.Challenge2done = false;
-            _taskstate.Result2 = "";
-            gameMap.TaskStateList.Add(_taskstate);
-
             _location = new Location();
             _location.City = "Rome";
             _location.NCity = "Frankfort";
@@ -149,20 +93,6 @@ namespace TravelGame.Data
             _location.SECity = "Athens";
             _location.SWCity = "";
             gameMap.LocationList.Add(_location);
-
-            _taskstate = new TaskState();
-            _taskstate.City = "Rome";
-            _taskstate.Ate = false;
-            _taskstate.Food = "";
-            _taskstate.Drank = false;
-            _taskstate.Drink = "";
-            _taskstate.Toured = false;
-            _taskstate.Site = "";
-            _taskstate.Challenge1done = false;
-            _taskstate.Result1 = "";
-            _taskstate.Challenge2done = false;
-            _taskstate.Result2 = "";
-            gameMap.TaskStateList.Add(_taskstate);
 
             _location = new Location();
             _location.City = "Warsaw";
@@ -176,20 +106,6 @@ namespace TravelGame.Data
             _location.SWCity = "Rome";
             gameMap.LocationList.Add(_location);
 
-            _taskstate = new TaskState();
-            _taskstate.City = "Warsaw";
-            _taskstate.Ate = false;
-            _taskstate.Food = "";
-            _taskstate.Drank = false;
-            _taskstate.Drink = "";
-            _taskstate.Toured = false;
-            _taskstate.Site = "";
-            _taskstate.Challenge1done = false;
-            _taskstate.Result1 = "";
-            _taskstate.Challenge2done = false;
-            _taskstate.Result2 = "";
-            gameMap.TaskStateList.Add(_taskstate);
-
             _location = new Location();
             _location.City = "Athens";
             _location.NCity = "Warsaw";
@@ -202,147 +118,1202 @@ namespace TravelGame.Data
             _location.SWCity = "";
             gameMap.LocationList.Add(_location);
 
-            _taskstate = new TaskState();
-            _taskstate.City = "Athens";
-            _taskstate.Ate = false;
-            _taskstate.Food = "";
-            _taskstate.Drank = false;
-            _taskstate.Drink = "";
-            _taskstate.Toured = false;
-            _taskstate.Site = "";
-            _taskstate.Challenge1done = false;
-            _taskstate.Result1 = "";
-            _taskstate.Challenge2done = false;
-            _taskstate.Result2 = "";
-            gameMap.TaskStateList.Add(_taskstate);
-
             gameMap.CurrentLocation = gameMap.LocationList[0];
 
-            LocationItems _locationItems = new LocationItems();
-            _locationItems.City = "New York";
-            _locationItems.Actors = new string[] { "J", "P", "G", "R", "B" };
-            _locationItems.ActorTypes = new LocationItems.ActorType[] {LocationItems.ActorType.Driver, LocationItems.ActorType.Chef, LocationItems.ActorType.Bartender,
-                LocationItems.ActorType.Interloper, LocationItems.ActorType.Interloper};
-            _locationItems.IsTypeKnown = new bool[] { false, false, false, false, false };
-            _locationItems.Sites = new string[] { "BB", "BP", "AR" };
-            _locationItems.SiteOrder = new string[] { "Third", "Second", "First" };
-            _locationItems.Foods = new string[] { "B and M", "F and C", "F P" };
-            _locationItems.FoodOrder = new string[] { "Second", "First", "Third" };
-            _locationItems.Drinks = new string[] { "G and T", "G", "J E" };
-            _locationItems.DrinkOrder = new string[] { "Second", "First", "Third" };
-            _locationItems.IsSiteSeen = false;
-            _locationItems.IsFoodEaten = false;
-            _locationItems.IsDrinkDrunk = false;
-            _locationItems.AreAllTasksDone = false;
-            gameMap.LocationItemList.Add(_locationItems);
+            //
+            // Load the list of Npcs which hold key words for each city/type
+            //
+            Npc npc = new Npc();
+            npc.Id = 1000;
+            npc.Name = "John";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Driver;
+            npc.City = "London";
+            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift" };
+            npc.IdPoints = 75;
+            npc.CompletionPoints = 100;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
 
-            _locationItems.City = "London";
-            _locationItems.Actors = new string[] { "John", "Paul", "George", "Ringo", "Brian" };
-            _locationItems.ActorTypes = new LocationItems.ActorType[] {LocationItems.ActorType.Driver, LocationItems.ActorType.Chef, LocationItems.ActorType.Bartender,
-                LocationItems.ActorType.Interloper, LocationItems.ActorType.Interloper};
-            _locationItems.IsTypeKnown = new bool[] { false, false, false, false, false };
-            _locationItems.Sites = new string[] { "Big Ben", "Buckingham Palace", "Abbey Road" };
-            _locationItems.SiteOrder = new string[] { "Third", "Second", "First" };
-            _locationItems.Foods = new string[] { "Bangers and Mash", "Fish and Chips", "Figgy Pudding" };
-            _locationItems.FoodOrder = new string[] { "Second", "First", "Third" };
-            _locationItems.Drinks = new string[] { "Gin and Tonic", "Guinness", "Jellied Eel" };
-            _locationItems.DrinkOrder = new string[] { "Second", "First", "Third" };
-            _locationItems.IsSiteSeen = false;
-            _locationItems.IsFoodEaten = false;
-            _locationItems.IsDrinkDrunk = false;
-            _locationItems.AreAllTasksDone = false;
-            gameMap.LocationItemList.Add(_locationItems);
-            _locationItems = new LocationItems();
-            _locationItems.City = "Frankfort";
-            _locationItems.Actors = new string[] { "FJohn", "FPaul", "FGeorge", "FRingo", "FBrian" };
-            _locationItems.ActorTypes = new LocationItems.ActorType[] {LocationItems.ActorType.Driver, LocationItems.ActorType.Chef, LocationItems.ActorType.Bartender,
-                LocationItems.ActorType.Interloper, LocationItems.ActorType.Interloper};
-            _locationItems.IsTypeKnown = new bool[] { false, false, false, false, false };
-            _locationItems.Sites = new string[] { "FBig Ben", "FBuckingham Palace", "FAbbey Road" };
-            _locationItems.SiteOrder = new string[] { "Third", "Second", "First" };
-            _locationItems.Foods = new string[] { "FBangers and Mash", "FFish and Chips", "FFiggy Pudding" };
-            _locationItems.FoodOrder = new string[] { "Second", "First", "Third" };
-            _locationItems.Drinks = new string[] { "FGin and Tonic", "FGuinness", "FJellied Eel" };
-            _locationItems.DrinkOrder = new string[] { "Second", "First", "Third" };
-            _locationItems.IsSiteSeen = false;
-            _locationItems.IsFoodEaten = false;
-            _locationItems.IsDrinkDrunk = false;
-            _locationItems.AreAllTasksDone = false;
-            gameMap.LocationItemList.Add(_locationItems);
+            npc = new Npc();
+            npc.Id = 1010;
+            npc.Name = "Paul";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Chef;
+            npc.City = "London";
+            npc.KeyWords = new string[] { "cook", "feed", "prepare", "eat", "dine", "taste" };
+            npc.IdPoints = 85;
+            npc.CompletionPoints = 110;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
 
-            _locationItems = new LocationItems();
-            _locationItems.City = "Paris";
-            _locationItems.Actors = new string[] { "pJohn", "pPaul", "pGeorge", "pRingo", "pBrian" };
-            _locationItems.ActorTypes = new LocationItems.ActorType[] {LocationItems.ActorType.Driver, LocationItems.ActorType.Chef, LocationItems.ActorType.Bartender,
-                LocationItems.ActorType.Interloper, LocationItems.ActorType.Interloper};
-            _locationItems.IsTypeKnown = new bool[] { false, false, false, false, false };
-            _locationItems.Sites = new string[] { "pBig Ben", "pBuckingham Palace", "pAbbey Road" };
-            _locationItems.SiteOrder = new string[] { "Third", "Second", "First" };
-            _locationItems.Foods = new string[] { "pBangers and Mash", "pFish and Chips", "pFiggy Pudding" };
-            _locationItems.FoodOrder = new string[] { "Second", "First", "Third" };
-            _locationItems.Drinks = new string[] { "pGin and Tonic", "pGuinness", "pJellied Eel" };
-            _locationItems.DrinkOrder = new string[] { "Second", "First", "Third" };
-            _locationItems.IsSiteSeen = false;
-            _locationItems.IsFoodEaten = false;
-            _locationItems.IsDrinkDrunk = false;
-            _locationItems.AreAllTasksDone = false;
-            gameMap.LocationItemList.Add(_locationItems);
+            npc = new Npc();
+            npc.Id = 1020;
+            npc.Name = "George";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Bartender;
+            npc.City = "London";
+            npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
+            npc.IdPoints = 95;
+            npc.CompletionPoints = 120;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
 
-            _locationItems = new LocationItems();
-            _locationItems.City = "Rome";
-            _locationItems.Actors = new string[] { "rJohn", "rPaul", "rGeorge", "rRingo", "rBrian" };
-            _locationItems.ActorTypes = new LocationItems.ActorType[] {LocationItems.ActorType.Driver, LocationItems.ActorType.Chef, LocationItems.ActorType.Bartender,
-                LocationItems.ActorType.Interloper, LocationItems.ActorType.Interloper};
-            _locationItems.IsTypeKnown = new bool[] { false, false, false, false, false };
-            _locationItems.Sites = new string[] { "rBig Ben", "rBuckingham Palace", "rAbbey Road" };
-            _locationItems.SiteOrder = new string[] { "Third", "Second", "First" };
-            _locationItems.Foods = new string[] { "rBangers and Mash", "rFish and Chips", "rFiggy Pudding" };
-            _locationItems.FoodOrder = new string[] { "Second", "First", "Third" };
-            _locationItems.Drinks = new string[] { "rGin and Tonic", "rGuinness", "rJellied Eel" };
-            _locationItems.DrinkOrder = new string[] { "Second", "First", "Third" };
-            _locationItems.IsSiteSeen = false;
-            _locationItems.IsFoodEaten = false;
-            _locationItems.IsDrinkDrunk = false;
-            _locationItems.AreAllTasksDone = false;
-            gameMap.LocationItemList.Add(_locationItems);
+            npc = new Npc();
+            npc.Id = 1030;
+            npc.Name = "Ringo";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.InterloperMinor;
+            npc.City = "London";
+            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.IdPoints = 105;
+            npc.CompletionPoints = 200;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
 
-            _locationItems = new LocationItems();
-            _locationItems.City = "Warsaw";
-            _locationItems.Actors = new string[] { "wFJohn", "wFPaul", "wFGeorge", "wFRingo", "wFBrian" };
-            _locationItems.ActorTypes = new LocationItems.ActorType[] {LocationItems.ActorType.Driver, LocationItems.ActorType.Chef, LocationItems.ActorType.Bartender,
-                LocationItems.ActorType.Interloper, LocationItems.ActorType.Interloper};
-            _locationItems.IsTypeKnown = new bool[] { false, false, false, false, false };
-            _locationItems.Sites = new string[] { "wFBig Ben", "wFBuckingham Palace", "wFAbbey Road" };
-            _locationItems.SiteOrder = new string[] { "Third", "Second", "First" };
-            _locationItems.Foods = new string[] { "wFBangers and Mash", "wFFish and Chips", "wFFiggy Pudding" };
-            _locationItems.FoodOrder = new string[] { "Second", "First", "Third" };
-            _locationItems.Drinks = new string[] { "wFGin and Tonic", "wFGuinness", "wFJellied Eel" };
-            _locationItems.DrinkOrder = new string[] { "Second", "First", "Third" };
-            _locationItems.IsSiteSeen = false;
-            _locationItems.IsFoodEaten = false;
-            _locationItems.IsDrinkDrunk = false;
-            _locationItems.AreAllTasksDone = false;
-            gameMap.LocationItemList.Add(_locationItems);
+            npc = new Npc();
+            npc.Id = 1040;
+            npc.Name = "Brian";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.InterloperMajor;
+            npc.City = "London";
+            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.IdPoints = 125;
+            npc.CompletionPoints = 230;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+            //
+            // actors for next city
+            //
+            npc = new Npc();
+            npc.Id = 2000;
+            npc.Name = "Astrid";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Driver;
+            npc.City = "Frankfort";
+            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift" };
+            npc.IdPoints = 75;
+            npc.CompletionPoints = 100;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
 
-            _locationItems = new LocationItems();
-            _locationItems.City = "Athens";
-            _locationItems.Actors = new string[] { "aFJohn", "aFPaul", "aFGeorge", "aFRingo", "aFBrian" };
-            _locationItems.ActorTypes = new LocationItems.ActorType[] {LocationItems.ActorType.Driver, LocationItems.ActorType.Chef, LocationItems.ActorType.Bartender,
-                LocationItems.ActorType.Interloper, LocationItems.ActorType.Interloper};
-            _locationItems.IsTypeKnown = new bool[] { false, false, false, false, false };
-            _locationItems.Sites = new string[] { "aFBig Ben", "aFBuckingham Palace", "aFAbbey Road" };
-            _locationItems.SiteOrder = new string[] { "Third", "Second", "First" };
-            _locationItems.Foods = new string[] { "aFBangers and Mash", "aFFish and Chips", "aFFiggy Pudding" };
-            _locationItems.FoodOrder = new string[] { "Second", "First", "Third" };
-            _locationItems.Drinks = new string[] { "aFGin and Tonic", "aFGuinness", "aFJellied Eel" };
-            _locationItems.DrinkOrder = new string[] { "Second", "First", "Third" };
-            _locationItems.IsSiteSeen = false;
-            _locationItems.IsFoodEaten = false;
-            _locationItems.IsDrinkDrunk = false;
-            _locationItems.AreAllTasksDone = false;
-            gameMap.LocationItemList.Add(_locationItems);
+            npc = new Npc();
+            npc.Id = 2010;
+            npc.Name = "Gretel";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Chef;
+            npc.City = "Frankfort";
+            npc.KeyWords = new string[] { "cook", "feed", "prepare", "eat", "dine", "taste" };
+            npc.IdPoints = 85;
+            npc.CompletionPoints = 110;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
 
-            gameMap.CurrentLocationItems = gameMap.LocationItemList[0];
+            npc = new Npc();
+            npc.Id = 2020;
+            npc.Name = "Jurgen";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Bartender;
+            npc.City = "Frankfort";
+            npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
+            npc.IdPoints = 95;
+            npc.CompletionPoints = 120;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 2030;
+            npc.Name = "Hans";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.InterloperMinor;
+            npc.City = "Frankfort";
+            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.IdPoints = 105;
+            npc.CompletionPoints = 200;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 2040;
+            npc.Name = "Adolph";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.InterloperMajor;
+            npc.City = "Frankfort";
+            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.IdPoints = 125;
+            npc.CompletionPoints = 230;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+            //
+            // actors for next city
+            //
+            npc = new Npc();
+            npc.Id = 1000;
+            npc.Name = "Pohn";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Driver;
+            npc.City = "Paris";
+            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift" };
+            npc.IdPoints = 75;
+            npc.CompletionPoints = 100;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1010;
+            npc.Name = "PPul";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Chef;
+            npc.City = "Paris";
+            npc.KeyWords = new string[] { "cook", "feed", "prepare", "eat", "dine", "taste" };
+            npc.IdPoints = 85;
+            npc.CompletionPoints = 110;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1020;
+            npc.Name = "Peorge";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Bartender;
+            npc.City = "Paris";
+            npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
+            npc.IdPoints = 95;
+            npc.CompletionPoints = 120;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1030;
+            npc.Name = "Pingo";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.InterloperMinor;
+            npc.City = "Paris";
+            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.IdPoints = 105;
+            npc.CompletionPoints = 200;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1040;
+            npc.Name = "Prian";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.InterloperMajor;
+            npc.City = "Paris";
+            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.IdPoints = 125;
+            npc.CompletionPoints = 230;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+            //
+            // actors for next city
+            //
+            npc = new Npc();
+            npc.Id = 1000;
+            npc.Name = "Rohn";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Driver;
+            npc.City = "Rome";
+            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift" };
+            npc.IdPoints = 75;
+            npc.CompletionPoints = 100;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1010;
+            npc.Name = "Raul";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Chef;
+            npc.City = "Rome";
+            npc.KeyWords = new string[] { "cook", "feed", "prepare", "eat", "dine", "taste" };
+            npc.IdPoints = 85;
+            npc.CompletionPoints = 110;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1020;
+            npc.Name = "Reorge";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Bartender;
+            npc.City = "Rome";
+            npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
+            npc.IdPoints = 95;
+            npc.CompletionPoints = 120;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1030;
+            npc.Name = "RPingo";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.InterloperMinor;
+            npc.City = "Rome";
+            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.IdPoints = 105;
+            npc.CompletionPoints = 200;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1040;
+            npc.Name = "Rrian";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.InterloperMajor;
+            npc.City = "Rome";
+            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.IdPoints = 125;
+            npc.CompletionPoints = 230;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+            //
+            // actors for next city
+            //
+            npc = new Npc();
+            npc.Id = 1000;
+            npc.Name = "Wohn";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Driver;
+            npc.City = "Warsaw";
+            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift" };
+            npc.IdPoints = 75;
+            npc.CompletionPoints = 100;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1010;
+            npc.Name = "Waul";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Chef;
+            npc.City = "Warsaw";
+            npc.KeyWords = new string[] { "cook", "feed", "prepare", "eat", "dine", "taste" };
+            npc.IdPoints = 85;
+            npc.CompletionPoints = 110;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1020;
+            npc.Name = "Weorge";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Bartender;
+            npc.City = "Warsaw";
+            npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
+            npc.IdPoints = 95;
+            npc.CompletionPoints = 120;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1030;
+            npc.Name = "Wingo";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.InterloperMinor;
+            npc.City = "Warsaw";
+            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.IdPoints = 105;
+            npc.CompletionPoints = 200;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1040;
+            npc.Name = "Wrian";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.InterloperMajor;
+            npc.City = "Warsaw";
+            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.IdPoints = 125;
+            npc.CompletionPoints = 230;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+            //
+            // actors for next city
+            //
+            npc = new Npc();
+            npc.Id = 1000;
+            npc.Name = "Aohn";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Driver;
+            npc.City = "Athens";
+            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift" };
+            npc.IdPoints = 75;
+            npc.CompletionPoints = 100;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1010;
+            npc.Name = "Aaul";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Chef;
+            npc.City = "Athens";
+            npc.KeyWords = new string[] { "cook", "feed", "prepare", "eat", "dine", "taste" };
+            npc.IdPoints = 85;
+            npc.CompletionPoints = 110;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1020;
+            npc.Name = "Aeorge";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.Bartender;
+            npc.City = "Athens";
+            npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
+            npc.IdPoints = 95;
+            npc.CompletionPoints = 120;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1030;
+            npc.Name = "Aingo";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.InterloperMinor;
+            npc.City = "Athens";
+            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.IdPoints = 105;
+            npc.CompletionPoints = 200;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1040;
+            npc.Name = "Arian";
+            npc.Language = "English";
+            npc.ActorType = Npc.NpcType.InterloperMajor;
+            npc.City = "Athens";
+            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.IdPoints = 125;
+            npc.CompletionPoints = 230;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+            //
+            // Load Items - Foods, Drinks, Sites, and Battles
+            //
+            Item item = new Item();
+            item.Name = "Bangers and Mash";
+            item.Type = Item.ItemType.Food;
+            item.City = "London";
+            item.KeyWords = new string[] { "bangers", "mash", "sausage", "mashed potatoes", "potatoes" };
+            item.Points = 73;
+            item.Servings = 0;
+            item.Limit = 2;
+            item.Diminish = .75;
+            gameMap.Items.Add(item);
+           
+            item = new Item();
+            item.Name = "Fish and Chips";
+            item.Type = Item.ItemType.Food;
+            item.City = "London";
+            item.KeyWords = new string[] { "fish", "chips", "fries", "frites", "cod" };
+            item.Points = 83;
+            item.Servings = 0;
+            item.Limit = 2;
+            item.Diminish = .75;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Figgy Pudding";
+            item.Type = Item.ItemType.Food;
+            item.City = "London";
+            item.KeyWords = new string[] { "fig", "pudding" };
+            item.Points = 93;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Big Ben";
+            item.Type = Item.ItemType.Site;
+            item.City = "London";
+            item.KeyWords = new string[] { "ben", "clock" };
+            item.Points = 74;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Buckingham Palace";
+            item.Type = Item.ItemType.Site;
+            item.City = "London";
+            item.KeyWords = new string[] { "Buckingham", "buckingham", "palace", "castle", "queen lives", "soldier", "guard"};
+            item.Points = 84;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Abbey Road";
+            item.Type = Item.ItemType.Site;
+            item.City = "London";
+            item.KeyWords = new string[] { "Abbey", "Beatles", "beatles", "album" };
+            item.Points = 94;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Gin and Tonic";
+            item.Type = Item.ItemType.Drink;
+            item.City = "London";
+            item.KeyWords = new string[] { "gin and tonic", "gin", "Beefeaters", "Tanqueray" };
+            item.Points = 77;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Guinness";
+            item.Type = Item.ItemType.Drink;
+            item.City = "London";
+            item.KeyWords = new string[] { "guinness", "dark beer", "stout", "pint" };
+            item.Points = 87;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Jellied Eel";
+            item.Type = Item.ItemType.Drink;
+            item.City = "London";
+            item.KeyWords = new string[] { "jellied", "eel", };
+            item.Points = 107;
+            item.Servings = 0;
+            item.Limit = 2;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Loudspeaker";
+            item.Type = Item.ItemType.BattleMinor;
+            item.City = "London";
+            item.KeyWords = new string[] { "loudspeaker", "speaker", "yell", "raise your voice", "protest" };
+            item.Points = 175;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Knife";
+            item.Type = Item.ItemType.BattleMajor;
+            item.City = "London";
+            item.KeyWords = new string[] { "knife", "sharp", "shiv", "dagger", "sword" };
+            item.Points = 275;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            //
+            // add items for next city
+            //
+            item = new Item();
+            item.Name = "Bratwurst";
+            item.Type = Item.ItemType.Food;
+            item.City = "Frankfort";
+            item.KeyWords = new string[] { "brats", "sausage", "Brats", "Sausage" };
+            item.Points = 50;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Wiener Schnitzel";
+            item.Type = Item.ItemType.Food;
+            item.City = "Frankfort";
+            item.KeyWords = new string[] { "veal", "wiener", "weiner", "schnitzel", "snitzel" };
+            item.Points = 60;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "pretzel";
+            item.Type = Item.ItemType.Food;
+            item.City = "Frankfort";
+            item.KeyWords = new string[] { "pretzel"};
+            item.Points = 70;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Christmas Market";
+            item.Type = Item.ItemType.Site;
+            item.City = "Frankfort";
+            item.KeyWords = new string[] { "market", "christmas", "xmas" };
+            item.Points = 61;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Romerberg";
+            item.Type = Item.ItemType.Site;
+            item.City = "Frankfort";
+            item.KeyWords = new string[] { "romerberg", "old town", "center", "square"};
+            item.Points = 71;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Stadel";
+            item.Type = Item.ItemType.Site;
+            item.City = "Frankfort";
+            item.KeyWords = new string[] { "stadel", "museum", "art" };
+            item.Points = 81;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Pilsner";
+            item.Type = Item.ItemType.Drink;
+            item.City = "Frankfort";
+            item.KeyWords = new string[] { "pilsner", "beer", "pils", "lager" };
+            item.Points = 72;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Spezi";
+            item.Type = Item.ItemType.Drink;
+            item.City = "Frankfort";
+            item.KeyWords = new string[] { "spezi", "orange", "cola" };
+            item.Points = 82;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Riesling";
+            item.Type = Item.ItemType.Drink;
+            item.City = "Frankfort";
+            item.KeyWords = new string[] { "riesling", "sweet wine", "white wine" };
+            item.Points = 92;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Loudspeaker";
+            item.Type = Item.ItemType.BattleMinor;
+            item.City = "Frankfort";
+            item.KeyWords = new string[] { "loudspeaker", "speaker", "yell", "raise your voice", "protest" };
+            item.Points = 175;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "Knife";
+            item.Type = Item.ItemType.BattleMajor;
+            item.City = "Frankfort";
+            item.KeyWords = new string[] { "knife", "sharp", "shiv", "dagger", "sword" };
+            item.Points = 275;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            //
+            // add items for next city
+            //
+            item = new Item();
+            item.Name = "pBratwurst";
+            item.Type = Item.ItemType.Food;
+            item.City = "Paris";
+            item.KeyWords = new string[] { "brats", "sausage", "Brats", "Sausage" };
+            item.Points = 50;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "pWiener Schnitzel";
+            item.Type = Item.ItemType.Food;
+            item.City = "Paris";
+            item.KeyWords = new string[] { "veal", "wiener", "weiner", "schnitzel", "snitzel" };
+            item.Points = 60;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "ppretzel";
+            item.Type = Item.ItemType.Food;
+            item.City = "Paris";
+            item.KeyWords = new string[] { "pretzel" };
+            item.Points = 70;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "pChristmas Market";
+            item.Type = Item.ItemType.Site;
+            item.City = "Paris";
+            item.KeyWords = new string[] { "market", "christmas", "xmas" };
+            item.Points = 61;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "pRomerberg";
+            item.Type = Item.ItemType.Site;
+            item.City = "Paris";
+            item.KeyWords = new string[] { "romerberg", "old town", "center", "square" };
+            item.Points = 71;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "pStadel";
+            item.Type = Item.ItemType.Site;
+            item.City = "Paris";
+            item.KeyWords = new string[] { "stadel", "museum", "art" };
+            item.Points = 81;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "pPilsner";
+            item.Type = Item.ItemType.Drink;
+            item.City = "Paris";
+            item.KeyWords = new string[] { "pilsner", "beer", "pils", "lager" };
+            item.Points = 72;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "pSpezi";
+            item.Type = Item.ItemType.Drink;
+            item.City = "Paris";
+            item.KeyWords = new string[] { "spezi", "orange", "cola" };
+            item.Points = 82;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "pRiesling";
+            item.Type = Item.ItemType.Drink;
+            item.City = "Paris";
+            item.KeyWords = new string[] { "riesling", "sweet wine", "white wine" };
+            item.Points = 92;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "pLoudspeaker";
+            item.Type = Item.ItemType.BattleMinor;
+            item.City = "Paris";
+            item.KeyWords = new string[] { "loudspeaker", "speaker", "yell", "raise your voice", "protest" };
+            item.Points = 175;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "pKnife";
+            item.Type = Item.ItemType.BattleMajor;
+            item.City = "Paris";
+            item.KeyWords = new string[] { "knife", "sharp", "shiv", "dagger", "sword" };
+            item.Points = 275;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            //
+            // add items for next city
+            //
+            item = new Item();
+            item.Name = "rBratwurst";
+            item.Type = Item.ItemType.Food;
+            item.City = "Rome";
+            item.KeyWords = new string[] { "brats", "sausage", "Brats", "Sausage" };
+            item.Points = 50;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "rWiener Schnitzel";
+            item.Type = Item.ItemType.Food;
+            item.City = "Rome";
+            item.KeyWords = new string[] { "veal", "wiener", "weiner", "schnitzel", "snitzel" };
+            item.Points = 60;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "rpretzel";
+            item.Type = Item.ItemType.Food;
+            item.City = "Rome";
+            item.KeyWords = new string[] { "pretzel" };
+            item.Points = 70;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "rChristmas Market";
+            item.Type = Item.ItemType.Site;
+            item.City = "Rome";
+            item.KeyWords = new string[] { "market", "christmas", "xmas" };
+            item.Points = 61;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "rRomerberg";
+            item.Type = Item.ItemType.Site;
+            item.City = "Rome";
+            item.KeyWords = new string[] { "romerberg", "old town", "center", "square" };
+            item.Points = 71;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "rStadel";
+            item.Type = Item.ItemType.Site;
+            item.City = "Rome";
+            item.KeyWords = new string[] { "stadel", "museum", "art" };
+            item.Points = 81;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "rPilsner";
+            item.Type = Item.ItemType.Drink;
+            item.City = "Rome";
+            item.KeyWords = new string[] { "pilsner", "beer", "pils", "lager" };
+            item.Points = 72;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "rSpezi";
+            item.Type = Item.ItemType.Drink;
+            item.City = "Rome";
+            item.KeyWords = new string[] { "spezi", "orange", "cola" };
+            item.Points = 82;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "rRiesling";
+            item.Type = Item.ItemType.Drink;
+            item.City = "Rome";
+            item.KeyWords = new string[] { "riesling", "sweet wine", "white wine" };
+            item.Points = 92;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "rLoudspeaker";
+            item.Type = Item.ItemType.BattleMinor;
+            item.City = "Rome";
+            item.KeyWords = new string[] { "loudspeaker", "speaker", "yell", "raise your voice", "protest" };
+            item.Points = 175;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "rKnife";
+            item.Type = Item.ItemType.BattleMajor;
+            item.City = "Rome";
+            item.KeyWords = new string[] { "knife", "sharp", "shiv", "dagger", "sword" };
+            item.Points = 275;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            //
+            // add items for next city
+            //
+            item = new Item();
+            item.Name = "wBratwurst";
+            item.Type = Item.ItemType.Food;
+            item.City = "Warsaw";
+            item.KeyWords = new string[] { "brats", "sausage", "Brats", "Sausage" };
+            item.Points = 50;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "wWiener Schnitzel";
+            item.Type = Item.ItemType.Food;
+            item.City = "Warsaw";
+            item.KeyWords = new string[] { "veal", "wiener", "weiner", "schnitzel", "snitzel" };
+            item.Points = 60;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "wpretzel";
+            item.Type = Item.ItemType.Food;
+            item.City = "Warsaw";
+            item.KeyWords = new string[] { "pretzel" };
+            item.Points = 70;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "wChristmas Market";
+            item.Type = Item.ItemType.Site;
+            item.City = "Warsaw";
+            item.KeyWords = new string[] { "market", "christmas", "xmas" };
+            item.Points = 61;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "wRomerberg";
+            item.Type = Item.ItemType.Site;
+            item.City = "Warsaw";
+            item.KeyWords = new string[] { "romerberg", "old town", "center", "square" };
+            item.Points = 71;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "wStadel";
+            item.Type = Item.ItemType.Site;
+            item.City = "Warsaw";
+            item.KeyWords = new string[] { "stadel", "museum", "art" };
+            item.Points = 81;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "wPilsner";
+            item.Type = Item.ItemType.Drink;
+            item.City = "Warsaw";
+            item.KeyWords = new string[] { "pilsner", "beer", "pils", "lager" };
+            item.Points = 72;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "wSpezi";
+            item.Type = Item.ItemType.Drink;
+            item.City = "Warsaw";
+            item.KeyWords = new string[] { "spezi", "orange", "cola" };
+            item.Points = 82;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "wRiesling";
+            item.Type = Item.ItemType.Drink;
+            item.City = "Warsaw";
+            item.KeyWords = new string[] { "riesling", "sweet wine", "white wine" };
+            item.Points = 92;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "wLoudspeaker";
+            item.Type = Item.ItemType.BattleMinor;
+            item.City = "Warsaw";
+            item.KeyWords = new string[] { "loudspeaker", "speaker", "yell", "raise your voice", "protest" };
+            item.Points = 175;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "wKnife";
+            item.Type = Item.ItemType.BattleMajor;
+            item.City = "Warsaw";
+            item.KeyWords = new string[] { "knife", "sharp", "shiv", "dagger", "sword" };
+            item.Points = 275;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            //
+            // add items for next city
+            //
+            item = new Item();
+            item.Name = "aBratwurst";
+            item.Type = Item.ItemType.Food;
+            item.City = "Athens";
+            item.KeyWords = new string[] { "brats", "sausage", "Brats", "Sausage" };
+            item.Points = 50;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "aWiener Schnitzel";
+            item.Type = Item.ItemType.Food;
+            item.City = "Athens";
+            item.KeyWords = new string[] { "veal", "wiener", "weiner", "schnitzel", "snitzel" };
+            item.Points = 60;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "apretzel";
+            item.Type = Item.ItemType.Food;
+            item.City = "Athens";
+            item.KeyWords = new string[] { "pretzel" };
+            item.Points = 70;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "aChristmas Market";
+            item.Type = Item.ItemType.Site;
+            item.City = "Athens";
+            item.KeyWords = new string[] { "market", "christmas", "xmas" };
+            item.Points = 61;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "aRomerberg";
+            item.Type = Item.ItemType.Site;
+            item.City = "Athens";
+            item.KeyWords = new string[] { "romerberg", "old town", "center", "square" };
+            item.Points = 71;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "aStadel";
+            item.Type = Item.ItemType.Site;
+            item.City = "Athens";
+            item.KeyWords = new string[] { "stadel", "museum", "art" };
+            item.Points = 81;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "aPilsner";
+            item.Type = Item.ItemType.Drink;
+            item.City = "Athens";
+            item.KeyWords = new string[] { "pilsner", "beer", "pils", "lager" };
+            item.Points = 72;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "aSpezi";
+            item.Type = Item.ItemType.Drink;
+            item.City = "Athens";
+            item.KeyWords = new string[] { "spezi", "orange", "cola" };
+            item.Points = 82;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "aRiesling";
+            item.Type = Item.ItemType.Drink;
+            item.City = "Athens";
+            item.KeyWords = new string[] { "riesling", "sweet wine", "white wine" };
+            item.Points = 92;
+            item.Servings = 0;
+            item.Limit = 3;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "aLoudspeaker";
+            item.Type = Item.ItemType.BattleMinor;
+            item.City = "Athens";
+            item.KeyWords = new string[] { "loudspeaker", "speaker", "yell", "raise your voice", "protest" };
+            item.Points = 175;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            item = new Item();
+            item.Name = "aKnife";
+            item.Type = Item.ItemType.BattleMajor;
+            item.City = "Athens";
+            item.KeyWords = new string[] { "knife", "sharp", "shiv", "dagger", "sword" };
+            item.Points = 275;
+            item.Servings = 0;
+            item.Limit = 1;
+            item.Diminish = .9;
+            gameMap.Items.Add(item);
+
+            GameStat gameStat = new GameStat();
+            gameStat.Name = "GNB";
+            gameStat.Startdate = new DateTime(2021, 03, 01, 08, 01, 02);
+            gameStat.Enddate = new DateTime(2021, 03, 01, 09, 01, 02);
+            gameStat.Score = 1015;
+            gameStat.Liveslost = 2;
+            gameMap.GameStats.Add(gameStat);
+
+            gameStat = new GameStat();
+            gameStat.Name = "GNB";
+            gameStat.Startdate = new DateTime(2021, 03, 02, 09, 01, 02);
+            gameStat.Enddate = new DateTime(2021, 03, 02, 10, 01, 02);
+            gameStat.Score = 1027;
+            gameStat.Liveslost = 2;
+            gameMap.GameStats.Add(gameStat);
+
+            gameStat = new GameStat();
+            gameStat.Name = "HAK";
+            gameStat.Startdate = new DateTime(2021, 03, 01, 11, 01, 02);
+            gameStat.Enddate = new DateTime(2021, 03, 01, 12, 01, 02);
+            gameStat.Score = 850;
+            gameStat.Liveslost = 3;
+            gameMap.GameStats.Add(gameStat);
+
+            gameStat = new GameStat();
+            gameStat.Name = "GNB";
+            gameStat.Startdate = new DateTime(2021, 03, 03, 09, 31, 02);
+            gameStat.Enddate = new DateTime(2021, 03, 03, 10, 41, 02);
+            gameStat.Score = 905;
+            gameStat.Liveslost = 4;
+            gameMap.GameStats.Add(gameStat);
+
+            gameStat = new GameStat();
+            gameStat.Name = "HAK";
+            gameStat.Startdate = new DateTime(2021, 03, 04, 11, 01, 02);
+            gameStat.Enddate = new DateTime(2021, 03, 04, 11, 59, 02);
+            gameStat.Score = 1999;
+            gameStat.Liveslost = 1;
+            gameMap.GameStats.Add(gameStat);
+
+            gameStat = new GameStat();
+            gameStat.Name = "GNB";
+            gameStat.Startdate = new DateTime(2021, 03, 05, 06, 01, 02);
+            gameStat.Enddate = new DateTime(2021, 03, 05, 07, 01, 02);
+            gameStat.Score = 1158;
+            gameStat.Liveslost = 1;
+            gameMap.GameStats.Add(gameStat);
+
 
             return gameMap;
 
@@ -360,7 +1331,7 @@ namespace TravelGame.Data
             _gameStat.Score = 1015;
             _gameStat.Liveslost = 2;
             gameHistory.GameStats.Add(_gameStat);
-
+            
             _gameStat = new GameStat();
             _gameStat.Name = "GNB";
             _gameStat.Startdate = new DateTime(2021, 03, 02, 09, 01, 02);
@@ -401,7 +1372,10 @@ namespace TravelGame.Data
             _gameStat.Liveslost = 1;
             gameHistory.GameStats.Add(_gameStat);
 
+            
+
             return gameHistory;
         }
+        
     }
 }

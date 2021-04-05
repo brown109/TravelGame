@@ -38,10 +38,6 @@ namespace TravelGame.Presentation
                 case "Help":
                     ShowHelp();
                     break;
-                case "TopScores":
-                    MessageBox.Show("Top Scores isn't ready yet");
-                    //     ShowTopScores();
-                    break;
                 case "MyScores":
                     MessageBox.Show("My Scores isn't ready yet");
                     break;
@@ -60,8 +56,6 @@ namespace TravelGame.Presentation
             // will need to prepare everything for a new location. 
             //
             _controlWindowModel.CheckMove(windowButton.Tag.ToString());
-            
-
         }
         public void InteractionAreaButton_Click(object sender, RoutedEventArgs e)
         {
@@ -70,8 +64,17 @@ namespace TravelGame.Presentation
             // will need to build out display of actors, sites, fodds or drinks 
             //
             _controlWindowModel.CheckDisplay(windowButton.Tag.ToString());
+        }
+        public void GameCommandSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            Button windowButton = sender as Button;
+            //
+            // will need to build out display of actors, sites, fodds or drinks 
+            //
+            _controlWindowModel.CheckCommand(GameCommand.Text.ToString());
 
-
+            GameCommand.Text = "";
+            
         }
         private void ShowHelp()
         {
@@ -82,12 +85,5 @@ namespace TravelGame.Presentation
             helpWindow.Close();
 
         }
-        private void ShowTopScores()
-        {
-            //
-            // change
-            //
-        }
-
     }
 }

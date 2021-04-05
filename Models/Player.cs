@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
-    public class Player : ObservableObject
+    public class Player : Actor
     {
         private DateTime _startDate;
-        private string _name;
         private int _experience;
         private int _bestscore;
         private double _visits;
@@ -17,6 +16,11 @@ namespace TravelGame.Models
         private int _liveslost;
         private int _totalscore;
         private string _currentcity;
+        private string _playerMessage;
+        private string _lastActorType;
+        private string _lastActor;
+        private string _lastItemType;
+        private string _lastItem;
 
         public DateTime StartDate
         {
@@ -24,11 +28,6 @@ namespace TravelGame.Models
             set { _startDate = value; }
         }
         
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
         public int Experience
         {
             get { return _experience; }
@@ -64,15 +63,40 @@ namespace TravelGame.Models
             get { return _currentcity; }
             set { _currentcity = value; }
         }
+        public string PlayerMessage
+        {
+            get { return _playerMessage; }
+            set { _playerMessage = value; }
+        }
+        public string LastActorType
+        {
+            get { return _lastActorType; }
+            set { _lastActorType = value; }
+        }
+        public string LastActor
+        {
+            get { return _lastActor; }
+            set { _lastActor = value; }
+        }
+        public string LastItemType
+        {
+            get { return _lastItemType; }
+            set { _lastItemType = value; }
+        }
+        public string LastItem
+        {
+            get { return _lastItem; }
+            set { _lastItem = value; }
+        }
         public Player()
         {
 
         }
         
-        public Player(DateTime startdate, string name, int experience, int bestscore, double visits, double tasks, int liveslost, int totalscore, string currentcity)
+        public Player(DateTime startdate, int experience, int bestscore, double visits, double tasks, int liveslost, int totalscore, string currentcity, string playerMessage,
+            string lastActorType, string lastActor, string lastItemType, string lastItem)
         {
             _startDate = startdate;
-            _name = name;
             _experience = experience;
             _bestscore = bestscore;
             _visits = visits;
@@ -80,6 +104,11 @@ namespace TravelGame.Models
             _liveslost = liveslost;
             _totalscore = totalscore;
             _currentcity = currentcity;
+            _playerMessage = playerMessage;
+            _lastActorType = lastActorType;
+            _lastActor = lastActor;
+            _lastItemType = lastItemType;
+            _lastItem = lastItem;
         }
 
     }

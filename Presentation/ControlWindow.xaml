@@ -97,6 +97,28 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="MainPanelCommandStyle" TargetType="TextBox">
+            <Setter Property="Foreground" Value="MidnightBlue"/>
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Padding" Value="3,0,0,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border 
+                            Background="{TemplateBinding Background}"   
+                            x:Name="Bd" 
+                            BorderBrush="Black"  
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="MainPanelCheckBoxStyle" TargetType="TextBox">
             <Setter Property="Foreground" Value="MidnightBlue"/>
             <Setter Property="Width" Value="30"/>
@@ -133,7 +155,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <Border
                     Grid.Row="0"
@@ -277,36 +299,20 @@
                             <Label Content="" Style="{StaticResource MainPanelLabelStyle}"/>
                         </StackPanel>
                         <UniformGrid
-                            Width="350"
-                            Height="350"
-                            Rows="6"
-                            Columns="4">
-                            <TextBox Name="CheckItem0" Style="{StaticResource MainPanelCheckBoxStyle}"/>
-                            <Label Tag="00" Content="{Binding CurrentDisplayItems.Item[0]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="01" Content="{Binding CurrentDisplayItems.Description[0]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="02" Content="{Binding CurrentDisplayItems.Status[0]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <TextBox Name="CheckItem1" Style="{StaticResource MainPanelCheckBoxStyle}"/>
-                            <Label Tag="10" Content="{Binding CurrentDisplayItems.Item[1]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="11" Content="{Binding CurrentDisplayItems.Description[1]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="12" Content="{Binding CurrentDisplayItems.Status[1]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <TextBox Name="CheckItem2" Style="{StaticResource MainPanelCheckBoxStyle}"/>
-                            <Label Tag="20" Content="{Binding CurrentDisplayItems.Item[2]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="21" Content="{Binding CurrentDisplayItems.Description[2]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="22" Content="{Binding CurrentDisplayItems.Status[2]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <TextBox Name="CheckItem3" Style="{StaticResource MainPanelCheckBoxStyle}"/>
-                            <Label Tag="30" Content="{Binding CurrentDisplayItems.Item[3]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="31" Content="{Binding CurrentDisplayItems.Description[3]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="32" Content="{Binding CurrentDisplayItems.Status[3]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <TextBox Name="CheckItem4" Style="{StaticResource MainPanelCheckBoxStyle}"/>
-                            <Label Tag="40" Content="{Binding CurrentDisplayItems.Item[4]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="41" Content="{Binding CurrentDisplayItems.Description[4]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="42" Content="{Binding CurrentDisplayItems.Status[4]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <TextBox Name="CheckItem5" Style="{StaticResource MainPanelCheckBoxStyle}"/>
-                            <Label Tag="50" Content="{Binding CurrentDisplayItems.Item[5]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="51" Content="{Binding CurrentDisplayItems.Description[5]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="52" Content="{Binding CurrentDisplayItems.Status[5]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            Width="370"
+                            Height="550"
+                            Rows="10"
+                            Columns="1">
+                            
+                            <Label Tag="00" Content="{Binding CurrentDisplayItems.DisplayLine[0]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="10" Content="{Binding CurrentDisplayItems.DisplayLine[1]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="20" Content="{Binding CurrentDisplayItems.DisplayLine[2]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="30" Content="{Binding CurrentDisplayItems.DisplayLine[3]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="40" Content="{Binding CurrentDisplayItems.DisplayLine[4]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="50" Content="{Binding CurrentDisplayItems.DisplayLine[5]}" Style="{StaticResource MainPanelLabelStyle}"/>
                             
                         </UniformGrid>
+                        
                         
                     </StackPanel>
 
@@ -337,54 +343,21 @@
                             <Label Content="" Style="{StaticResource MainPanelLabelStyle}"/>
                         </StackPanel>
                         <UniformGrid
-                            Width="300"
-                            Height="350"
-                            Rows="7"
-                            Columns="6">
-                            <Label Tag="00" Content="{Binding CurrentDisplayTasks.City[0]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="01" Content="{Binding CurrentDisplayTasks.DidYouEat[0]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="02" Content="{Binding CurrentDisplayTasks.DidYouDrink[0]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="03" Content="{Binding CurrentDisplayTasks.DidYouTour[0]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="04" Content="{Binding CurrentDisplayTasks.DidYouBattle1[0]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="05" Content="{Binding CurrentDisplayTasks.DidYouBattle2[0]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="10" Content="{Binding CurrentDisplayTasks.City[1]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="11" Content="{Binding CurrentDisplayTasks.DidYouEat[1]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="12" Content="{Binding CurrentDisplayTasks.DidYouDrink[1]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="13" Content="{Binding CurrentDisplayTasks.DidYouTour[1]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="14" Content="{Binding CurrentDisplayTasks.DidYouBattle1[1]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="15" Content="{Binding CurrentDisplayTasks.DidYouBattle2[1]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="20" Content="{Binding CurrentDisplayTasks.City[2]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="21" Content="{Binding CurrentDisplayTasks.DidYouEat[2]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="22" Content="{Binding CurrentDisplayTasks.DidYouDrink[2]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="23" Content="{Binding CurrentDisplayTasks.DidYouTour[2]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="24" Content="{Binding CurrentDisplayTasks.DidYouBattle1[2]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="25" Content="{Binding CurrentDisplayTasks.DidYouBattle2[2]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="30" Content="{Binding CurrentDisplayTasks.City[3]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="31" Content="{Binding CurrentDisplayTasks.DidYouEat[3]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="32" Content="{Binding CurrentDisplayTasks.DidYouDrink[3]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="33" Content="{Binding CurrentDisplayTasks.DidYouTour[3]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="34" Content="{Binding CurrentDisplayTasks.DidYouBattle1[3]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="35" Content="{Binding CurrentDisplayTasks.DidYouBattle2[3]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="40" Content="{Binding CurrentDisplayTasks.City[4]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="41" Content="{Binding CurrentDisplayTasks.DidYouEat[4]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="42" Content="{Binding CurrentDisplayTasks.DidYouDrink[4]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="43" Content="{Binding CurrentDisplayTasks.DidYouTour[4]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="44" Content="{Binding CurrentDisplayTasks.DidYouBattle1[4]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="45" Content="{Binding CurrentDisplayTasks.DidYouBattle2[4]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="50" Content="{Binding CurrentDisplayTasks.City[5]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="51" Content="{Binding CurrentDisplayTasks.DidYouEat[5]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="52" Content="{Binding CurrentDisplayTasks.DidYouDrink[5]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="53" Content="{Binding CurrentDisplayTasks.DidYouTour[5]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="54" Content="{Binding CurrentDisplayTasks.DidYouBattle1[5]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="55" Content="{Binding CurrentDisplayTasks.DidYouBattle2[5]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="60" Content="{Binding CurrentDisplayTasks.City[6]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="61" Content="{Binding CurrentDisplayTasks.DidYouEat[6]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="62" Content="{Binding CurrentDisplayTasks.DidYouDrink[6]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="63" Content="{Binding CurrentDisplayTasks.DidYouTour[6]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="64" Content="{Binding CurrentDisplayTasks.DidYouBattle1[6]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            <Label Tag="65" Content="{Binding CurrentDisplayTasks.DidYouBattle2[6]}" Style="{StaticResource MainPanelLabelStyle}"/>
-                            
-
+                            Width="370"
+                            Height="550"
+                            Rows="10"
+                            Columns="1">
+                            <Label Tag="00" Content="{Binding CurrentDisplayTasks.DisplayLine[0]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="10" Content="{Binding CurrentDisplayTasks.DisplayLine[1]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="20" Content="{Binding CurrentDisplayTasks.DisplayLine[2]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="30" Content="{Binding CurrentDisplayTasks.DisplayLine[3]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="40" Content="{Binding CurrentDisplayTasks.DisplayLine[4]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="50" Content="{Binding CurrentDisplayTasks.DisplayLine[5]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="60" Content="{Binding CurrentDisplayTasks.DisplayLine[6]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="70" Content="{Binding CurrentDisplayTasks.DisplayLine[7]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="80" Content="{Binding CurrentDisplayTasks.DisplayLine[8]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="90" Content="{Binding CurrentDisplayTasks.DisplayLine[9]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="100" Content="{Binding CurrentDisplayTasks.DisplayLine[10]}" Style="{StaticResource MainPanelLabelStyle}"/>
                         </UniformGrid>
 
                     </StackPanel>
@@ -398,7 +371,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel
                             Grid.Column="0"
@@ -426,9 +399,15 @@
                             Grid.Column="1"
                             Orientation="Vertical">
                             <StackPanel
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Left">
+                                <Label Content="Command: " Style="{StaticResource MainPanelLabelStyle}"/>
+                                <TextBox Name="GameCommand" Style="{StaticResource MainPanelCommandStyle}"/>
+                                <Button Tag="CommandSubmit" Content="Submit" Style="{StaticResource MainPanelButtonStyle}" Click="GameCommandSubmit_Click"/>
+                            </StackPanel>
+                            <StackPanel
                                 Orientation="Horizontal">
-                                <Label Content="Command:" Style="{StaticResource MainPanelLabelStyle}"/>
-                               
+                                <TextBlock Text="{Binding Player.PlayerMessage}" Background="DarkBlue" Foreground="Red"/>
                             </StackPanel>
                             <StackPanel
                                 Orientation="Horizontal">
@@ -437,7 +416,7 @@
                             <StackPanel
                                 Orientation="Horizontal">
                                 <Button x:Name="Help" Content="Help" Style="{DynamicResource MainPanelButtonStyle}" Click="ControlWindowButton_Click"/>
-                                <Button x:Name="TopScores" Content="Top Scores" Style="{DynamicResource MainPanelButtonStyle}" Click="ControlWindowButton_Click"/>
+                                <Button Tag="Top Scores" Content="Top Scores" Style="{StaticResource MainPanelButtonStyle}" Click="InteractionAreaButton_Click"/>
                                 <Button x:Name="MyScores" Content="My Scores" Style="{DynamicResource MainPanelButtonStyle}" Click="ControlWindowButton_Click"/>
                                 <Button x:Name="Quit" Content="Quit" Style="{DynamicResource MainPanelButtonStyle}" Click="ControlWindowButton_Click"/>
                             </StackPanel>
