@@ -15,9 +15,9 @@ using TravelGame.Models;
 
 namespace TravelGame.Presentation
 {
-    /// <summary>
-    /// Interaction logic for WelcomeWindow.xaml
-    /// </summary>
+    //
+    // Interaction logic for WelcomeWindow.xaml
+    //
     public partial class WelcomeWindow : Window
     {
         private Player _player;
@@ -27,19 +27,17 @@ namespace TravelGame.Presentation
             _player = player;
             InitializeComponent();
             ErrorMessageTextBlock.Visibility = Visibility.Hidden;
-
         }
-        
-
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             // 
-            // Validate Input  
+            // Validate Input to make sure a name was entered 
             //
             string errorMessage;
             if (Isnamevalid(out errorMessage))
             {
                 _player.Name = NameTextBox.Text;
+                _player.StartDate = DateTime.Now;
                 Visibility = Visibility.Hidden;
             }
             else
@@ -56,8 +54,6 @@ namespace TravelGame.Presentation
                 errorMessage = "You must enter something for Name";
             }
             return errorMessage == "" ? true : false;
-
         }
-        
     }
 }

@@ -128,8 +128,9 @@ namespace TravelGame.Data
             npc.Name = "John";
             npc.Language = "English";
             npc.ActorType = Npc.NpcType.Driver;
+            npc.Hint = "Jaunt";
             npc.City = "London";
-            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift" };
+            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift", "see" };
             npc.IdPoints = 75;
             npc.CompletionPoints = 100;
             npc.IsIded = false;
@@ -140,6 +141,7 @@ namespace TravelGame.Data
             npc.Id = 1010;
             npc.Name = "Paul";
             npc.Language = "English";
+            npc.Hint = "Peckish";
             npc.ActorType = Npc.NpcType.Chef;
             npc.City = "London";
             npc.KeyWords = new string[] { "cook", "feed", "prepare", "eat", "dine", "taste" };
@@ -154,6 +156,7 @@ namespace TravelGame.Data
             npc.Name = "George";
             npc.Language = "English";
             npc.ActorType = Npc.NpcType.Bartender;
+            npc.Hint = "Parched";
             npc.City = "London";
             npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
             npc.IdPoints = 95;
@@ -167,8 +170,10 @@ namespace TravelGame.Data
             npc.Name = "Ringo";
             npc.Language = "English";
             npc.ActorType = Npc.NpcType.InterloperMinor;
+            npc.Hint = "Take heed";
             npc.City = "London";
-            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.KeyWords = new string[] { "Mugger", "defend" };
+            npc.HintPhrase = "Your money should be hidden in something or just run away";
             npc.IdPoints = 105;
             npc.CompletionPoints = 200;
             npc.IsIded = false;
@@ -180,8 +185,10 @@ namespace TravelGame.Data
             npc.Name = "Brian";
             npc.Language = "English";
             npc.ActorType = Npc.NpcType.InterloperMajor;
+            npc.Hint = "Take heed";
             npc.City = "London";
-            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.KeyWords = new string[] { "Spy", "attack" };
+            npc.HintPhrase = "You need to slip something in his drink, hire a hit man, or use a hypodermic needle";
             npc.IdPoints = 125;
             npc.CompletionPoints = 230;
             npc.IsIded = false;
@@ -190,24 +197,13 @@ namespace TravelGame.Data
             //
             // actors for next city
             //
-            npc = new Npc();
-            npc.Id = 2000;
-            npc.Name = "Astrid";
-            npc.Language = "English";
-            npc.ActorType = Npc.NpcType.Driver;
-            npc.City = "Frankfort";
-            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift" };
-            npc.IdPoints = 75;
-            npc.CompletionPoints = 100;
-            npc.IsIded = false;
-            npc.IsComplete = false;
-            gameMap.Npcs.Add(npc);
-
+            
             npc = new Npc();
             npc.Id = 2010;
             npc.Name = "Gretel";
-            npc.Language = "English";
+            npc.Language = "German";
             npc.ActorType = Npc.NpcType.Chef;
+            npc.Hint = "Hungrig";
             npc.City = "Frankfort";
             npc.KeyWords = new string[] { "cook", "feed", "prepare", "eat", "dine", "taste" };
             npc.IdPoints = 85;
@@ -219,25 +215,13 @@ namespace TravelGame.Data
             npc = new Npc();
             npc.Id = 2020;
             npc.Name = "Jurgen";
-            npc.Language = "English";
+            npc.Language = "German";
             npc.ActorType = Npc.NpcType.Bartender;
+            npc.Hint = "Durstig";
             npc.City = "Frankfort";
             npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
             npc.IdPoints = 95;
             npc.CompletionPoints = 120;
-            npc.IsIded = false;
-            npc.IsComplete = false;
-            gameMap.Npcs.Add(npc);
-
-            npc = new Npc();
-            npc.Id = 2030;
-            npc.Name = "Hans";
-            npc.Language = "English";
-            npc.ActorType = Npc.NpcType.InterloperMinor;
-            npc.City = "Frankfort";
-            npc.KeyWords = new string[] { "battle", "war", "attack" };
-            npc.IdPoints = 105;
-            npc.CompletionPoints = 200;
             npc.IsIded = false;
             npc.IsComplete = false;
             gameMap.Npcs.Add(npc);
@@ -245,49 +229,73 @@ namespace TravelGame.Data
             npc = new Npc();
             npc.Id = 2040;
             npc.Name = "Adolph";
-            npc.Language = "English";
+            npc.Language = "German";
             npc.ActorType = Npc.NpcType.InterloperMajor;
+            npc.Hint = "Sei vorsichtig";
             npc.City = "Frankfort";
-            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.KeyWords = new string[] { "Killer", "attack"  };
+            npc.HintPhrase = "Best just use a serious weapon";
             npc.IdPoints = 125;
             npc.CompletionPoints = 230;
             npc.IsIded = false;
             npc.IsComplete = false;
-            gameMap.Npcs.Add(npc);
-            //
-            // actors for next city
-            //
+            gameMap.Npcs.Add(npc); 
+            
             npc = new Npc();
-            npc.Id = 1000;
-            npc.Name = "Pohn";
-            npc.Language = "English";
+            npc.Id = 2000;
+            npc.Name = "Astrid";
+            npc.Language = "German";
             npc.ActorType = Npc.NpcType.Driver;
-            npc.City = "Paris";
-            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift" };
+            npc.Hint = "Rundgang";
+            npc.City = "Frankfort";
+            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift", "see" };
             npc.IdPoints = 75;
             npc.CompletionPoints = 100;
             npc.IsIded = false;
             npc.IsComplete = false;
             gameMap.Npcs.Add(npc);
+            
+            npc = new Npc();
+            npc.Id = 2030;
+            npc.Name = "Hans";
+            npc.Language = "German";
+            npc.ActorType = Npc.NpcType.InterloperMinor;
+            npc.Hint = "Sei vorsichtig";
+            npc.City = "Frankfort";
+            npc.KeyWords = new string[] { "Pickpocket", "defend" };
+            npc.HintPhrase = "Make sure your money is hidden, or in a pocket that makes noise when opened, or just get out of there";
+            npc.IdPoints = 105;
+            npc.CompletionPoints = 200;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+
+            //
+            // actors for next city
+            //
 
             npc = new Npc();
-            npc.Id = 1010;
-            npc.Name = "PPul";
-            npc.Language = "English";
-            npc.ActorType = Npc.NpcType.Chef;
+            npc.Id = 1040;
+            npc.Name = "Andre";
+            npc.Language = "French";
+            npc.ActorType = Npc.NpcType.InterloperMajor;
+            npc.Hint = "Fais attention";
             npc.City = "Paris";
-            npc.KeyWords = new string[] { "cook", "feed", "prepare", "eat", "dine", "taste" };
-            npc.IdPoints = 85;
-            npc.CompletionPoints = 110;
+            npc.KeyWords = new string[] { "Arsonist", "attack" };
+            npc.HintPhrase = "I'd just put out the fire";
+            npc.IdPoints = 125;
+            npc.CompletionPoints = 230;
             npc.IsIded = false;
             npc.IsComplete = false;
             gameMap.Npcs.Add(npc);
 
             npc = new Npc();
             npc.Id = 1020;
-            npc.Name = "Peorge";
-            npc.Language = "English";
+            npc.Name = "Elise";
+            npc.Language = "French";
             npc.ActorType = Npc.NpcType.Bartender;
+            npc.Hint = "Assoiffe";
             npc.City = "Paris";
             npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
             npc.IdPoints = 95;
@@ -297,52 +305,26 @@ namespace TravelGame.Data
             gameMap.Npcs.Add(npc);
 
             npc = new Npc();
-            npc.Id = 1030;
-            npc.Name = "Pingo";
-            npc.Language = "English";
-            npc.ActorType = Npc.NpcType.InterloperMinor;
+            npc.Id = 1000;
+            npc.Name = "Remi";
+            npc.Language = "French";
+            npc.ActorType = Npc.NpcType.Driver;
+            npc.Hint = "Visiter";
             npc.City = "Paris";
-            npc.KeyWords = new string[] { "battle", "war", "attack" };
-            npc.IdPoints = 105;
-            npc.CompletionPoints = 200;
+            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift", "see" };
+            npc.IdPoints = 75;
+            npc.CompletionPoints = 100;
             npc.IsIded = false;
             npc.IsComplete = false;
             gameMap.Npcs.Add(npc);
 
             npc = new Npc();
-            npc.Id = 1040;
-            npc.Name = "Prian";
-            npc.Language = "English";
-            npc.ActorType = Npc.NpcType.InterloperMajor;
+            npc.Id = 1010;
+            npc.Name = "Luis";
+            npc.Language = "French";
+            npc.ActorType = Npc.NpcType.Chef;
+            npc.Hint = "Affame";
             npc.City = "Paris";
-            npc.KeyWords = new string[] { "battle", "war", "attack" };
-            npc.IdPoints = 125;
-            npc.CompletionPoints = 230;
-            npc.IsIded = false;
-            npc.IsComplete = false;
-            gameMap.Npcs.Add(npc);
-            //
-            // actors for next city
-            //
-            npc = new Npc();
-            npc.Id = 1000;
-            npc.Name = "Rohn";
-            npc.Language = "English";
-            npc.ActorType = Npc.NpcType.Driver;
-            npc.City = "Rome";
-            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift" };
-            npc.IdPoints = 75;
-            npc.CompletionPoints = 100;
-            npc.IsIded = false;
-            npc.IsComplete = false;
-            gameMap.Npcs.Add(npc);
-
-            npc = new Npc();
-            npc.Id = 1010;
-            npc.Name = "Raul";
-            npc.Language = "English";
-            npc.ActorType = Npc.NpcType.Chef;
-            npc.City = "Rome";
             npc.KeyWords = new string[] { "cook", "feed", "prepare", "eat", "dine", "taste" };
             npc.IdPoints = 85;
             npc.CompletionPoints = 110;
@@ -351,10 +333,45 @@ namespace TravelGame.Data
             gameMap.Npcs.Add(npc);
 
             npc = new Npc();
+            npc.Id = 1030;
+            npc.Name = "Beau";
+            npc.Language = "French";
+            npc.ActorType = Npc.NpcType.InterloperMinor;
+            npc.Hint = "Fais attention";
+            npc.City = "Paris";
+            npc.KeyWords = new string[] { "Protestor", "defend" };
+            npc.HintPhrase = "Do something to block out the noise, or do the same thing";
+            npc.IdPoints = 105;
+            npc.CompletionPoints = 200;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            //
+            // actors for next city
+            //
+
+            npc = new Npc();
+            npc.Id = 1030;
+            npc.Name = "Tony";
+            npc.Language = "Italian";
+            npc.ActorType = Npc.NpcType.InterloperMinor;
+            npc.Hint = "Stai attento";
+            npc.City = "Rome";
+            npc.KeyWords = new string[] { "Joker", "defend" };
+            npc.HintPhrase = "Just go along with him";
+            npc.IdPoints = 105;
+            npc.CompletionPoints = 200;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
             npc.Id = 1020;
-            npc.Name = "Reorge";
-            npc.Language = "English";
+            npc.Name = "Lucia";
+            npc.Language = "Italian";
             npc.ActorType = Npc.NpcType.Bartender;
+            npc.Hint = "Assetato";
             npc.City = "Rome";
             npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
             npc.IdPoints = 95;
@@ -364,25 +381,42 @@ namespace TravelGame.Data
             gameMap.Npcs.Add(npc);
 
             npc = new Npc();
-            npc.Id = 1030;
-            npc.Name = "RPingo";
-            npc.Language = "English";
-            npc.ActorType = Npc.NpcType.InterloperMinor;
+            npc.Id = 1010;
+            npc.Name = "Mia";
+            npc.Language = "Italian";
+            npc.ActorType = Npc.NpcType.Chef;
+            npc.Hint = "Affamato";
             npc.City = "Rome";
-            npc.KeyWords = new string[] { "battle", "war", "attack" };
-            npc.IdPoints = 105;
-            npc.CompletionPoints = 200;
+            npc.KeyWords = new string[] { "cook", "feed", "prepare", "eat", "dine", "taste" };
+            npc.IdPoints = 85;
+            npc.CompletionPoints = 110;
             npc.IsIded = false;
             npc.IsComplete = false;
             gameMap.Npcs.Add(npc);
 
             npc = new Npc();
-            npc.Id = 1040;
-            npc.Name = "Rrian";
-            npc.Language = "English";
-            npc.ActorType = Npc.NpcType.InterloperMajor;
+            npc.Id = 1000;
+            npc.Name = "Dante";
+            npc.Language = "Italian";
+            npc.ActorType = Npc.NpcType.Driver;
+            npc.Hint = "Girarla";
             npc.City = "Rome";
-            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift", "see" };
+            npc.IdPoints = 75;
+            npc.CompletionPoints = 100;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+            
+            npc = new Npc();
+            npc.Id = 1040;
+            npc.Name = "Luna";
+            npc.Language = "Italian";
+            npc.ActorType = Npc.NpcType.InterloperMajor;
+            npc.Hint = "Stai attento";
+            npc.City = "Rome";
+            npc.KeyWords = new string[] { "Kidnapper", "attack" };
+            npc.HintPhrase = "Do something so you can't be caught or meet the demands";
             npc.IdPoints = 125;
             npc.CompletionPoints = 230;
             npc.IsIded = false;
@@ -391,24 +425,13 @@ namespace TravelGame.Data
             //
             // actors for next city
             //
-            npc = new Npc();
-            npc.Id = 1000;
-            npc.Name = "Wohn";
-            npc.Language = "English";
-            npc.ActorType = Npc.NpcType.Driver;
-            npc.City = "Warsaw";
-            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift" };
-            npc.IdPoints = 75;
-            npc.CompletionPoints = 100;
-            npc.IsIded = false;
-            npc.IsComplete = false;
-            gameMap.Npcs.Add(npc);
-
+            
             npc = new Npc();
             npc.Id = 1010;
-            npc.Name = "Waul";
-            npc.Language = "English";
+            npc.Name = "Ivan";
+            npc.Language = "Polish";
             npc.ActorType = Npc.NpcType.Chef;
+            npc.Hint = "Glodny";
             npc.City = "Warsaw";
             npc.KeyWords = new string[] { "cook", "feed", "prepare", "eat", "dine", "taste" };
             npc.IdPoints = 85;
@@ -418,10 +441,26 @@ namespace TravelGame.Data
             gameMap.Npcs.Add(npc);
 
             npc = new Npc();
+            npc.Id = 1040;
+            npc.Name = "Walter";
+            npc.Language = "Polish";
+            npc.ActorType = Npc.NpcType.InterloperMajor;
+            npc.Hint = "Ostroznie";
+            npc.City = "Warsaw";
+            npc.KeyWords = new string[] { "Guerilla", "attack" };
+            npc.HintPhrase = "Toss something, drop something on them or use a serious weapon";
+            npc.IdPoints = 125;
+            npc.CompletionPoints = 230;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
             npc.Id = 1020;
-            npc.Name = "Weorge";
-            npc.Language = "English";
+            npc.Name = "Cosmo";
+            npc.Language = "Polish";
             npc.ActorType = Npc.NpcType.Bartender;
+            npc.Hint = "Spragniony";
             npc.City = "Warsaw";
             npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
             npc.IdPoints = 95;
@@ -432,11 +471,13 @@ namespace TravelGame.Data
 
             npc = new Npc();
             npc.Id = 1030;
-            npc.Name = "Wingo";
-            npc.Language = "English";
+            npc.Name = "Hilary";
+            npc.Language = "Polish";
             npc.ActorType = Npc.NpcType.InterloperMinor;
+            npc.Hint = "Ostroznie";
             npc.City = "Warsaw";
-            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.KeyWords = new string[] { "Con Man", "defend" };
+            npc.HintPhrase = "Report them to the ..., pay no attention, or follow the phrase that if it's ... to be true, it probably is";
             npc.IdPoints = 105;
             npc.CompletionPoints = 200;
             npc.IsIded = false;
@@ -444,38 +485,42 @@ namespace TravelGame.Data
             gameMap.Npcs.Add(npc);
 
             npc = new Npc();
-            npc.Id = 1040;
-            npc.Name = "Wrian";
-            npc.Language = "English";
-            npc.ActorType = Npc.NpcType.InterloperMajor;
-            npc.City = "Warsaw";
-            npc.KeyWords = new string[] { "battle", "war", "attack" };
-            npc.IdPoints = 125;
-            npc.CompletionPoints = 230;
-            npc.IsIded = false;
-            npc.IsComplete = false;
-            gameMap.Npcs.Add(npc);
-            //
-            // actors for next city
-            //
-            npc = new Npc();
             npc.Id = 1000;
-            npc.Name = "Aohn";
-            npc.Language = "English";
+            npc.Name = "Boris";
+            npc.Language = "Polish";
             npc.ActorType = Npc.NpcType.Driver;
-            npc.City = "Athens";
-            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift" };
+            npc.Hint = "Zwiedzanie";
+            npc.City = "Warsaw";
+            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift", "see" };
             npc.IdPoints = 75;
             npc.CompletionPoints = 100;
             npc.IsIded = false;
             npc.IsComplete = false;
             gameMap.Npcs.Add(npc);
 
+            //
+            // actors for next city
+            //
+            npc = new Npc();
+            npc.Id = 1020;
+            npc.Name = "Yasmin";
+            npc.Language = "Greek";
+            npc.ActorType = Npc.NpcType.Bartender;
+            npc.Hint = "Dipsasmenos";
+            npc.City = "Athens";
+            npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
+            npc.IdPoints = 95;
+            npc.CompletionPoints = 120;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+                        
             npc = new Npc();
             npc.Id = 1010;
-            npc.Name = "Aaul";
-            npc.Language = "English";
+            npc.Name = "Telly";
+            npc.Language = "Greek";
             npc.ActorType = Npc.NpcType.Chef;
+            npc.Hint = "Pinasmenoi";
             npc.City = "Athens";
             npc.KeyWords = new string[] { "cook", "feed", "prepare", "eat", "dine", "taste" };
             npc.IdPoints = 85;
@@ -485,43 +530,50 @@ namespace TravelGame.Data
             gameMap.Npcs.Add(npc);
 
             npc = new Npc();
-            npc.Id = 1020;
-            npc.Name = "Aeorge";
-            npc.Language = "English";
-            npc.ActorType = Npc.NpcType.Bartender;
-            npc.City = "Athens";
-            npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
-            npc.IdPoints = 95;
-            npc.CompletionPoints = 120;
-            npc.IsIded = false;
-            npc.IsComplete = false;
-            gameMap.Npcs.Add(npc);
-
-            npc = new Npc();
-            npc.Id = 1030;
-            npc.Name = "Aingo";
-            npc.Language = "English";
-            npc.ActorType = Npc.NpcType.InterloperMinor;
-            npc.City = "Athens";
-            npc.KeyWords = new string[] { "battle", "war", "attack" };
-            npc.IdPoints = 105;
-            npc.CompletionPoints = 200;
-            npc.IsIded = false;
-            npc.IsComplete = false;
-            gameMap.Npcs.Add(npc);
-
-            npc = new Npc();
             npc.Id = 1040;
-            npc.Name = "Arian";
-            npc.Language = "English";
+            npc.Name = "Pam";
+            npc.Language = "Greek";
             npc.ActorType = Npc.NpcType.InterloperMajor;
+            npc.Hint = "Prosexe";
             npc.City = "Athens";
-            npc.KeyWords = new string[] { "battle", "war", "attack" };
+            npc.KeyWords = new string[] { "Politician", "attack"  };
+            npc.HintPhrase = "Cast ... for his opponent, send a message on social media, or threaten him with what you know";
             npc.IdPoints = 125;
             npc.CompletionPoints = 230;
             npc.IsIded = false;
             npc.IsComplete = false;
             gameMap.Npcs.Add(npc);
+
+            npc = new Npc();
+            npc.Id = 1000;
+            npc.Name = "Theo";
+            npc.Language = "Greek";
+            npc.ActorType = Npc.NpcType.Driver;
+            npc.Hint = "Ayiotheta";
+            npc.City = "Athens";
+            npc.KeyWords = new string[] { "drive", "motor", "take", "ride", "lift", "see" };
+            npc.IdPoints = 75;
+            npc.CompletionPoints = 100;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+
+
+            npc = new Npc();
+            npc.Id = 1030;
+            npc.Name = "Ales";
+            npc.Language = "Greek";
+            npc.ActorType = Npc.NpcType.InterloperMinor;
+            npc.Hint = "Prosexe";
+            npc.City = "Athens";
+            npc.KeyWords = new string[] { "Obnoxious Tourist", "defend" };
+            npc.HintPhrase = "create a ..., pull out your own ... and ask questions, or just ... along";
+            npc.IdPoints = 105;
+            npc.CompletionPoints = 200;
+            npc.IsIded = false;
+            npc.IsComplete = false;
+            gameMap.Npcs.Add(npc);
+                        
             //
             // Load Items - Foods, Drinks, Sites, and Battles
             //
@@ -625,10 +677,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "Loudspeaker";
+            item.Name = "Money Belt";
             item.Type = Item.ItemType.BattleMinor;
             item.City = "London";
-            item.KeyWords = new string[] { "loudspeaker", "speaker", "yell", "raise your voice", "protest" };
+            item.KeyWords = new string[] { "money belt", "moneybelt", "hide", "run", "away" };
             item.Points = 175;
             item.Servings = 0;
             item.Limit = 1;
@@ -636,10 +688,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "Knife";
+            item.Name = "Lethal Injection";
             item.Type = Item.ItemType.BattleMajor;
             item.City = "London";
-            item.KeyWords = new string[] { "knife", "sharp", "shiv", "dagger", "sword" };
+            item.KeyWords = new string[] { "poison", "injection", "assasinate", "contract", "kill" };
             item.Points = 275;
             item.Servings = 0;
             item.Limit = 1;
@@ -749,10 +801,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "Loudspeaker";
+            item.Name = "Velcro";
             item.Type = Item.ItemType.BattleMinor;
             item.City = "Frankfort";
-            item.KeyWords = new string[] { "loudspeaker", "speaker", "yell", "raise your voice", "protest" };
+            item.KeyWords = new string[] { "velcro", "fanny pack", "hide", "run", "away" };
             item.Points = 175;
             item.Servings = 0;
             item.Limit = 1;
@@ -763,7 +815,7 @@ namespace TravelGame.Data
             item.Name = "Knife";
             item.Type = Item.ItemType.BattleMajor;
             item.City = "Frankfort";
-            item.KeyWords = new string[] { "knife", "sharp", "shiv", "dagger", "sword" };
+            item.KeyWords = new string[] { "knife", "bullet", "shoot", "dagger", "sword", "gun" };
             item.Points = 275;
             item.Servings = 0;
             item.Limit = 1;
@@ -774,10 +826,10 @@ namespace TravelGame.Data
             // add items for next city
             //
             item = new Item();
-            item.Name = "pBratwurst";
+            item.Name = "Croissant";
             item.Type = Item.ItemType.Food;
             item.City = "Paris";
-            item.KeyWords = new string[] { "brats", "sausage", "Brats", "Sausage" };
+            item.KeyWords = new string[] { "bread", "croissant", "roll" };
             item.Points = 50;
             item.Servings = 0;
             item.Limit = 3;
@@ -785,10 +837,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "pWiener Schnitzel";
+            item.Name = "Crepe";
             item.Type = Item.ItemType.Food;
             item.City = "Paris";
-            item.KeyWords = new string[] { "veal", "wiener", "weiner", "schnitzel", "snitzel" };
+            item.KeyWords = new string[] { "crepe", "pancake", "thin cake", "suzette", "Suzette" };
             item.Points = 60;
             item.Servings = 0;
             item.Limit = 3;
@@ -796,10 +848,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "ppretzel";
+            item.Name = "fries";
             item.Type = Item.ItemType.Food;
             item.City = "Paris";
-            item.KeyWords = new string[] { "pretzel" };
+            item.KeyWords = new string[] { "French Fries", "fried potatoes" };
             item.Points = 70;
             item.Servings = 0;
             item.Limit = 3;
@@ -807,10 +859,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "pChristmas Market";
+            item.Name = "Eiffel Tower";
             item.Type = Item.ItemType.Site;
             item.City = "Paris";
-            item.KeyWords = new string[] { "market", "christmas", "xmas" };
+            item.KeyWords = new string[] { "tower", "eiffel" };
             item.Points = 61;
             item.Servings = 0;
             item.Limit = 1;
@@ -818,10 +870,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "pRomerberg";
+            item.Name = "Louvre";
             item.Type = Item.ItemType.Site;
             item.City = "Paris";
-            item.KeyWords = new string[] { "romerberg", "old town", "center", "square" };
+            item.KeyWords = new string[] { "Art Museum", "art museum", "artwork" };
             item.Points = 71;
             item.Servings = 0;
             item.Limit = 1;
@@ -829,10 +881,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "pStadel";
+            item.Name = "Notre Dame";
             item.Type = Item.ItemType.Site;
             item.City = "Paris";
-            item.KeyWords = new string[] { "stadel", "museum", "art" };
+            item.KeyWords = new string[] { "Notre-Dame", "catholic church", "church that burned" };
             item.Points = 81;
             item.Servings = 0;
             item.Limit = 1;
@@ -840,10 +892,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "pPilsner";
+            item.Name = "Kir";
             item.Type = Item.ItemType.Drink;
             item.City = "Paris";
-            item.KeyWords = new string[] { "pilsner", "beer", "pils", "lager" };
+            item.KeyWords = new string[] { "kir", "blackcurrant" };
             item.Points = 72;
             item.Servings = 0;
             item.Limit = 3;
@@ -851,10 +903,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "pSpezi";
+            item.Name = "Champagne";
             item.Type = Item.ItemType.Drink;
             item.City = "Paris";
-            item.KeyWords = new string[] { "spezi", "orange", "cola" };
+            item.KeyWords = new string[] { "champagne", "sparkling wine", "fizzy" };
             item.Points = 82;
             item.Servings = 0;
             item.Limit = 3;
@@ -862,10 +914,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "pRiesling";
+            item.Name = "Absinthe";
             item.Type = Item.ItemType.Drink;
             item.City = "Paris";
-            item.KeyWords = new string[] { "riesling", "sweet wine", "white wine" };
+            item.KeyWords = new string[] { "absinthe", "anise", "forbidden" };
             item.Points = 92;
             item.Servings = 0;
             item.Limit = 3;
@@ -873,10 +925,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "pLoudspeaker";
+            item.Name = "Earplug";
             item.Type = Item.ItemType.BattleMinor;
             item.City = "Paris";
-            item.KeyWords = new string[] { "loudspeaker", "speaker", "yell", "raise your voice", "protest" };
+            item.KeyWords = new string[] { "earplug", "ignore", "away", "counter", "protest", "shout" };
             item.Points = 175;
             item.Servings = 0;
             item.Limit = 1;
@@ -884,10 +936,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "pKnife";
+            item.Name = "Water";
             item.Type = Item.ItemType.BattleMajor;
             item.City = "Paris";
-            item.KeyWords = new string[] { "knife", "sharp", "shiv", "dagger", "sword" };
+            item.KeyWords = new string[] { "water", "douse", "hose", "extinguisher"};
             item.Points = 275;
             item.Servings = 0;
             item.Limit = 1;
@@ -898,10 +950,10 @@ namespace TravelGame.Data
             // add items for next city
             //
             item = new Item();
-            item.Name = "rBratwurst";
+            item.Name = "Tiramisu";
             item.Type = Item.ItemType.Food;
             item.City = "Rome";
-            item.KeyWords = new string[] { "brats", "sausage", "Brats", "Sausage" };
+            item.KeyWords = new string[] { "tiramisu", "ladyfingers", "cake" };
             item.Points = 50;
             item.Servings = 0;
             item.Limit = 3;
@@ -909,10 +961,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "rWiener Schnitzel";
+            item.Name = "Pizza";
             item.Type = Item.ItemType.Food;
             item.City = "Rome";
-            item.KeyWords = new string[] { "veal", "wiener", "weiner", "schnitzel", "snitzel" };
+            item.KeyWords = new string[] { "pizza" };
             item.Points = 60;
             item.Servings = 0;
             item.Limit = 3;
@@ -920,10 +972,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "rpretzel";
+            item.Name = "Carbonera";
             item.Type = Item.ItemType.Food;
             item.City = "Rome";
-            item.KeyWords = new string[] { "pretzel" };
+            item.KeyWords = new string[] { "carbonera", "pasta", "pork" };
             item.Points = 70;
             item.Servings = 0;
             item.Limit = 3;
@@ -931,10 +983,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "rChristmas Market";
+            item.Name = "Colosseum";
             item.Type = Item.ItemType.Site;
             item.City = "Rome";
-            item.KeyWords = new string[] { "market", "christmas", "xmas" };
+            item.KeyWords = new string[] { "colosseum", "arena", "stadium" };
             item.Points = 61;
             item.Servings = 0;
             item.Limit = 1;
@@ -942,10 +994,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "rRomerberg";
+            item.Name = "Trevi Fountain";
             item.Type = Item.ItemType.Site;
             item.City = "Rome";
-            item.KeyWords = new string[] { "romerberg", "old town", "center", "square" };
+            item.KeyWords = new string[] { "trevi", "fountain" };
             item.Points = 71;
             item.Servings = 0;
             item.Limit = 1;
@@ -953,10 +1005,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "rStadel";
+            item.Name = "Vatican";
             item.Type = Item.ItemType.Site;
             item.City = "Rome";
-            item.KeyWords = new string[] { "stadel", "museum", "art" };
+            item.KeyWords = new string[] { "vatican", "pope", "catholic", "church" };
             item.Points = 81;
             item.Servings = 0;
             item.Limit = 1;
@@ -964,10 +1016,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "rPilsner";
+            item.Name = "Wine";
             item.Type = Item.ItemType.Drink;
             item.City = "Rome";
-            item.KeyWords = new string[] { "pilsner", "beer", "pils", "lager" };
+            item.KeyWords = new string[] { "grapes", "wine", "vino" };
             item.Points = 72;
             item.Servings = 0;
             item.Limit = 3;
@@ -975,10 +1027,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "rSpezi";
+            item.Name = "Grappe";
             item.Type = Item.ItemType.Drink;
             item.City = "Rome";
-            item.KeyWords = new string[] { "spezi", "orange", "cola" };
+            item.KeyWords = new string[] { "grappa", "moonshine" };
             item.Points = 82;
             item.Servings = 0;
             item.Limit = 3;
@@ -986,10 +1038,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "rRiesling";
+            item.Name = "Limoncello";
             item.Type = Item.ItemType.Drink;
             item.City = "Rome";
-            item.KeyWords = new string[] { "riesling", "sweet wine", "white wine" };
+            item.KeyWords = new string[] { "limoncello", "lemon", "vodka" };
             item.Points = 92;
             item.Servings = 0;
             item.Limit = 3;
@@ -997,10 +1049,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "rLoudspeaker";
+            item.Name = "Laugh";
             item.Type = Item.ItemType.BattleMinor;
             item.City = "Rome";
-            item.KeyWords = new string[] { "loudspeaker", "speaker", "yell", "raise your voice", "protest" };
+            item.KeyWords = new string[] { "laugh", "joke", "pun", "groan", "chuckle" };
             item.Points = 175;
             item.Servings = 0;
             item.Limit = 1;
@@ -1008,10 +1060,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "rKnife";
+            item.Name = "Hide";
             item.Type = Item.ItemType.BattleMajor;
             item.City = "Rome";
-            item.KeyWords = new string[] { "knife", "sharp", "shiv", "dagger", "sword" };
+            item.KeyWords = new string[] { "hide", "pay", "ransom", "fake"  };
             item.Points = 275;
             item.Servings = 0;
             item.Limit = 1;
@@ -1022,10 +1074,10 @@ namespace TravelGame.Data
             // add items for next city
             //
             item = new Item();
-            item.Name = "wBratwurst";
+            item.Name = "Pierogi";
             item.Type = Item.ItemType.Food;
             item.City = "Warsaw";
-            item.KeyWords = new string[] { "brats", "sausage", "Brats", "Sausage" };
+            item.KeyWords = new string[] { "pierogi", "dumpling" };
             item.Points = 50;
             item.Servings = 0;
             item.Limit = 3;
@@ -1033,10 +1085,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "wWiener Schnitzel";
+            item.Name = "Golabki";
             item.Type = Item.ItemType.Food;
             item.City = "Warsaw";
-            item.KeyWords = new string[] { "veal", "wiener", "weiner", "schnitzel", "snitzel" };
+            item.KeyWords = new string[] { "golabki", "cabbage", "minced meat" };
             item.Points = 60;
             item.Servings = 0;
             item.Limit = 3;
@@ -1044,10 +1096,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "wpretzel";
+            item.Name = "Paczki";
             item.Type = Item.ItemType.Food;
             item.City = "Warsaw";
-            item.KeyWords = new string[] { "pretzel" };
+            item.KeyWords = new string[] { "paczki", "doughnut", "donut" };
             item.Points = 70;
             item.Servings = 0;
             item.Limit = 3;
@@ -1055,10 +1107,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "wChristmas Market";
+            item.Name = "Wilanow";
             item.Type = Item.ItemType.Site;
             item.City = "Warsaw";
-            item.KeyWords = new string[] { "market", "christmas", "xmas" };
+            item.KeyWords = new string[] { "wilanow", "palace", "monument" };
             item.Points = 61;
             item.Servings = 0;
             item.Limit = 1;
@@ -1066,10 +1118,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "wRomerberg";
+            item.Name = "Nowy Swict";
             item.Type = Item.ItemType.Site;
             item.City = "Warsaw";
-            item.KeyWords = new string[] { "romerberg", "old town", "center", "square" };
+            item.KeyWords = new string[] { "nowy", "historic", "street" };
             item.Points = 71;
             item.Servings = 0;
             item.Limit = 1;
@@ -1077,10 +1129,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "wStadel";
+            item.Name = "Lazienki";
             item.Type = Item.ItemType.Site;
             item.City = "Warsaw";
-            item.KeyWords = new string[] { "stadel", "museum", "art" };
+            item.KeyWords = new string[] { "lazienki", "park", "Royal Baths" };
             item.Points = 81;
             item.Servings = 0;
             item.Limit = 1;
@@ -1088,10 +1140,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "wPilsner";
+            item.Name = "Kvass";
             item.Type = Item.ItemType.Drink;
             item.City = "Warsaw";
-            item.KeyWords = new string[] { "pilsner", "beer", "pils", "lager" };
+            item.KeyWords = new string[] { "kvass", "malt", "rye", "black bread" };
             item.Points = 72;
             item.Servings = 0;
             item.Limit = 3;
@@ -1099,10 +1151,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "wSpezi";
+            item.Name = "Goldwasser";
             item.Type = Item.ItemType.Drink;
             item.City = "Warsaw";
-            item.KeyWords = new string[] { "spezi", "orange", "cola" };
+            item.KeyWords = new string[] { "goldwasser", "liquor", "herb" };
             item.Points = 82;
             item.Servings = 0;
             item.Limit = 3;
@@ -1110,10 +1162,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "wRiesling";
+            item.Name = "Kawa";
             item.Type = Item.ItemType.Drink;
             item.City = "Warsaw";
-            item.KeyWords = new string[] { "riesling", "sweet wine", "white wine" };
+            item.KeyWords = new string[] { "kawa", "coffee", "java", "joe" };
             item.Points = 92;
             item.Servings = 0;
             item.Limit = 3;
@@ -1121,10 +1173,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "wLoudspeaker";
+            item.Name = "Ignore";
             item.Type = Item.ItemType.BattleMinor;
             item.City = "Warsaw";
-            item.KeyWords = new string[] { "loudspeaker", "speaker", "yell", "raise your voice", "protest" };
+            item.KeyWords = new string[] { "ignore", "see through", "BBB", "too good" };
             item.Points = 175;
             item.Servings = 0;
             item.Limit = 1;
@@ -1132,10 +1184,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "wKnife";
+            item.Name = "Grenade";
             item.Type = Item.ItemType.BattleMajor;
             item.City = "Warsaw";
-            item.KeyWords = new string[] { "knife", "sharp", "shiv", "dagger", "sword" };
+            item.KeyWords = new string[] { "grenade", "rifle", "bomb", "gun" };
             item.Points = 275;
             item.Servings = 0;
             item.Limit = 1;
@@ -1146,10 +1198,10 @@ namespace TravelGame.Data
             // add items for next city
             //
             item = new Item();
-            item.Name = "aBratwurst";
+            item.Name = "Baklava";
             item.Type = Item.ItemType.Food;
             item.City = "Athens";
-            item.KeyWords = new string[] { "brats", "sausage", "Brats", "Sausage" };
+            item.KeyWords = new string[] { "baklava", "nutty", "phyllo", "pastry" };
             item.Points = 50;
             item.Servings = 0;
             item.Limit = 3;
@@ -1157,10 +1209,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "aWiener Schnitzel";
+            item.Name = "Dolmadakia";
             item.Type = Item.ItemType.Food;
             item.City = "Athens";
-            item.KeyWords = new string[] { "veal", "wiener", "weiner", "schnitzel", "snitzel" };
+            item.KeyWords = new string[] { "dolmadakia", "grape leaves", "stuffed" };
             item.Points = 60;
             item.Servings = 0;
             item.Limit = 3;
@@ -1168,10 +1220,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "apretzel";
+            item.Name = "Tomatokeftedes";
             item.Type = Item.ItemType.Food;
             item.City = "Athens";
-            item.KeyWords = new string[] { "pretzel" };
+            item.KeyWords = new string[] { "tomato", "fritter" };
             item.Points = 70;
             item.Servings = 0;
             item.Limit = 3;
@@ -1179,10 +1231,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "aChristmas Market";
+            item.Name = "Acropolis";
             item.Type = Item.ItemType.Site;
             item.City = "Athens";
-            item.KeyWords = new string[] { "market", "christmas", "xmas" };
+            item.KeyWords = new string[] { "acropolis", "ancient", "ruins", "high city" };
             item.Points = 61;
             item.Servings = 0;
             item.Limit = 1;
@@ -1190,10 +1242,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "aRomerberg";
+            item.Name = "Parthenon";
             item.Type = Item.ItemType.Site;
             item.City = "Athens";
-            item.KeyWords = new string[] { "romerberg", "old town", "center", "square" };
+            item.KeyWords = new string[] { "parthenon", "marble", "columns", "square" };
             item.Points = 71;
             item.Servings = 0;
             item.Limit = 1;
@@ -1201,10 +1253,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "aStadel";
+            item.Name = "Santorini";
             item.Type = Item.ItemType.Site;
             item.City = "Athens";
-            item.KeyWords = new string[] { "stadel", "museum", "art" };
+            item.KeyWords = new string[] { "Greek Isle", "isle", "islands", "blue domes" };
             item.Points = 81;
             item.Servings = 0;
             item.Limit = 1;
@@ -1212,10 +1264,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "aPilsner";
+            item.Name = "Ouzo";
             item.Type = Item.ItemType.Drink;
             item.City = "Athens";
-            item.KeyWords = new string[] { "pilsner", "beer", "pils", "lager" };
+            item.KeyWords = new string[] { "ouzo", "licorice", "black", "anise" };
             item.Points = 72;
             item.Servings = 0;
             item.Limit = 3;
@@ -1223,10 +1275,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "aSpezi";
+            item.Name = "Raki";
             item.Type = Item.ItemType.Drink;
             item.City = "Athens";
-            item.KeyWords = new string[] { "spezi", "orange", "cola" };
+            item.KeyWords = new string[] { "raki", "brandy" };
             item.Points = 82;
             item.Servings = 0;
             item.Limit = 3;
@@ -1234,10 +1286,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "aRiesling";
+            item.Name = "Tsipouro";
             item.Type = Item.ItemType.Drink;
             item.City = "Athens";
-            item.KeyWords = new string[] { "riesling", "sweet wine", "white wine" };
+            item.KeyWords = new string[] { "tsipouro", "grape stems", "seeds", "peels" };
             item.Points = 92;
             item.Servings = 0;
             item.Limit = 3;
@@ -1245,10 +1297,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "aLoudspeaker";
+            item.Name = "Play dumb";
             item.Type = Item.ItemType.BattleMinor;
             item.City = "Athens";
-            item.KeyWords = new string[] { "loudspeaker", "speaker", "yell", "raise your voice", "protest" };
+            item.KeyWords = new string[] { "play", "ignore", "map", "diversion"  };
             item.Points = 175;
             item.Servings = 0;
             item.Limit = 1;
@@ -1256,10 +1308,10 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "aKnife";
+            item.Name = "Vote";
             item.Type = Item.ItemType.BattleMajor;
             item.City = "Athens";
-            item.KeyWords = new string[] { "knife", "sharp", "shiv", "dagger", "sword" };
+            item.KeyWords = new string[] { "vote", "tweet", "shutdown", "blackmail"  };
             item.Points = 275;
             item.Servings = 0;
             item.Limit = 1;

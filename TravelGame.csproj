@@ -92,7 +92,8 @@
     <Compile Include="Models\DisplayTaskState.cs" />
     <Compile Include="Models\GameHistory.cs" />
     <Compile Include="Models\GameStat.cs" />
-    <Compile Include="Models\IMessage.cs" />
+    <Compile Include="Models\ILifeIsRandom.cs" />
+    <Compile Include="Models\IRandomPenalty.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\DisplayScores.cs" />

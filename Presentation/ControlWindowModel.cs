@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
+using System.Collections.ObjectModel;
+using System.Windows.Data;
+using System.Windows;
 using TravelGame.Models;
 using TravelGame.Data;
 
@@ -10,13 +14,15 @@ namespace TravelGame.Presentation
 {
     public class ControlWindowModel : ObservableObject
     {
+        private DateTime _gameStartTime;
+        private string _gameTimeDisplay;
+        private TimeSpan _gameTime;
         private Player _player;
         private GameMap _gameMap;
         private DisplayLocationItem _currentDisplayItems;
         private DisplayTaskState _currentDisplayTasks;
         private GameHistory _gameHistory;
-
-
+        private Random _random = new Random();
         public Player Player
         {
             get { return _player; }
@@ -24,7 +30,6 @@ namespace TravelGame.Presentation
                 OnPropertyChanged(nameof(Player));
             }
         }
-
         public GameMap GameMap
         {
             get { return _gameMap; }
@@ -167,6 +172,15 @@ namespace TravelGame.Presentation
                 }
             }
         }
+        public string MissionTimeDisplay
+        {
+            get { return _gameTimeDisplay; }
+            set
+            {
+                _gameTimeDisplay = value;
+                OnPropertyChanged(nameof(MissionTimeDisplay));
+            }
+        }
         public ControlWindowModel()
         {
 
@@ -184,14 +198,44 @@ namespace TravelGame.Presentation
             _currentDisplayTasks = displayTaskState;
             _gameHistory = gameHistory;
             InitializeView();
+            GameTimer();
         }
 
         private void InitializeView()
         {
-
+            _gameStartTime = DateTime.Now;
+            _random = new Random();
+        }
+        //
+        // Calculate difference between when the game started and now
+        //
+        private TimeSpan GameTime()
+        {
+            return DateTime.Now - _gameStartTime;
+        }
+        //
+        // game time event, publishes every 1 second
+        //
+        public void GameTimer()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(1000);
+            timer.Tick += OnGameTimerTick;
+            timer.Start();
+        }
+        //
+        //  game timer event handler update elapsed time on window
+        //
+        void OnGameTimerTick(object sender, EventArgs e)
+        {
+            _gameTime = DateTime.Now - _gameStartTime;
+            MissionTimeDisplay = _gameTime.ToString(@"hh\:mm\:ss");
         }
         public void CheckMove(string _direction)
         {
+            //
+            // When a directional button was clicked, find out what to do next
+            //
             string _nextCity = "NowheresVille";
             bool ismoving = false;
             switch (_direction)
@@ -272,27 +316,33 @@ namespace TravelGame.Presentation
                 OnPropertyChanged(nameof(HasNWLocation));
                 OnPropertyChanged(nameof(HasSELocation));
                 OnPropertyChanged(nameof(HasSWLocation));
-
                 BuildActorDisplay();
                 BuildGameTaskDisplay();
-                
             }
         }
         public void CheckDisplay(string _whatdata)
         {
-
+            //
+            // Build display areas based on button that was clicked
+            //
             switch (_whatdata)
             {
                 case "Actors":
                     BuildActorDisplay();
                     break;
                 case "Foods":
+                    Player.Totalscore -= 100;
+                    OnPropertyChanged(nameof(Player));
                     BuildFoodDisplay();
                     break;
                 case "Drinks":
+                    Player.Totalscore -= 100;
+                    OnPropertyChanged(nameof(Player));
                     BuildDrinkDisplay();
                     break;
                 case "Sites":
+                    Player.Totalscore -= 100;
+                    OnPropertyChanged(nameof(Player));
                     BuildSiteDisplay();
                     break;
                 case "Game Tasks":
@@ -304,6 +354,14 @@ namespace TravelGame.Presentation
                 case "Top Scores":
                     BuildTopScoreDisplay();
                     break;
+                case "My Scores":
+                    BuildMyScoreDisplay();
+                    break;
+                case "Hints":
+                    Player.Totalscore -= 400;
+                    OnPropertyChanged(nameof(Player));
+                    BuildHintsDisplay();
+                    break;
                 default:
                     break;
             }
@@ -311,16 +369,19 @@ namespace TravelGame.Presentation
         public void CheckCommand(string _command)
         {
             //
-            // here we will analyze the comand. We look for name, action (i.e. eat, battle, etc.) and item (the specific food, drink, etc.)
+            // here we will analyze the command. We look for name, action (i.e. eat, battle, etc.) and item (the specific food, drink, etc.)
             // sample command "John, pour me a gin and tonic" 
             //
+            Player.GameInfo = "";
+            Player.PlayerMessage = "";
+            OnPropertyChanged(nameof(Player));
             bool validinput = true;
             if (_command == null || _command == "")
-                {
-                    Player.PlayerMessage = "You need to enter a command";
-                    validinput = false;
-                }
-            
+            {
+                Player.PlayerMessage = "You need to enter a command";
+                validinput = false;
+            }
+
             if (!validinput)
             {
                 Player.Totalscore -= 3;
@@ -328,62 +389,82 @@ namespace TravelGame.Presentation
             }
             else
             {
-                // find out what actor was selected
-                //string _selectedtype = FindType(_row);
-                //Player.LastActorType = _selectedtype;
-                // need to check if the user selected an interloper
                 //
+                // find out what actor was selected and what was their type
                 // parse the command
+                //
                 bool stillvalid = CheckAction(_command, _gameMap.Npcs, _gameMap.Items);
-                
                 if (stillvalid)
                 {
                     CompleteTask(GameMap);
                 }
                 OnPropertyChanged(nameof(Player));
                 OnPropertyChanged(nameof(GameMap));
-
             }
         }
         private bool CheckAction(string _command, List<Npc> npcs, List<Item> items)
         {
-
             int i;
-            bool foundname=false;
-            string foundactortype="";
+            bool isnamefound = false;
+            string foundname = "";
+            string foundactortype = "";
             string searchitemtype = "";
-            bool foundaction = false;
+            bool isactionfound = false;
             bool isitemfound = false;
             string founditem = "";
-            bool validitem = false;
-
+            bool isitemvalid = false;
+            bool wantahint = false;
+            string msg;
+            //
             // see if the command has a matching name for the npcs in the current city and when you 
             // find that, see if the command has a matching action for for the type of actor.
             // if it does, and you haven't already Ided the actor, you have now so you get those points
             //
-
+            wantahint = (_command.Contains("Hint") || _command.Contains("hint"));
             foreach (Npc npc in npcs)
             {
                 if (npc.City == Player.CurrentCity)
                 {
-                    if (!foundname)
+                    if (!isnamefound)
                     {
-                        foundname = _command.Contains(npc.Name);
-                        if (foundname) 
-                        { 
+                        isnamefound = _command.Contains(npc.Name);
+                        if (isnamefound)
+                        {
+                            foundname = npc.Name;
                             foundactortype = npc.ActorType.ToString();
-                            for (i = 0; i < npc.KeyWords.Length; ++i)
+                            if (wantahint)
                             {
-                                if (!foundaction)
+                                if (foundactortype == "InterloperMajor" || foundactortype == "InterloperMinor")
                                 {
-                                    foundaction = _command.Contains(npc.KeyWords[i]);
-                                    Player.LastActor = npc.Name;
-                                    if (foundaction)
+                                    Player.Totalscore -= 50;
+                                    Player.GameInfo = "You 'defend' a minor interloper and 'attack a major interloper. ";
+                                    Player.GameInfo += "Hint for " + npc.Name + " is " + npc.HintPhrase;
+                                    Player.GameInfo += " BTW - this hint cost you 50 points.";
+                                }
+                                else
+                                {
+                                    Player.Totalscore -= 10;
+                                    Player.GameInfo = "No hints for this actor because they are not an interloper.";
+                                    Player.GameInfo += "You should check Food, Drink & Site Display."; 
+                                    Player.GameInfo += " BTW - this cost you 10 points.";
+                                }
+                            }
+                            else
+                            {
+                                for (i = 0; i < npc.KeyWords.Length; ++i)
+                                {
+                                    if (!isactionfound)
                                     {
-                                        if (!npc.IsIded)
+                                        isactionfound = _command.Contains(npc.KeyWords[i]);
+                                        if (isactionfound)
                                         {
-                                            npc.IsIded = true;
-                                            Player.Totalscore += npc.IdPoints;
+                                            if (!npc.IsIded)
+                                            {
+                                                npc.IsIded = true;
+                                                msg = npc.City + " " + npc.Name + " Ided as " + npc.ActorType.ToString() + " (" + npc.IdPoints + ")";
+                                                CreateHistory(msg);
+                                                Player.Totalscore += npc.IdPoints;
+                                            }
                                         }
                                     }
                                 }
@@ -392,24 +473,31 @@ namespace TravelGame.Presentation
                     }
                 }
             }
-            if (!foundname)
+            if (wantahint)
             {
-                Player.PlayerMessage = "Command must include an Actor's name (-5)";
+                return false;
+            }
+            if (!isnamefound)
+            {
+                Player.PlayerMessage = "No Actor's name (-5)";
                 Player.Totalscore -= 5;
                 return false;
             }
-            if (!foundaction)
+            if (!isactionfound)
             {
-                Player.PlayerMessage = "Your action doesn't match what the actor does (-15)";
+                Player.PlayerMessage = "Actor doesn't do what you asked (-15)";
                 Player.Totalscore -= 15;
                 return false;
             }
+            Player.LastActor = foundname;
             // 
             // at this point, you have Ided the actor so now we need to see if you have a valid item (drink, site, food)
             // 
             if (foundactortype == "Driver") { searchitemtype = "Site"; };
             if (foundactortype == "Chef") { searchitemtype = "Food"; };
             if (foundactortype == "Bartender") { searchitemtype = "Drink"; };
+            if (foundactortype == "InterloperMinor") { searchitemtype = "BattleMinor"; };
+            if (foundactortype == "InterloperMajor") { searchitemtype = "BattleMajor"; };
             foreach (Item item in items)
             {
                 for (i = 0; i < item.KeyWords.Length; ++i)
@@ -421,36 +509,28 @@ namespace TravelGame.Presentation
                         {
                             if (item.City == Player.CurrentCity && item.Type.ToString() == searchitemtype)
                             {
-                                validitem = true;
+                                isitemvalid = true;
                                 founditem = item.Name;
                             }
                         }
                     }
                 }
             }
-            //
-            // temp code - Interlopers don't require an item
-            //
-            if (foundactortype == "InterloperMinor" || foundactortype == "InterloperMajor")
-            {
-                isitemfound = true;
-                validitem = true;
-                founditem = "Interloper";
-            }
+
             BuildActorDisplay();
-            if (!isitemfound && foundaction)
+            if (!isitemfound && isactionfound)
             {
-                Player.PlayerMessage = "You IDed the Actor, but not an item (-5)";
+                Player.PlayerMessage = "Actor Ided, but not an item (-5)";
                 Player.Totalscore -= 5;
                 return false;
             }
             if (!isitemfound)
             {
-                Player.PlayerMessage = "You don't have a valid item (type of food, drink, etc. (-8)";
+                Player.PlayerMessage = "You don't have a valid item (-8)";
                 Player.Totalscore -= 8;
                 return false;
             }
-            if (!validitem)
+            if (!isitemvalid)
             {
                 Player.PlayerMessage = "Good item, but not for this actor or city (-2)";
                 Player.Totalscore -= 2;
@@ -459,7 +539,7 @@ namespace TravelGame.Presentation
             //
             // good news, you have a completed task
             //
-            
+
             Player.LastItemType = searchitemtype;
             Player.LastItem = founditem;
             return true;
@@ -487,57 +567,49 @@ namespace TravelGame.Presentation
         {
             DisplayLocationItem displayLocationItem = new DisplayLocationItem();
             displayLocationItem.DisplayLine = new string[6];
-            displayLocationItem.DisplayLine[0] = "  Actor    Specialty      Status";
+            displayLocationItem.DisplayLine[0] = "  Actor      Greeting               Status";
             CurrentDisplayItems = displayLocationItem;
             if (Player.CurrentCity != "New York")
             {
-                CurrentDisplayItems = BuildItemDisplay(GameMap.Npcs);
-                
+                CurrentDisplayItems = BuildActorStatusDisplay(GameMap.Npcs);
             }
             OnPropertyChanged(nameof(CurrentDisplayItems));
-            
         }
         public void BuildFoodDisplay()
         {
             DisplayLocationItem displayLocationItem = new DisplayLocationItem();
             displayLocationItem.DisplayLine = new string[6];
-            displayLocationItem.DisplayLine[0] = "   Food         desc      Status";
+            displayLocationItem.DisplayLine[0] = "   Food                  Message     Status";
             CurrentDisplayItems = displayLocationItem;
             if (Player.CurrentCity != "New York")
             {
                 CurrentDisplayItems = BuildFoodItemDisplay(GameMap.Items);
-
             }
             OnPropertyChanged(nameof(CurrentDisplayItems));
-
         }
         public void BuildDrinkDisplay()
         {
             DisplayLocationItem displayLocationItem = new DisplayLocationItem();
             displayLocationItem.DisplayLine = new string[6];
-            displayLocationItem.DisplayLine[0] = "   Drink        desc      Status";
+            displayLocationItem.DisplayLine[0] = "   Drink                 Message     Status";
             CurrentDisplayItems = displayLocationItem;
             if (Player.CurrentCity != "New York")
             {
                 CurrentDisplayItems = BuildDrinkItemDisplay(GameMap.Items);
-
             }
             OnPropertyChanged(nameof(CurrentDisplayItems));
-
         }
         public void BuildSiteDisplay()
         {
             DisplayLocationItem displayLocationItem = new DisplayLocationItem();
             displayLocationItem.DisplayLine = new string[6];
-            displayLocationItem.DisplayLine[0] = "   Site         desc      Status";
+            displayLocationItem.DisplayLine[0] = "   Site                  Message     Status";
             CurrentDisplayItems = displayLocationItem;
             if (Player.CurrentCity != "New York")
             {
                 CurrentDisplayItems = BuildSiteItemDisplay(GameMap.Items);
-
             }
             OnPropertyChanged(nameof(CurrentDisplayItems));
-
         }
         public void BuildGameTaskDisplay()
         {
@@ -560,26 +632,38 @@ namespace TravelGame.Presentation
             CurrentDisplayTasks = BuildTopScores(GameMap.GameStats);
             OnPropertyChanged(nameof(CurrentDisplayTasks));
         }
-        public DisplayLocationItem BuildItemDisplay(List<Npc> showactors)
+        public void BuildMyScoreDisplay()
+        {
+            DisplayTaskState displayTaskState = new DisplayTaskState();
+            CurrentDisplayTasks = displayTaskState;
+            CurrentDisplayTasks = BuildMyScores(GameMap.GameStats);
+            OnPropertyChanged(nameof(CurrentDisplayTasks));
+        }
+        public void BuildHintsDisplay()
+        {
+            DisplayTaskState displayTaskState = new DisplayTaskState();
+            CurrentDisplayTasks = displayTaskState;
+            CurrentDisplayTasks = BuildHints(GameMap.Npcs);
+            OnPropertyChanged(nameof(CurrentDisplayTasks));
+        }
+        public DisplayLocationItem BuildActorStatusDisplay(List<Npc> showactors)
         {
             //
-            // not working just yet - using wrong list. Use Npcs instead
+            // cycle thru NPC list for actors in the current city to show status
             //
-
-            int i=0;
+            int i = 0;
             string msg;
             DisplayLocationItem displayLocationItem = new DisplayLocationItem();
             displayLocationItem.DisplayLine = new string[6];
-            displayLocationItem.DisplayLine[0] = "  Actor    Specialty      Status";
+            displayLocationItem.DisplayLine[0] = "  Actor      Greeting               Status";
             foreach (Npc npc in showactors)
-                {
-
+            {
                 if (npc.City == Player.CurrentCity)
                 {
-                    msg = npc.Name + " Pts: " + npc.IdPoints.ToString() + "Cpts: " + npc.CompletionPoints.ToString();
+                    msg = npc.Name.PadRight(10) + " " + npc.TaskMessage().PadRight(24);
                     if (npc.IsIded && npc.IsComplete)
                     {
-                        msg += " ID and Done;";
+                        msg += "IDed, Done";
                     }
                     else if (npc.IsComplete)
                     {
@@ -602,20 +686,26 @@ namespace TravelGame.Presentation
         public DisplayLocationItem BuildFoodItemDisplay(List<Item> showitems)
         {
             //
-            // not working just yet
+            // cycle through Item list to show Food Items valid for current city. 
             //
-            int i=0;
+            int i = 0;
             string msg;
             DisplayLocationItem displayLocationItem = new DisplayLocationItem();
             displayLocationItem.DisplayLine = new string[6];
-            displayLocationItem.DisplayLine[0] = "   Food         desc      Status";
-
+            displayLocationItem.DisplayLine[0] = "   Food                  Message     Status";
             foreach (Item item in showitems)
             {
-
                 if (item.City == Player.CurrentCity && item.Type.ToString() == "Food")
                 {
-                    msg = item.Name + " Pts: " + item.Points.ToString() + " Lim: " + item.Limit.ToString();
+                    msg = item.Name.PadRight(22);
+                    if (item.Servings < item.Limit)
+                    {
+                        msg += " Try it Again? ";
+                    }
+                    else
+                    {
+                        msg += " That's Enough ";
+                    }
                     if (item.Servings > 0)
                     {
                         msg += " Eaten";
@@ -629,27 +719,30 @@ namespace TravelGame.Presentation
                 }
             }
             return displayLocationItem;
-
-
-
         }
         public DisplayLocationItem BuildDrinkItemDisplay(List<Item> showitems)
         {
             //
-            // not working just yet
+            // cycle through Item list to show Drink Items valid for current city.
             //
-            int i=0;
+            int i = 0;
             string msg;
             DisplayLocationItem displayLocationItem = new DisplayLocationItem();
             displayLocationItem.DisplayLine = new string[6];
-            displayLocationItem.DisplayLine[0] = "   Drink        desc      Status";
-
+            displayLocationItem.DisplayLine[0] = "   Drink                 Message     Status";
             foreach (Item item in showitems)
             {
-
                 if (item.City == Player.CurrentCity && item.Type.ToString() == "Drink")
                 {
-                    msg = item.Name + " Pts: " + item.Points.ToString() + " Lim: " + item.Limit.ToString();
+                    msg = item.Name.PadRight(22);
+                    if (item.Servings < item.Limit)
+                    {
+                        msg += " Try it Again? ";
+                    }
+                    else
+                    {
+                        msg += " That's Enough ";
+                    }
                     if (item.Servings > 0)
                     {
                         msg += " Drank";
@@ -658,32 +751,35 @@ namespace TravelGame.Presentation
                     {
                         msg += " Open";
                     }
-                    displayLocationItem.DisplayLine[i + 1] = msg; 
+                    displayLocationItem.DisplayLine[i + 1] = msg;
                     ++i;
                 }
             }
             return displayLocationItem;
-
-
-
         }
         public DisplayLocationItem BuildSiteItemDisplay(List<Item> showitems)
         {
             //
-            // not working just yet
+            // cycle through Item list to show Drink Items valid for current city.
             //
-            int i=0;
+            int i = 0;
             string msg;
             DisplayLocationItem displayLocationItem = new DisplayLocationItem();
             displayLocationItem.DisplayLine = new string[6];
-            displayLocationItem.DisplayLine[0] = "   Site         desc      Status";
-
+            displayLocationItem.DisplayLine[0] = "   Site                  Message     Status";
             foreach (Item item in showitems)
             {
-
                 if (item.City == Player.CurrentCity && item.Type.ToString() == "Site")
                 {
-                    msg = item.Name + " Pts: " + item.Points.ToString() + " Lim: " + item.Limit.ToString();
+                    msg = item.Name.PadRight(22);
+                    if (item.Servings < item.Limit)
+                    {
+                        msg += " Try it Again? ";
+                    }
+                    else
+                    {
+                        msg += " That's Enough ";
+                    }
                     if (item.Servings > 0)
                     {
                         msg += " Seen";
@@ -692,7 +788,7 @@ namespace TravelGame.Presentation
                     {
                         msg += " Open";
                     }
-                    displayLocationItem.DisplayLine[i+1] = msg;
+                    displayLocationItem.DisplayLine[i + 1] = msg;
                     ++i;
                 }
             }
@@ -701,13 +797,13 @@ namespace TravelGame.Presentation
         public DisplayTaskState BuildTaskDisplay(List<Item> items)
         {
             //
-            // not working just yet
+            // cycle through all items to show task complete (yes/no) for each city and each actor (you complete a task with an
+            // actor by having at least one interaction with the actor's type and item type (chefs & food, drivers and sites,
+            // minor interlopers and a defense). A complete interaction has Item.Servings > 0.
             //
-            
             DisplayTaskState displayTaskState = new DisplayTaskState();
-            displayTaskState.DisplayLine = new string[7];
-            displayTaskState.DisplayLine[0] = "   City       Ate     Drank   Toured  War 1   War 2";
-            
+            displayTaskState.DisplayLine = new string[21];
+            displayTaskState.DisplayLine[0] = "   City       Ate   Drank  Toured Battle1 Battle2";
             int i = 0;
             string citybreak = "xxx";
             string msg = "";
@@ -724,7 +820,6 @@ namespace TravelGame.Presentation
                     citybreak = item.City;
                     firstitem = false;
                 }
-
                 if (item.City == citybreak)
                 {
                     if (item.Servings > 0)
@@ -740,18 +835,20 @@ namespace TravelGame.Presentation
                 {
                     if (item.City != "New York")
                     {
-                        msg = citybreak;
+                        msg = citybreak.PadRight(10);
                         if (ate) { msg += "   Yes  "; }
                         else { msg += "    No  "; }
-                        if (drank) { msg += "  Yes  "; }
-                        else { msg += "   No  "; }
+                        if (drank) { msg += "  Yes   "; }
+                        else { msg += "   No   "; }
                         if (toured) { msg += "  Yes  "; }
                         else { msg += "   No  "; }
                         if (war1) { msg += "  Yes  "; }
                         else { msg += "   No  "; }
-                        if (war2) { msg += "  Yes  "; }
-                        else { msg += "   No  "; }
+                        if (war2) { msg += "   Yes  "; }
+                        else { msg += "    No  "; }
                         displayTaskState.DisplayLine[i + 1] = msg;
+                        ++i;                        
+                        displayTaskState.DisplayLine[i + 1] = " ";
                         ++i;
                         citybreak = item.City;
                         ate = false;
@@ -762,66 +859,137 @@ namespace TravelGame.Presentation
                     }
                 }
             }
-            msg = citybreak;
+            msg = citybreak.PadRight(10);
             if (ate) { msg += "   Yes  "; }
             else { msg += "    No  "; }
             if (drank) { msg += "  Yes  "; }
             else { msg += "   No  "; }
-            if (toured) { msg += "  Yes  "; }
-            else { msg += "   No  "; }
+            if (toured) { msg += "   Yes  "; }
+            else { msg += "    No  "; }
             if (war1) { msg += "  Yes  "; }
             else { msg += "   No  "; }
-            if (war2) { msg += "  Yes  "; }
-            else { msg += "   No  "; }
+            if (war2) { msg += "   Yes  "; }
+            else { msg += "    No  "; }
             displayTaskState.DisplayLine[i + 1] = msg;
             return displayTaskState;
         }
         public DisplayTaskState BuildCityDisplay(List<TaskHistory> showtasks)
         {
             //
-            // Build display of TaskHistory 
+            // Build display of TaskHistory showing last entry first - showtask.Reverse() 
             //
 
+            showtasks.Reverse();
             DisplayTaskState displayTaskState = new DisplayTaskState();
-            displayTaskState.DisplayLine = new string[10];
+            displayTaskState.DisplayLine = new string[21];
             int i = 0;
             foreach (TaskHistory taxhistory in showtasks)
             {
-                if (i < 10)
+                if (i < 21)
                 {
                     displayTaskState.DisplayLine[i] = taxhistory.Task;
                     ++i;
                 }
             }
-            
+            //
+            // put the tasks back in the order that they were before you started
+            //
+            showtasks.Reverse();
             return displayTaskState;
         }
         public DisplayTaskState BuildTopScores(List<GameStat> gameStats)
         {
+            //
+            // All past games are loaded in to a List of GameStat. Sort the list by score descending and display each score.  
+            // Only the top 21 scores are display and past game scores are hard-coded. A future sprint will save completed 
+            // games in a file and then pull in the scores from that file.
+            //
             string msg;
+            var newList = gameStats.OrderByDescending(GameStat => GameStat.Score);
             DisplayTaskState displayTaskState = new DisplayTaskState();
-            displayTaskState.DisplayLine = new string[10];
-            int i = 0;
-            foreach (GameStat gamestat in gameStats)
+            displayTaskState.DisplayLine = new string[21];
+            displayTaskState.DisplayLine[0] = "  Name          Start Date         Score Lost Life";
+            int i = 1;
+            foreach (GameStat gamestat in newList)
             {
-                if (i < 10)
+                if (i < 21)
                 {
-                    msg = gamestat.Name + "  " + gamestat.Startdate + "  " + gamestat.Score + "  " + gamestat.Liveslost;
+                    msg = gamestat.Name.PadRight(13) + " " + gamestat.Startdate.ToString().PadRight(20) + " " + gamestat.Score.ToString().PadRight(8) + "    " + gamestat.Liveslost;
                     displayTaskState.DisplayLine[i] = msg;
                     ++i;
                 }
             }
             return displayTaskState;
         }
+        public DisplayTaskState BuildMyScores(List<GameStat> gameStats)
+        {
+            //
+            // All past games are loaded in to a List of GameStat. This routine will cycle through that list
+            // looking for an exact match on the Player Name which was entered on the initial screen when the
+            // game started.   
+            // Past game scores are hard-coded so you'll only see values if you use a name that matches the
+            // hard-coded data. You can look at top scores to see the names of previous players and then
+            // use that name when you start up.
+            //
+            string msg;
+            DisplayTaskState displayTaskState = new DisplayTaskState();
+            displayTaskState.DisplayLine = new string[21];
+            displayTaskState.DisplayLine[0] = "  Name          Start Date         Score Lost Life";
+            int i = 1;
+            foreach (GameStat gamestat in gameStats)
+            {
+                if (Player.Name == gamestat.Name && i < 21)
+                {
+                    msg = gamestat.Name.PadRight(13) + " " + gamestat.Startdate.ToString().PadRight(20) + " " + gamestat.Score.ToString().PadRight(8) + "     " + gamestat.Liveslost;
+                    displayTaskState.DisplayLine[i] = msg;
+                    ++i;
+                }
+            }
+            return displayTaskState;
+        }
+        public DisplayTaskState BuildHints(List<Npc> npcs)
+        {
+            //
+            // cycle through NPCs to show the Names and Interloper type so you have an idea of when to attack or defend
+            //
+            string msg;
+            DisplayTaskState displayTaskState = new DisplayTaskState();
+            displayTaskState.DisplayLine = new string[21];
+            int i = 0;
+            foreach (Npc npc in npcs)
+            {
+                if (npc.ActorType.ToString() == "InterloperMinor" || npc.ActorType.ToString() == "InterloperMajor")
+                {
+                    if (i < 21)
+                    {
+                        msg = npc.Name + " is a " + npc.KeyWords[0] + " you need to ";
+                        if (npc.ActorType.ToString() == "InterloperMinor")
+                        {
+                            msg += "defend";
+                        }
+                        else
+                        {
+                            msg += "attack";
+                        }
+                        displayTaskState.DisplayLine[i] = msg;
+                        ++i;
+                    }
+                }
+            }
+            return displayTaskState;
+        }
         public void CompleteTask(GameMap gameMap)
         {
+            //
+            // All the command edits passed so we know what Actor and what Item to update. There are a few ways to accrue or lose points
+            // so we'll keep a running total and build messages to help detail the specifics. We'll also write Task History which is
+            // an internal log of task completions.
+            //
             string msg = Player.CurrentCity + " ";
-            
-            
-            
-            ++Player.Tasks;
-            Player.PlayerMessage = "Congrats, you completed a task";
-
+            int lostlives;
+            int penaltypoints;
+            int pointsearned = 0;
+            bool isfirstcompletion = true;
             //
             // Update Npc
             //
@@ -829,38 +997,128 @@ namespace TravelGame.Presentation
             {
                 if (npc.City == Player.CurrentCity && npc.Name == Player.LastActor)
                 {
-                    Player.Totalscore += npc.CompletionPoints;
+                    //
+                    // The game requires that you only eat 1 item per city, drink 1 item per city and see 1 site per city. You can do more
+                    // eating, drinking, and sightseeing but you can only get Npc completion points once. so we need to know later if this
+                    // interaction was already complete
+                    //
+                    if (isfirstcompletion && npc.IsComplete) { isfirstcompletion = false; };
+                    //
+                    // polymorphism used to determine lives lost for an Npc
+                    //
+                    lostlives = npc.CheckForLifeLost();
+                    if (lostlives > 0)
+                    {
+                        Player.Liveslost += lostlives;
+                        pointsearned -= 500;
+                        Player.GameInfo += "Bad Break. There's bad people out there. You lose a life and 500 points. ";
+                    }
+                    else
+                    {
+                        if (isfirstcompletion)
+                        {
+                            pointsearned += npc.CompletionPoints;
+                            Player.GameInfo += "You just earned " + npc.CompletionPoints + " interacting with " + npc.Name + " ";
+                        }
+                    }
+                    //
+                    // If you didn't lose your life, you might have endured some stress. Using polymorphism to determine any random penalties for an Npc
+                    //
+                    if (lostlives == 0)
+                    {
+                        penaltypoints = npc.CheckForPenalty();
+                        if (penaltypoints > 0)
+                        {
+                            pointsearned -= penaltypoints;
+                            Player.GameInfo += "Travel is stressful. " + "As a result, you just lost " + penaltypoints + " points.";
+                        }
+                        else
+                        {
+                            Player.GameInfo += " No stress from " + npc.Name + " ";
+                        }
+                    }
+                    //
+                    // no matter what happened, you finished a task.
+                    //
                     npc.IsComplete = true;
                 }
             }
             //
-            // Update Item
+            // Update Item. Find it, check to see if this would take you over the limit else, see if you randomly lose a life or lose points.
             //
             foreach (Item item in gameMap.Items)
             {
                 if (item.City == Player.CurrentCity && item.Name == Player.LastItem)
                 {
-                    ++item.Servings;
-                    msg += item.BuildItemMessage();
-                    Player.Totalscore += item.Points;
+                    if (item.Servings == item.Limit)
+                    {
+                        msg += "Oops, you overindulged ";
+                        Player.PlayerMessage = "Oops, you overindulged and will lose 200 points";
+                        pointsearned -= 200;
+                    }
+                    else
+                    {
+                        ++item.Servings;
+                        msg += item.BuildItemMessage();
+                        pointsearned += item.Points;
+                        //
+                        // polymorphism used to determine lives lost for an item
+                        //
+                        lostlives = item.CheckForLifeLost();
+                        if (lostlives > 0)
+                        {
+                            Player.Liveslost += lostlives;
+                            pointsearned -= 500;
+                            Player.GameInfo += " Really Bad Break. Sometimes the food, drink, or driving can kill you. ";
+                            Player.GameInfo += "You lose a life and 500 points.";
+                        }
+                        else
+                        {
+                            Player.GameInfo += " You just earned " + item.Points + " points for the chosen item ";
+                        }
+                        //
+                        // If you didn't lose your life, you might have endured some stress. Using polymorphism to determine any random penalties for an Item
+                        //
+                        if (lostlives == 0)
+                        {
+                            penaltypoints = item.CheckForPenalty();
+                            if (penaltypoints > 0)
+                            {
+                               pointsearned -= penaltypoints;
+                               Player.GameInfo += " Food, Drinks and Driving around can make you sick.";
+                                Player.GameInfo += " As a result, you just lost " + penaltypoints + " points.";
+                            }
+                            else
+                            {
+                                Player.GameInfo += " No stress from " + item.Name + " ";
+                            }
+                        }
+                    }
                 }
             }
-            TaskHistory taskHistory = new TaskHistory();
-            taskHistory.Task = msg;
-            gameMap.TaskHistoryList.Add(taskHistory);
-            OnPropertyChanged(nameof(GameMap));
             //
-            // Find out if you've finished all tasks for a city 
+            // update players total score on this command accumuated thru pointsearned. Then write a TaskHistory entry
+            //
+            if (isfirstcompletion)
+            {
+                ++Player.Tasks;
+            }
+            Player.PlayerMessage += " Task Done";
+            Player.Totalscore += pointsearned;
+            msg += "(" + pointsearned + ")";
+            CreateHistory(msg);
+            //
+            // Find out if you've finished all tasks for a city and all tasks for the game by cycling thru all Npcs to see
+            // if any are not done. 
             //
             bool iscitydone = true;
             bool isalldone = true;
-
             foreach (Npc npc in gameMap.Npcs)
             {
                 if (npc.City == Player.CurrentCity)
                 {
-                    if (!npc.IsComplete) 
-                    { 
+                    if (!npc.IsComplete)
+                    {
                         iscitydone = false;
                         isalldone = false;
                     }
@@ -872,18 +1130,36 @@ namespace TravelGame.Presentation
             }
             if (iscitydone)
             {
-                Player.PlayerMessage = "You Can be done with this city, Congrats";
                 ++Player.Visits;
+                Player.PlayerMessage = "You can be done with this city, Congrats";
+                Player.Totalscore += 1000;
+                msg = "1000 points for completing " + Player.CurrentCity + " tasks";
+                CreateHistory(msg);
             }
             if (isalldone)
             {
                 Player.PlayerMessage = "You Finished, Congrats";
+                Player.Totalscore += 5000;
+                msg = "5000 points for completing the game";
+                CreateHistory(msg);
             }
             OnPropertyChanged(nameof(Player));
-
+            //
+            // Done with processing the command so re-build the Actor Display and the Game Task Display
+            //
             BuildGameTaskDisplay();
             BuildActorDisplay();
         }
-    }
+        public void CreateHistory(string message)
+        {
+            //
+            // add Task History to the Task History List
+            //
+            TaskHistory taskHistory = new TaskHistory();
+            taskHistory.Task = message;
+            GameMap.TaskHistoryList.Add(taskHistory);
+            OnPropertyChanged(nameof(GameMap));
+        }
+}
 }
 

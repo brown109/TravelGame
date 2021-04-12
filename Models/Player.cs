@@ -17,6 +17,7 @@ namespace TravelGame.Models
         private int _totalscore;
         private string _currentcity;
         private string _playerMessage;
+        private string _gameInfo;
         private string _lastActorType;
         private string _lastActor;
         private string _lastItemType;
@@ -68,6 +69,11 @@ namespace TravelGame.Models
             get { return _playerMessage; }
             set { _playerMessage = value; }
         }
+        public string GameInfo
+        {
+            get { return _gameInfo; }
+            set { _gameInfo = value; }
+        }
         public string LastActorType
         {
             get { return _lastActorType; }
@@ -94,7 +100,7 @@ namespace TravelGame.Models
         }
         
         public Player(DateTime startdate, int experience, int bestscore, double visits, double tasks, int liveslost, int totalscore, string currentcity, string playerMessage,
-            string lastActorType, string lastActor, string lastItemType, string lastItem)
+            string gameInfo, string lastActorType, string lastActor, string lastItemType, string lastItem)
         {
             _startDate = startdate;
             _experience = experience;
@@ -105,11 +111,15 @@ namespace TravelGame.Models
             _totalscore = totalscore;
             _currentcity = currentcity;
             _playerMessage = playerMessage;
+            _gameInfo = gameInfo;
             _lastActorType = lastActorType;
             _lastActor = lastActor;
             _lastItemType = lastItemType;
             _lastItem = lastItem;
         }
-
+        public override string TaskMessage()
+        {
+            return ("I'm the player so this message isn't shown");
+        }
     }
 }

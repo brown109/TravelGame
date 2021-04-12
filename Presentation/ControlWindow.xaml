@@ -281,9 +281,11 @@
                             Grid.Column="0"
                             Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="Message Area:  " Style="{StaticResource MainPanelLabelStyle}"/>
-                            <TextBox Text="{Binding Player.CurrentCity, Mode=OneWay}" Style="{StaticResource MainPanelTextBoxStyle}"/>
+                            <Label Content="Elapsed Time: " Style="{StaticResource MainPanelLabelStyle}"/>
+                            <TextBox Text="{Binding MissionTimeDisplay}" Style="{StaticResource MainPanelTextBoxStyle}"/>
+                            <!--<Label Content="{Binding MissionTimeDisplay}" Style="{StaticResource MainPanelLabelStyle}"/>-->
                         </StackPanel>
+                        
                         <StackPanel>
                             <Label Content="" Style="{StaticResource MainPanelLabelStyle}"/>
                         </StackPanel>
@@ -291,16 +293,16 @@
                                 Orientation="Horizontal"
                                 HorizontalAlignment="Left">
                             <Button Tag="Actors" Content="Actors" Style="{StaticResource MainPanelButtonStyle}" Click="InteractionAreaButton_Click"/>
-                            <Button Tag="Sites" Content="Sites" Style="{StaticResource MainPanelButtonStyle}" Click="InteractionAreaButton_Click"/>
-                            <Button Tag="Foods" Content="Foods" Style="{StaticResource MainPanelButtonStyle}" Click="InteractionAreaButton_Click"/>
-                            <Button Tag="Drinks" Content="Drinks" Style="{StaticResource MainPanelButtonStyle}" Click="InteractionAreaButton_Click"/>
+                            <Button Tag="Sites" Content="Sites(-100)" Style="{StaticResource MainPanelButtonStyle}" Click="InteractionAreaButton_Click"/>
+                            <Button Tag="Foods" Content="Foods(-100)" Style="{StaticResource MainPanelButtonStyle}" Click="InteractionAreaButton_Click"/>
+                            <Button Tag="Drinks" Content="Drinks(-100)" Style="{StaticResource MainPanelButtonStyle}" Click="InteractionAreaButton_Click"/>
                         </StackPanel>
                         <StackPanel>
                             <Label Content="" Style="{StaticResource MainPanelLabelStyle}"/>
                         </StackPanel>
                         <UniformGrid
                             Width="370"
-                            Height="550"
+                            Height="500"
                             Rows="10"
                             Columns="1">
                             
@@ -312,8 +314,14 @@
                             <Label Tag="50" Content="{Binding CurrentDisplayItems.DisplayLine[5]}" Style="{StaticResource MainPanelLabelStyle}"/>
                             
                         </UniformGrid>
-                        
-                        
+                        <StackPanel
+                            Orientation="Horizontal">
+                            <Button x:Name="Help" Content="Help" Style="{DynamicResource MainPanelButtonStyle}" Click="ControlWindowButton_Click"/>
+                            <Button Tag="Hints" Content="Hints(-400)" Style="{StaticResource MainPanelButtonStyle}" Click="InteractionAreaButton_Click"/>
+                            <Button x:Name="Quit" Content="Quit" Style="{DynamicResource MainPanelButtonStyle}" Click="ControlWindowButton_Click"/>
+                        </StackPanel>
+
+
                     </StackPanel>
 
                 </Border>
@@ -337,7 +345,8 @@
                                 HorizontalAlignment="Left">
                             <Button Tag="Game Tasks" Content="Game Tasks" Style="{StaticResource MainPanelButtonStyle}" Click="InteractionAreaButton_Click"/>
                             <Button Tag="City Tasks" Content="City Tasks" Style="{StaticResource MainPanelButtonStyle}" Click="InteractionAreaButton_Click"/>
-                            
+                            <Button Tag="Top Scores" Content="Top Scores" Style="{StaticResource MainPanelButtonStyle}" Click="InteractionAreaButton_Click"/>
+                            <Button Tag="My Scores" Content="My Scores" Style="{StaticResource MainPanelButtonStyle}" Click="InteractionAreaButton_Click"/>
                         </StackPanel>
                         <StackPanel>
                             <Label Content="" Style="{StaticResource MainPanelLabelStyle}"/>
@@ -345,7 +354,7 @@
                         <UniformGrid
                             Width="370"
                             Height="550"
-                            Rows="10"
+                            Rows="21"
                             Columns="1">
                             <Label Tag="00" Content="{Binding CurrentDisplayTasks.DisplayLine[0]}" Style="{StaticResource MainPanelLabelStyle}"/>
                             <Label Tag="10" Content="{Binding CurrentDisplayTasks.DisplayLine[1]}" Style="{StaticResource MainPanelLabelStyle}"/>
@@ -358,6 +367,17 @@
                             <Label Tag="80" Content="{Binding CurrentDisplayTasks.DisplayLine[8]}" Style="{StaticResource MainPanelLabelStyle}"/>
                             <Label Tag="90" Content="{Binding CurrentDisplayTasks.DisplayLine[9]}" Style="{StaticResource MainPanelLabelStyle}"/>
                             <Label Tag="100" Content="{Binding CurrentDisplayTasks.DisplayLine[10]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="110" Content="{Binding CurrentDisplayTasks.DisplayLine[11]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="120" Content="{Binding CurrentDisplayTasks.DisplayLine[12]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="130" Content="{Binding CurrentDisplayTasks.DisplayLine[13]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="140" Content="{Binding CurrentDisplayTasks.DisplayLine[14]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="150" Content="{Binding CurrentDisplayTasks.DisplayLine[15]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="160" Content="{Binding CurrentDisplayTasks.DisplayLine[16]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="170" Content="{Binding CurrentDisplayTasks.DisplayLine[17]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="180" Content="{Binding CurrentDisplayTasks.DisplayLine[18]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="190" Content="{Binding CurrentDisplayTasks.DisplayLine[19]}" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <Label Tag="200" Content="{Binding CurrentDisplayTasks.DisplayLine[20]}" Style="{StaticResource MainPanelLabelStyle}" Margin="0,-8,0,7.667"/>
+
                         </UniformGrid>
 
                     </StackPanel>
@@ -409,17 +429,26 @@
                                 Orientation="Horizontal">
                                 <TextBlock Text="{Binding Player.PlayerMessage}" Background="DarkBlue" Foreground="Red"/>
                             </StackPanel>
-                            <StackPanel
-                                Orientation="Horizontal">
-                                <Label Content=" " Style="{StaticResource MainPanelLabelStyle}"/>
-                            </StackPanel>
-                            <StackPanel
-                                Orientation="Horizontal">
-                                <Button x:Name="Help" Content="Help" Style="{DynamicResource MainPanelButtonStyle}" Click="ControlWindowButton_Click"/>
-                                <Button Tag="Top Scores" Content="Top Scores" Style="{StaticResource MainPanelButtonStyle}" Click="InteractionAreaButton_Click"/>
-                                <Button x:Name="MyScores" Content="My Scores" Style="{DynamicResource MainPanelButtonStyle}" Click="ControlWindowButton_Click"/>
-                                <Button x:Name="Quit" Content="Quit" Style="{DynamicResource MainPanelButtonStyle}" Click="ControlWindowButton_Click"/>
-                            </StackPanel>
+                            <Border
+                            Margin="10"
+                            Padding="0"
+                            Background="WhiteSmoke"
+                            Style="{StaticResource BorderStyle}">
+                                <TextBox
+                                Height="70"
+                                Width="auto"
+                                Margin="10"
+                                Background="WhiteSmoke"
+                                BorderThickness="0"
+                                TextWrapping="Wrap"
+                                Text="{Binding Player.GameInfo, Mode=OneWay}"
+                                VerticalScrollBarVisibility="Auto"
+                                VerticalContentAlignment="top"
+                                Style="{StaticResource MainPanelTextBoxStyle}"/>
+                            </Border>
+                            
+                            
+                            
                             
                         </StackPanel>
                         <StackPanel

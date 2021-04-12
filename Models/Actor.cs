@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
-    public abstract class Actor : ObservableObject, IMessage
+    public abstract class Actor : ObservableObject
     {
         public enum PrimaryLanguage
         {
             English,
             French,
-            Spanish,
-            Greek
+            Polish,
+            Greek,
+            German,
+            Italian
         }
 
         protected int _id;
@@ -35,10 +37,10 @@ namespace TravelGame.Models
         {
 
         }
-        public string TaskMessage()
-        {
-            return ("I am just a parent class actor ");
-        }
+        public abstract string TaskMessage();
+        //{
+        //    //return ("I am just a parent class actor ");
+        //}
     }
 
 }

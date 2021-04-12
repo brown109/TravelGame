@@ -38,9 +38,6 @@ namespace TravelGame.Presentation
                 case "Help":
                     ShowHelp();
                     break;
-                case "MyScores":
-                    MessageBox.Show("My Scores isn't ready yet");
-                    break;
                 case "Quit":
                     this.Close();
                     break;
@@ -61,7 +58,7 @@ namespace TravelGame.Presentation
         {
             Button windowButton = sender as Button;
             //
-            // will need to build out display of actors, sites, fodds or drinks 
+            // will need to build out display of actors, sites, foods, drinks, scores, task status, task history, or hints 
             //
             _controlWindowModel.CheckDisplay(windowButton.Tag.ToString());
         }
@@ -69,21 +66,19 @@ namespace TravelGame.Presentation
         {
             Button windowButton = sender as Button;
             //
-            // will need to build out display of actors, sites, fodds or drinks 
+            // will need to process the Command submitted by the user 
             //
             _controlWindowModel.CheckCommand(GameCommand.Text.ToString());
-
             GameCommand.Text = "";
-            
         }
         private void ShowHelp()
         {
-            // MessageBox.Show("Help is on the way");
-            // Player player = new Player();
+            //
+            // Show the help screen
+            // 
             HelpWindow helpWindow = new HelpWindow();
             helpWindow.ShowDialog();
             helpWindow.Close();
-
         }
     }
 }

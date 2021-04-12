@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
-    public interface IMessage
+    interface ILifeIsRandom
     {
-        string TaskMessage();
+        int CheckForLifeLost();
     }
 }

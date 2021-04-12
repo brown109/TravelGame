@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
-    public class Item : ObservableObject
+    public class Item : ObservableObject, ILifeIsRandom, IRandomPenalty
     {
         public enum ItemType
         {
@@ -25,6 +25,8 @@ namespace TravelGame.Models
         private int _servings;
         private int _limit;
         private double _diminish;
+        Random _random = new Random();
+
         
         public string Name
         {
@@ -104,25 +106,54 @@ namespace TravelGame.Models
             string msg = "";
             if (Type == ItemType.Site)
             {
-                msg = "You have visited " + Name + " " + Servings + " Time(s)" ;
+                msg = Name + " Seen " + Servings + " Time(s) " ;
             }
             else if (Type == ItemType.Food)
             {
-                msg = "You have now eaten " + Name + " " + Servings + " Time(s)";
+                msg = Name + " Eaten " + Servings + " Time(s) ";
             }
             else if (Type == ItemType.Drink)
             {
-                msg = "You have now downed " + Servings + " pour(s) of " + Name;
+                msg = "You downed " + Servings + " pour(s) of " + Name + " ";
             }
             else if (Type == ItemType.BattleMinor)
             {
-                msg = "You have had " + Servings + " minor skirmish(es) with " + Name;
+                msg = "Minor skirmish # " + Servings + " with " + Name + " ";
             }
             else if (Type == ItemType.BattleMajor)
             {
-                msg = "You have had " + Servings + " major skirmish(es) with " + Name;
+                msg = "Major battle # " + Servings + " with " + Name + " ";
             }
             return msg;
+        }
+        public int CheckForLifeLost()
+        {
+            //
+            // Foreign Foods, Drinks and driving around can be risky. 1% of the time they will kill you
+            // This method will return the Lives Lost based on the above info
+            //
+            int rn = _random.Next(1, 101);
+
+            if (Type == ItemType.Food || Type == ItemType.Drink || Type == ItemType.Site)
+            {
+                if (rn < 2) { return 1; } else { return 0; }
+            }
+            
+            return 0;
+        }
+        public int CheckForPenalty()
+        {
+            //
+            // Foreign foods, drinks and driving around town can get you sick. 20% of the time you'll lose 20 points
+            // This method will return the points to be subtracted from the score. 
+            //
+            int rn = _random.Next(1, 101);
+
+            if (Type == ItemType.Site || Type == ItemType.Food || Type == ItemType.Drink)
+            {
+                if (rn < 21) { return 20; } else { return 0; }
+            }
+            return 0;
         }
     }
 }
