@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
+    //
+    // This is the data kept for a completed game. It is currently "hard-coded" but in a future sprint, it will
+    // be stored in a file and then read or appended as needed. 
+    //
     public class GameStat
     {
         private string _name;
         private DateTime _startdate;
-
         private DateTime _enddate;
         private int _score;
         private int _liveslost;
-
-
         public string Name
         {
             get { return _name; }
@@ -53,6 +54,5 @@ namespace TravelGame.Models
             _score = Score;
             _liveslost = Liveslost;
         }
-        
     }
 }

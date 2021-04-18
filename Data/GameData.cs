@@ -7,16 +7,21 @@ using TravelGame.Models;
 
 namespace TravelGame.Data
 {
+    //
+    // GameData is everything needed to play the game
+    //
     public static class GameData
     {
         public static Player PlayerData()
         {
+            //
+            // Initiate Player data
+            //
             return new Player()
             {
                 StartDate = DateTime.Now,
-                //Name = "GNB",
                 Experience = 0,
-                Bestscore = 1977,
+                Bestscore = 1000,
                 Visits = 0,
                 Tasks = 0,
                 Liveslost = 0,
@@ -24,15 +29,11 @@ namespace TravelGame.Data
                 CurrentCity = "blank"
             };
         }
-
-
         public static GameMap GameMap()
         {
             GameMap gameMap = new GameMap();
             //
             // load location list (each city to visit and where you can go from there)
-            // taskstate list (each city to visit and the results of tasks to complete at each one)
-            // locationitems (each city to visit and the actors, their role, and choices to drive interaction)
             //
             Location _location = new Location();
             _location.City = "New York";
@@ -117,9 +118,11 @@ namespace TravelGame.Data
             _location.SECity = "";
             _location.SWCity = "";
             gameMap.LocationList.Add(_location);
-
+            //
+            // CurrentLocation holds the Location of where the player is currently at so you don't have to look it up in the list
+            // while processing commands and button clicks
+            //
             gameMap.CurrentLocation = gameMap.LocationList[0];
-
             //
             // Load the list of Npcs which hold key words for each city/type
             //
@@ -158,7 +161,7 @@ namespace TravelGame.Data
             npc.ActorType = Npc.NpcType.Bartender;
             npc.Hint = "Parched";
             npc.City = "London";
-            npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
+            npc.KeyWords = new string[] { "mix", "pour", "set me up", "set up", "have", "drink", "sip" };
             npc.IdPoints = 95;
             npc.CompletionPoints = 120;
             npc.IsIded = false;
@@ -195,9 +198,8 @@ namespace TravelGame.Data
             npc.IsComplete = false;
             gameMap.Npcs.Add(npc);
             //
-            // actors for next city
+            // actors(Npcs) for next city
             //
-            
             npc = new Npc();
             npc.Id = 2010;
             npc.Name = "Gretel";
@@ -219,7 +221,7 @@ namespace TravelGame.Data
             npc.ActorType = Npc.NpcType.Bartender;
             npc.Hint = "Durstig";
             npc.City = "Frankfort";
-            npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
+            npc.KeyWords = new string[] { "mix", "pour", "set me up", "set up", "have", "drink", "sip" };
             npc.IdPoints = 95;
             npc.CompletionPoints = 120;
             npc.IsIded = false;
@@ -269,12 +271,9 @@ namespace TravelGame.Data
             npc.IsIded = false;
             npc.IsComplete = false;
             gameMap.Npcs.Add(npc);
-
-
             //
             // actors for next city
             //
-
             npc = new Npc();
             npc.Id = 1040;
             npc.Name = "Andre";
@@ -297,7 +296,7 @@ namespace TravelGame.Data
             npc.ActorType = Npc.NpcType.Bartender;
             npc.Hint = "Assoiffe";
             npc.City = "Paris";
-            npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
+            npc.KeyWords = new string[] { "mix", "pour", "set me up", "set up", "have", "drink", "sip" };
             npc.IdPoints = 95;
             npc.CompletionPoints = 120;
             npc.IsIded = false;
@@ -346,11 +345,9 @@ namespace TravelGame.Data
             npc.IsIded = false;
             npc.IsComplete = false;
             gameMap.Npcs.Add(npc);
-
             //
             // actors for next city
             //
-
             npc = new Npc();
             npc.Id = 1030;
             npc.Name = "Tony";
@@ -373,7 +370,7 @@ namespace TravelGame.Data
             npc.ActorType = Npc.NpcType.Bartender;
             npc.Hint = "Assetato";
             npc.City = "Rome";
-            npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
+            npc.KeyWords = new string[] { "mix", "pour", "set me up", "set up", "have", "drink", "sip" };
             npc.IdPoints = 95;
             npc.CompletionPoints = 120;
             npc.IsIded = false;
@@ -425,7 +422,6 @@ namespace TravelGame.Data
             //
             // actors for next city
             //
-            
             npc = new Npc();
             npc.Id = 1010;
             npc.Name = "Ivan";
@@ -462,7 +458,7 @@ namespace TravelGame.Data
             npc.ActorType = Npc.NpcType.Bartender;
             npc.Hint = "Spragniony";
             npc.City = "Warsaw";
-            npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
+            npc.KeyWords = new string[] { "mix", "pour", "set me up", "set up", "have", "drink", "sip" };
             npc.IdPoints = 95;
             npc.CompletionPoints = 120;
             npc.IsIded = false;
@@ -497,7 +493,6 @@ namespace TravelGame.Data
             npc.IsIded = false;
             npc.IsComplete = false;
             gameMap.Npcs.Add(npc);
-
             //
             // actors for next city
             //
@@ -508,7 +503,7 @@ namespace TravelGame.Data
             npc.ActorType = Npc.NpcType.Bartender;
             npc.Hint = "Dipsasmenos";
             npc.City = "Athens";
-            npc.KeyWords = new string[] { "mix", "poor", "set up", "have", "drink", "sip" };
+            npc.KeyWords = new string[] { "mix", "pour", "set me up", "set up", "have", "drink", "sip" };
             npc.IdPoints = 95;
             npc.CompletionPoints = 120;
             npc.IsIded = false;
@@ -558,7 +553,6 @@ namespace TravelGame.Data
             npc.IsComplete = false;
             gameMap.Npcs.Add(npc);
 
-
             npc = new Npc();
             npc.Id = 1030;
             npc.Name = "Ales";
@@ -573,9 +567,8 @@ namespace TravelGame.Data
             npc.IsIded = false;
             npc.IsComplete = false;
             gameMap.Npcs.Add(npc);
-                        
             //
-            // Load Items - Foods, Drinks, Sites, and Battles
+            // Load Items - Foods, Drinks, Sites, and Interlopers
             //
             Item item = new Item();
             item.Name = "Bangers and Mash";
@@ -697,7 +690,6 @@ namespace TravelGame.Data
             item.Limit = 1;
             item.Diminish = .9;
             gameMap.Items.Add(item);
-
             //
             // add items for next city
             //
@@ -821,7 +813,6 @@ namespace TravelGame.Data
             item.Limit = 1;
             item.Diminish = .9;
             gameMap.Items.Add(item);
-
             //
             // add items for next city
             //
@@ -945,7 +936,6 @@ namespace TravelGame.Data
             item.Limit = 1;
             item.Diminish = .9;
             gameMap.Items.Add(item);
-
             //
             // add items for next city
             //
@@ -1027,7 +1017,7 @@ namespace TravelGame.Data
             gameMap.Items.Add(item);
 
             item = new Item();
-            item.Name = "Grappe";
+            item.Name = "Grappa";
             item.Type = Item.ItemType.Drink;
             item.City = "Rome";
             item.KeyWords = new string[] { "grappa", "moonshine" };
@@ -1069,7 +1059,6 @@ namespace TravelGame.Data
             item.Limit = 1;
             item.Diminish = .9;
             gameMap.Items.Add(item);
-
             //
             // add items for next city
             //
@@ -1193,7 +1182,6 @@ namespace TravelGame.Data
             item.Limit = 1;
             item.Diminish = .9;
             gameMap.Items.Add(item);
-
             //
             // add items for next city
             //
@@ -1317,7 +1305,9 @@ namespace TravelGame.Data
             item.Limit = 1;
             item.Diminish = .9;
             gameMap.Items.Add(item);
-
+            //
+            // Add list of GameStat which holds completed games
+            //
             GameStat gameStat = new GameStat();
             gameStat.Name = "GNB";
             gameStat.Startdate = new DateTime(2021, 03, 01, 08, 01, 02);
@@ -1366,10 +1356,11 @@ namespace TravelGame.Data
             gameStat.Liveslost = 1;
             gameMap.GameStats.Add(gameStat);
 
-
             return gameMap;
-
         }
+        //
+        // This is actually redundant code that was identified after the code was frozen in build 6. It will be eliminated in the next build.
+        //
         public static GameHistory PlayerHistory()
         {
             GameHistory gameHistory = new GameHistory();
@@ -1423,11 +1414,8 @@ namespace TravelGame.Data
             _gameStat.Score = 1158;
             _gameStat.Liveslost = 1;
             gameHistory.GameStats.Add(_gameStat);
-
-            
-
+ 
             return gameHistory;
         }
-        
     }
 }

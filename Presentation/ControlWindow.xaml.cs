@@ -17,9 +17,9 @@ using TravelGame.Data;
 
 namespace TravelGame.Presentation
 {
-    /// <summary>
-    /// Interaction logic for ControlWindow.xaml
-    /// </summary>
+    //
+    // Interaction logic for ControlWindow.xaml
+    //
     public partial class ControlWindow : Window
     {
         ControlWindowModel _controlWindowModel;
@@ -29,6 +29,9 @@ namespace TravelGame.Presentation
 
             InitializeComponent();
         }
+        //
+        // Handle button clicks for Help and Quit
+        //
         public void ControlWindowButton_Click(object sender, RoutedEventArgs e)
         {
             Button windowButton = sender as Button;
@@ -46,6 +49,9 @@ namespace TravelGame.Presentation
                     break;
             }
         }
+        //
+        // Handle Click of a Directional Button
+        //
         public void DirectionButton_Click(object sender, RoutedEventArgs e)
         {
             Button windowButton = sender as Button;
@@ -54,6 +60,9 @@ namespace TravelGame.Presentation
             //
             _controlWindowModel.CheckMove(windowButton.Tag.ToString());
         }
+        //
+        // Handle Click of any of the buttons that change display data
+        //
         public void InteractionAreaButton_Click(object sender, RoutedEventArgs e)
         {
             Button windowButton = sender as Button;
@@ -62,6 +71,9 @@ namespace TravelGame.Presentation
             //
             _controlWindowModel.CheckDisplay(windowButton.Tag.ToString());
         }
+        //
+        // Handle the click of the Submit button which forces the processing on the Command
+        //
         public void GameCommandSubmit_Click(object sender, RoutedEventArgs e)
         {
             Button windowButton = sender as Button;
@@ -71,6 +83,9 @@ namespace TravelGame.Presentation
             _controlWindowModel.CheckCommand(GameCommand.Text.ToString());
             GameCommand.Text = "";
         }
+        //
+        // Show the Help Window
+        //
         private void ShowHelp()
         {
             //

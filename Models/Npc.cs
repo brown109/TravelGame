@@ -6,6 +6,18 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
+    //
+    // An Npc is a type of Actor in the game. Types are Drivers - they take you to see a sight, Chefs - they cook local cusine, Bartenders -
+    // they mix up a local beverage, and Interlopers both Minor and Major. These are 1 of each type in each city. 
+    // Like Items. Npcs have two interfaces to handle the possibility of losing a life or losing points because of your interaction with that actor.
+    // Data for Npcs is hard-coded and will be read from a file in subsequent builds. It needs to follow certain rules:
+    // It must have a valid Type, City must match the name of any city loaded in the list of Location(s). KeyWords for Drivers, Chefs and Bartenders are checked
+    // when we parse the players command to identify this Actor. For Interlopers, KeyWord[0] is what they are exactly and KeyWord[1] is either attack for a Major
+    // Interloper or defend for a Minor Interloper. The Hints button shows the player all the interlopers and if you provide the name and the word, "hint" in the
+    // command line, we'll show the HintPhrase which helps the player complete the task with the interloper. You earn IdPoints for identifying what a person is
+    // (i.e. the command "John drive") will set IsIded and award the points is John is the driver. The command "John drive me to Buckingham Palace" will
+    // award CompletionPoints and set IsComplete if John is the driver and Buckingham Palace is one of the sights (i.e. and item of type Site in the current city).
+    //
     public class Npc : Actor, ILifeIsRandom, IRandomPenalty
     {
         public enum NpcType

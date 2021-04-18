@@ -9,13 +9,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelGame.Presentation"
         mc:Ignorable="d"
-        Background="MidnightBlue"
+        Background="darkgreen"
         Width="400"
         Height="400"
         WindowStyle="SingleBorderWindow">
     <Window.Resources>
         <Style x:Key="BorderStyle" TargetType="Border">
-            <Setter Property="BorderBrush" Value="PowderBlue"/>
+            <Setter Property="BorderBrush" Value="LightGoldenrodYellow"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="CornerRadius" Value="10"/>
         </Style>
@@ -27,8 +27,8 @@
             <Setter Property="Margin" Value="10,0,10,0"/>
             <Setter Property="Width" Value="75"/>
             <Setter Property="Height" Value="20"/>
-            <Setter Property="Background" Value="Silver"/>
-            <Setter Property="Foreground" Value="MidnightBlue"/>
+            <Setter Property="Background" Value="#FF97AC9A"/>
+            <Setter Property="Foreground" Value="darkgreen"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -60,19 +60,19 @@
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background">
                         <Setter.Value>
-                            <SolidColorBrush Color="LightSteelBlue" />
+                            <SolidColorBrush Color="LightGoldenrodYellow" />
                         </Setter.Value>
                     </Setter>
                 </Trigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="MainPanelTextBoxStyle" TargetType="TextBox">
-            <Setter Property="Foreground" Value="MidnightBlue"/>
+            <Setter Property="Foreground" Value="darkgreen"/>
             <Setter Property="Width" Value="100"/>
             <Setter Property="Height" Value="20"/>
             <Setter Property="Padding" Value="3,0,0,0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="Background" Value="#FF97AC9A"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
@@ -89,7 +89,7 @@
             </Setter>
         </Style>
         <Style x:Key="MainPanelComboBoxStyle" TargetType="ComboBox">
-            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="Background" Value="#FF97AC9A"/>
             <Setter Property="Width" Value="100"/>
         </Style>
     </Window.Resources>
@@ -145,7 +145,7 @@
                     Click="OkButton_Click"/>
                 <TextBlock 
                     Name="ErrorMessageTextBlock"
-                    Background="DarkBlue"
+                    Background="DarkGreen"
                     Foreground="Red"/>
             </StackPanel>
 

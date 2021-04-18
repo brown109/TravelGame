@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
+    //
+    // This class contains all the various classes needed to manage the game data 
+    //
     public class GameMap : ObservableObject
     {
         private List<Location> _locations;
@@ -20,11 +23,6 @@ namespace TravelGame.Models
             get { return _locations; }
             set { _locations = value; }
         }
-        //public List<LocationItems> LocationItemList
-        //{
-        //    get { return _locationItems; }
-        //    set { _locationItems = value; }
-        //}
         public List<Npc> Npcs
         {
             get { return _npcs; }

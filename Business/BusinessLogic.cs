@@ -10,11 +10,12 @@ using System.Collections.ObjectModel;
 
 namespace TravelGame.Business
 {
+    //
+    // Prepare all the structures for playing the game 
+    //
     public class BusinessLogic
     {
-
         bool _newPlayer = true;
-
         ControlWindowModel _controlWindowModel;
         Player _player = new Player();
         WelcomeWindow _welcomeWindow = null;
@@ -22,7 +23,9 @@ namespace TravelGame.Business
         DisplayLocationItem _currentDisplayItems = new DisplayLocationItem();
         DisplayTaskState _currentDisplayTasks = new DisplayTaskState();
         GameHistory _gameHistory;
-
+        //
+        // Get the game started with the Welcome window
+        //
         public BusinessLogic()
         {
             InitiatePlayer();
@@ -30,6 +33,9 @@ namespace TravelGame.Business
             InitiateShowControlWindow();
         
         }
+        //
+        // The current version always starts up a new player but a future build will allow a restart 
+        //
         private void InitiatePlayer()
         {
             if (_newPlayer)
@@ -61,8 +67,6 @@ namespace TravelGame.Business
             //
             // instantiate the Control Window
             //
-            // ControlWindowModel _controlWindowModel;
-
             _controlWindowModel = new ControlWindowModel(
                 _player,
                 _gameMap,
@@ -71,27 +75,23 @@ namespace TravelGame.Business
                 _gameHistory);
             
             ControlWindow controlWindow = new ControlWindow(_controlWindowModel);
-
             controlWindow.DataContext = _controlWindowModel;
-
-            
             controlWindow.Show();
-
             //
             // dialog window is initially hidden to mitigate issue with
             // main window closing after dialog window closes
             //
-            // commented out because the player setup window is disabled
-            //
-            //_playerSetupView.Close();
             _welcomeWindow.Close();
         }
+        //
+        // When starting up, check to see if the player has played this game before because if they have, you will show the number of 
+        // times played as their experience and you'll find their best score. 
+        //
         private void GetPlayerHistory(GameHistory gameHistory)
         {
             int playergames = 0;
             int topscore = 0;
             int i = 0;
-            
             do
             {
                 GameStat gamestat = gameHistory.GameStats[i];
@@ -105,16 +105,9 @@ namespace TravelGame.Business
                 }
                 ++i;
             } while (i < 6) ;
-
             _player.Experience = playergames;
             _player.Bestscore = topscore;
             _player.CurrentCity = "New York";
-            
-
-            //foreach (GameStat gameStat in gameHistory)
-            //{
-
-            //}
-        }
+          }
     }
 }

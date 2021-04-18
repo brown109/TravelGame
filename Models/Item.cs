@@ -6,6 +6,16 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
+    //
+    // An item is something an Npc takes action with. Items are Foods, Drinks, Sights, or ways to defend/attack Interlopers.
+    // Items have two interfaces to handle the possibility of losing a life or losing points because of what you ate, drank,
+    // stress from driving or interactions with interlopers.
+    // Data for items is hard-coded and will be read from a file in subsequent builds. It needs to follow certain rules:
+    // It must have a valid Type, City must match the name of any city loaded in the list of Location(s). KeyWords are checked
+    // when we parse the players command to identify this item. Points are loaded initially and then they get recalculated each time you 
+    // complete a task for the item. Servings is incremented when you complete a task. Your done when it is > 0 but you can get another 
+    // serving if you haven't reached Limit. 
+    //
     public class Item : ObservableObject, ILifeIsRandom, IRandomPenalty
     {
         public enum ItemType
@@ -16,7 +26,6 @@ namespace TravelGame.Models
             BattleMinor,
             BattleMajor
         }
-
         private string _name;
         private ItemType _type;
         private string _city;
@@ -26,8 +35,6 @@ namespace TravelGame.Models
         private int _limit;
         private double _diminish;
         Random _random = new Random();
-
-        
         public string Name
         {
             get { return _name; }
@@ -56,7 +63,10 @@ namespace TravelGame.Models
         public int Servings
         {
             get { return _servings; }
-            set { _servings = value; }
+            set { 
+                _servings = value;
+                CalcPoints();
+            }
         }
         public int Limit
         {
@@ -66,11 +76,7 @@ namespace TravelGame.Models
         public double Diminish
         {
             get { return _diminish; }
-            set
-            {
-                _diminish = value;
-                CalcPoints();
-            }
+            set { _diminish = value; }
         }
         public string ItemMessage
         {
@@ -80,7 +86,6 @@ namespace TravelGame.Models
         {
 
         }
-
         public Item(string name, ItemType type, string city, string[] keyWords, int points, int servings, int limit, double diminish)
         {
             _name = name;
@@ -94,8 +99,12 @@ namespace TravelGame.Models
         }
         private void CalcPoints()
         {
+            //
+            // Based on the law of diminishing returns, subsequent duplicate actions earn less points (i.e. eating a second
+            // piece of cake is less rewarding than the first.
+            //
             double addedpoints = (double)Points;
-            for (int i = 0; i < Servings - 1; ++i)
+            if (Servings > 1) 
             {
                 addedpoints *= Diminish;
             }
@@ -103,6 +112,9 @@ namespace TravelGame.Models
         }
         public string BuildItemMessage()
         {
+            //
+            // Build out a message that shows up in a log of actions you have taken
+            //
             string msg = "";
             if (Type == ItemType.Site)
             {

@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
+    //
+    // Parent class for Npc (Non Player Characters) and the Player. Everyone has an ID, Name and a primary language. Every specific Npc needs to provide a 
+    // message to the player so it is an abstract method at the parent level
+    //
     public abstract class Actor : ObservableObject
     {
         public enum PrimaryLanguage
@@ -17,10 +21,8 @@ namespace TravelGame.Models
             German,
             Italian
         }
-
         protected int _id;
         protected string _name;
-        
         public int Id
         {
             get { return _id; }
@@ -38,9 +40,9 @@ namespace TravelGame.Models
 
         }
         public abstract string TaskMessage();
-        //{
-        //    //return ("I am just a parent class actor ");
-        //}
+        //
+        // Since the game never interacts with the parent, there is no need for a message
+        //
     }
 
 }

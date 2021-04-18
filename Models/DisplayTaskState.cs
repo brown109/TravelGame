@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
+    //
+    // This is another display area. Look at DisplayLocationItem to perhaps consolidate
+    //
     public class DisplayTaskState : ObservableObject
     {
         private string[] _displayLine;

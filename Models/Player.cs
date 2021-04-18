@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
+    //
+    // This is a one player game. Data about the player and his/her last actions are kept here. 
+    //
     public class Player : Actor
     {
         private DateTime _startDate;
@@ -16,6 +19,7 @@ namespace TravelGame.Models
         private int _liveslost;
         private int _totalscore;
         private string _currentcity;
+        private string _mapLocation;
         private string _playerMessage;
         private string _gameInfo;
         private string _lastActorType;
@@ -64,6 +68,11 @@ namespace TravelGame.Models
             get { return _currentcity; }
             set { _currentcity = value; }
         }
+        public string MapLocation
+        {
+            get { return _mapLocation; }
+            set { _mapLocation = value; }
+        }
         public string PlayerMessage
         {
             get { return _playerMessage; }
@@ -99,8 +108,8 @@ namespace TravelGame.Models
 
         }
         
-        public Player(DateTime startdate, int experience, int bestscore, double visits, double tasks, int liveslost, int totalscore, string currentcity, string playerMessage,
-            string gameInfo, string lastActorType, string lastActor, string lastItemType, string lastItem)
+        public Player(DateTime startdate, int experience, int bestscore, double visits, double tasks, int liveslost, int totalscore, string currentcity, string mapLocation,
+            string playerMessage, string gameInfo, string lastActorType, string lastActor, string lastItemType, string lastItem)
         {
             _startDate = startdate;
             _experience = experience;
@@ -110,6 +119,7 @@ namespace TravelGame.Models
             _liveslost = liveslost;
             _totalscore = totalscore;
             _currentcity = currentcity;
+            _mapLocation = mapLocation;
             _playerMessage = playerMessage;
             _gameInfo = gameInfo;
             _lastActorType = lastActorType;

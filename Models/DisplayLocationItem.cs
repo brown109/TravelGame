@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace TravelGame.Models
 {
+    //
+    // several of the buttons in the game require the creation of a display of information. This is the area
+    // used for all of them.
+    //
     public class DisplayLocationItem : ObservableObject
     {
         private string[] _displayLine;

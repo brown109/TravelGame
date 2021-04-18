@@ -12,6 +12,9 @@ using TravelGame.Data;
 
 namespace TravelGame.Presentation
 {
+    //
+    // Define the primary control window (view) object
+    //
     public class ControlWindowModel : ObservableObject
     {
         private DateTime _gameStartTime;
@@ -22,7 +25,7 @@ namespace TravelGame.Presentation
         private DisplayLocationItem _currentDisplayItems;
         private DisplayTaskState _currentDisplayTasks;
         private GameHistory _gameHistory;
-        private Random _random = new Random();
+        //private Random _random = new Random();
         public Player Player
         {
             get { return _player; }
@@ -204,7 +207,6 @@ namespace TravelGame.Presentation
         private void InitializeView()
         {
             _gameStartTime = DateTime.Now;
-            _random = new Random();
         }
         //
         // Calculate difference between when the game started and now
@@ -301,9 +303,35 @@ namespace TravelGame.Presentation
             }
             if (ismoving)
             {
-
                 Player.Totalscore -= 10;
                 Player.CurrentCity = _nextCity;
+                switch (_nextCity)
+                {
+                    case "New York":
+                        Player.MapLocation = "/Data/europemap.jpg";
+                        break;
+                    case "London":
+                        Player.MapLocation = "/Data/bigben.png";
+                        break;
+                    case "Frankfort":
+                        Player.MapLocation = "/Data/frankfort.png";
+                        break;
+                    case "Warsaw":
+                        Player.MapLocation = "/Data/warsaw.png";
+                        break;
+                    case "Paris":
+                        Player.MapLocation = "/Data/paris.png";
+                        break;
+                    case "Rome":
+                        Player.MapLocation = "/Data/rome.png";
+                        break;
+                    case "Athens":
+                        Player.MapLocation = "/Data/athens.png";
+                        break;
+                    default:
+                        Player.MapLocation = "/Data/europemap.jpg";
+                        break;
+                }
                 OnPropertyChanged(nameof(Player));
                 GameMap.CurrentLocation = FindLocation(_nextCity);
                 //_currentLocation = GameMap.CurrentLocation;
@@ -381,7 +409,6 @@ namespace TravelGame.Presentation
                 Player.PlayerMessage = "You need to enter a command";
                 validinput = false;
             }
-
             if (!validinput)
             {
                 Player.Totalscore -= 3;
@@ -413,12 +440,13 @@ namespace TravelGame.Presentation
             bool isitemfound = false;
             string founditem = "";
             bool isitemvalid = false;
-            bool wantahint = false;
+            bool wantahint;
             string msg;
             //
             // see if the command has a matching name for the npcs in the current city and when you 
             // find that, see if the command has a matching action for for the type of actor.
             // if it does, and you haven't already Ided the actor, you have now so you get those points
+            // The following code is targeted for refactoring in the next build
             //
             wantahint = (_command.Contains("Hint") || _command.Contains("hint"));
             foreach (Npc npc in npcs)
@@ -516,7 +544,6 @@ namespace TravelGame.Presentation
                     }
                 }
             }
-
             BuildActorDisplay();
             if (!isitemfound && isactionfound)
             {
@@ -539,13 +566,15 @@ namespace TravelGame.Presentation
             //
             // good news, you have a completed task
             //
-
             Player.LastItemType = searchitemtype;
             Player.LastItem = founditem;
             return true;
         }
         public Location FindLocation(string _nextCity)
         {
+            //
+            // Find the city being moved to in the list of locations
+            //
             int i = 0;
             bool matchfound = false;
             Location _checkLocation;
@@ -803,7 +832,7 @@ namespace TravelGame.Presentation
             //
             DisplayTaskState displayTaskState = new DisplayTaskState();
             displayTaskState.DisplayLine = new string[21];
-            displayTaskState.DisplayLine[0] = "   City       Ate   Drank  Toured Battle1 Battle2";
+            displayTaskState.DisplayLine[0] = "   City       Ate   Drank  Toured Defend  Attack";
             int i = 0;
             string citybreak = "xxx";
             string msg = "";
@@ -878,7 +907,6 @@ namespace TravelGame.Presentation
             //
             // Build display of TaskHistory showing last entry first - showtask.Reverse() 
             //
-
             showtasks.Reverse();
             DisplayTaskState displayTaskState = new DisplayTaskState();
             displayTaskState.DisplayLine = new string[21];
@@ -1160,6 +1188,6 @@ namespace TravelGame.Presentation
             GameMap.TaskHistoryList.Add(taskHistory);
             OnPropertyChanged(nameof(GameMap));
         }
-}
+    }
 }
 

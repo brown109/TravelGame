@@ -37,6 +37,7 @@ namespace TravelGame.Presentation
             if (Isnamevalid(out errorMessage))
             {
                 _player.Name = NameTextBox.Text;
+                _player.MapLocation = "/Data/europemap.jpg";
                 _player.StartDate = DateTime.Now;
                 Visibility = Visibility.Hidden;
             }

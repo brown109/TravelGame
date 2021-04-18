@@ -77,10 +77,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Presentation\TopScores.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Presentation\WelcomeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -109,9 +105,6 @@
     <Compile Include="Presentation\HelpWindow.xaml.cs">
       <DependentUpon>HelpWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Presentation\TopScores.xaml.cs">
-      <DependentUpon>TopScores.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Presentation\WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>
@@ -131,6 +124,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -140,6 +134,26 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Data\europemap.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\bigben.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\paris.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\rome.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\frankfort.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\warsaw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Data\athens.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

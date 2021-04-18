@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TravelGame.Presentation"
         mc:Ignorable="d"
-        Background="MidnightBlue"
+        Background="DarkGreen"
         Title="ControlWindow" 
         Height="900" 
         Width="1200"
@@ -18,13 +18,13 @@
             StartPoint="0,0" 
             EndPoint="1,0"
             Opacity="50">
-            <GradientStop Color="MidnightBlue" Offset="0"/>
+            <GradientStop Color="#FF417019" Offset="0"/>
             <GradientStop Color="#CCCCFF" Offset="0.25" />
             <GradientStop Color="#CCCCFF" Offset="0.75" />
-            <GradientStop Color="MidnightBlue" Offset="1" />
+            <GradientStop Color="darkgreen" Offset="1" />
         </LinearGradientBrush>
         <Style x:Key="BorderStyle" TargetType="Border">
-            <Setter Property="BorderBrush" Value="PowderBlue"/>
+            <Setter Property="BorderBrush" Value="#FF2D3E2F"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="CornerRadius" Value="10"/>
         </Style>
@@ -37,7 +37,7 @@
             <Setter Property="Width" Value="75"/>
             <Setter Property="Height" Value="20"/>
             <Setter Property="Background" Value="Silver"/>
-            <Setter Property="Foreground" Value="MidnightBlue"/>
+            <Setter Property="Foreground" Value="darkgreen"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -69,14 +69,14 @@
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background">
                         <Setter.Value>
-                            <SolidColorBrush Color="LightSteelBlue" />
+                            <SolidColorBrush Color="LightGoldenrodYellow" />
                         </Setter.Value>
                     </Setter>
                 </Trigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="MainPanelTextBoxStyle" TargetType="TextBox">
-            <Setter Property="Foreground" Value="MidnightBlue"/>
+            <Setter Property="Foreground" Value="DarkGreen"/>
             <Setter Property="Width" Value="100"/>
             <Setter Property="Height" Value="20"/>
             <Setter Property="Padding" Value="3,0,0,0"/>
@@ -267,7 +267,11 @@
                             <Button Tag="South" Content="South" Style="{StaticResource MainPanelButtonStyle}" Click="DirectionButton_Click" 
                                         Visibility="{Binding HasSouthLocation, Converter={StaticResource BooleanToVisibility}}"/>
                         </StackPanel>
+                        <StackPanel Orientation="Horizontal">
 
+                            <!--<Image x:Name ="MapImage" Width = "220" Source = "/Data/europemap.jpg" VerticalAlignment = "Top" Margin = "30" Opacity = "0.9"/>-->
+                            <Image x:Name ="MapImage" Width = "220" Source = "{Binding Player.MapLocation, Mode=OneWay}" VerticalAlignment = "Top" Margin = "30" Opacity = "0.9"/>
+                        </StackPanel>
 
                     </StackPanel>
 
